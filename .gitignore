@@ -1,0 +1,11 @@
+.Rproj.user
+_targets
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+sp_data
+data-input/*
+!data-input/.here
+data-processed/*
+!data-processed/.here
