@@ -5,9 +5,6 @@ include: ["demo.R"]
 exclude: ["LICENSE.md", "*.csv", "*.rds", "renv", "renv.lock", "data-input", "data-output", "data-processed", "sp_data", "config.yml", "R"]
 navbar:
   title: "ESIF data pro modelování"
-  left:
-  - text: Dokumentace
-    href: README.html
   right:
   - icon: fab fa-github fa-lg
     href: https://github.com/petrbouchal/macro-esif-budget

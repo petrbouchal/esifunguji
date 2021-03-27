@@ -8,6 +8,12 @@ t_html <- list(
     sitefiles
     rmarkdown::render_site(s_index_rmd)
     "docs/index.html"}),
+  tar_file(s_readme_rmd, "README.Rmd"),
+  tar_file(s_doc_html, command = {!! tar_knitr_deps_expr("README.Rmd")
+    siteconf
+    sitefiles
+    rmarkdown::render_site(s_readme_rmd)
+    "docs/doc.html"}),
   tar_file(s_inputchecks_rmd, "s_inputchecks.Rmd"),
   tar_file(s_inputchecks_html, command = {!! tar_knitr_deps_expr("s_inputchecks.Rmd")
     siteconf

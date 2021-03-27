@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Input checks</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="site/site.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ESIF data pro modelování</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/petrbouchal/macro-esif-budget">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://petrbouchal.xyz">
+    <span class="fas fa-asterisk fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Input checks</h1>
+
+</div>
+
+
+<pre class="r"><code>targets::tar_load(sp_cl)
+targets::tar_load(sp_central_new_arrdir)
+targets::tar_load(sp_central_old_arrdir)
+targets::tar_load(sp_local_arrdir)</code></pre>
+<pre class="r"><code>ico_oss &lt;- sp_cl$ucjed %&gt;% filter(druhuj_id == &quot;1&quot;) %&gt;% pull(ico) %&gt;% unique()</code></pre>
+<pre class="r"><code>plot(mtcars)</code></pre>
+<p><img src="s_inputchecks_files/figure-html/unnamed-chunk-3-1.png" width="576" /></p>
+<p><a href="https://monitor.statnipokladna.cz/analyza/##query=uq_247a15da-aad1-4ddb-889d-6b8b76dd4a61" class="uri">https://monitor.statnipokladna.cz/analyza/##query=uq_247a15da-aad1-4ddb-889d-6b8b76dd4a61</a></p>
+<p><img src="site/images/monitor-soucty-sr.png" /></p>
+<pre class="r"><code>bind_rows(
+  open_dataset(sp_central_old_arrdir) %&gt;% 
+    filter(ico %in% ico_oss) %&gt;%
+    select(per_yr, druh, budget_spending) %&gt;% 
+    collect() %&gt;% 
+    count(per_yr, druh, wt = budget_spending/1e9) %&gt;% 
+    spread(druh, n),
+  open_dataset(sp_central_new_arrdir) %&gt;% 
+    filter(ico %in% ico_oss) %&gt;%
+    select(per_yr, druh, budget_spending) %&gt;% 
+    collect() %&gt;% 
+    count(per_yr, druh, wt = budget_spending/1e9) %&gt;% 
+    spread(druh, n)
+)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["per_yr"],"name":[1],"type":["int"],"align":["right"]},{"label":["Financování"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Příjmy"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Výdaje"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"2010","2":"156.416384","3":"1000.371","4":"1156.793"},{"1":"2011","2":"142.770832","3":"1012.755","4":"1155.526"},{"1":"2012","2":"100.999808","3":"1051.387","4":"1152.387"},{"1":"2013","2":"81.264427","3":"1091.863","4":"1173.128"},{"1":"2014","2":"77.782245","3":"1133.826","4":"1211.608"},{"1":"2015","2":"62.804243","3":"1234.517","4":"1297.322"},{"1":"2016","2":"-61.774041","3":"1281.618","4":"1219.844"},{"1":"2017","2":"6.151274","3":"1273.644","4":"1279.796"},{"1":"2018","2":"-2.943629","3":"1403.918","4":"1400.974"},{"1":"2019","2":"28.515737","3":"1523.222","4":"1551.738"},{"1":"2020","2":"367.449975","3":"1475.479","4":"1842.929"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p><a href="https://monitor.statnipokladna.cz/analyza/##query=uq_5fb642ff-31a3-4640-9d29-2fbdb2d0bb72" class="uri">https://monitor.statnipokladna.cz/analyza/##query=uq_5fb642ff-31a3-4640-9d29-2fbdb2d0bb72</a></p>
+<pre class="r"><code>open_dataset(sp_local_arrdir) %&gt;% 
+  # filter(ico %in% ico_oss) %&gt;%
+  select(per_yr, druh, budget_spending, kraj) %&gt;% 
+  collect() %&gt;% 
+  # filter(per_yr == 2020) %&gt;% 
+  count(per_yr, druh, wt = budget_spending/1e9) %&gt;% 
+  spread(druh, n) </code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["per_yr"],"name":[1],"type":["int"],"align":["right"]},{"label":["Příjmy"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Výdaje"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"2010","2":"456.0146","3":"457.2459"},{"1":"2011","2":"425.3996","3":"427.9926"},{"1":"2012","2":"397.3627","3":"395.7347"},{"1":"2013","2":"416.3109","3":"398.3849"},{"1":"2014","2":"439.1641","3":"427.7889"},{"1":"2015","2":"470.4072","3":"449.7426"},{"1":"2016","2":"460.9500","3":"407.6854"},{"1":"2017","2":"479.5811","3":"448.6626"},{"1":"2018","2":"540.8661","3":"532.0861"},{"1":"2019","2":"603.3910","3":"571.7112"},{"1":"2020","2":"636.5777","3":"622.6508"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>  # arrange(`Příjmy`)</code></pre>
+<pre class="r"><code>lgs &lt;- open_dataset(targets::tar_read(sp_local_grants_arrdir))
+
+lgs %&gt;% 
+  filter(per_yr == 2020) %&gt;% 
+  select(ucelznak_ucelznak_nazev, budget_grants) %&gt;% 
+  collect() %&gt;% 
+  count(ucelznak_ucelznak_nazev, wt = budget_grants/1e9, sort = T) %&gt;% 
+  head()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ucelznak_ucelznak_nazev"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Přímé náklady na vzdělávání","2":"148.772403"},{"1":"Neinvestiční nedávkové transfery podle zákona č. 108/2006 Sb., o sociálních službách (§ 101, § 102 a § 103)","2":"17.608699"},{"1":"IROP - Integrovaný regionální OP program č. 117030 - EU - INV","2":"14.447725"},{"1":"Jednorázový příspěvek obcím pro rok 2020 podle zákona č. 159/2020 Sb.","2":"13.367424"},{"1":"Dotace pro soukromé školy","2":"8.145936"},{"1":"Operační program životní prostředí 2014 - 2020 - program č. 115310 - prostředky EU - neinvestice","2":"7.233965"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

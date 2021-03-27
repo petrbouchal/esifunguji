@@ -46,6 +46,8 @@ bind_rows(
 ```
 https://monitor.statnipokladna.cz/analyza/##query=uq_5fb642ff-31a3-4640-9d29-2fbdb2d0bb72
 
+![](site/images/monitor_lokalni.png)
+
 ```{r}
 open_dataset(sp_local_arrdir) %>% 
   # filter(ico %in% ico_oss) %>%
