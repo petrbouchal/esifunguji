@@ -1144,8 +1144,8 @@
       "RemoteUsername": "petrbouchal",
       "RemoteRepo": "statnipokladna",
       "RemoteRef": "master",
-      "RemoteSha": "67aa7c41739db117bb1d714778fafd42af3cfdbe",
-      "Hash": "a3ca704d41737cfca6f62205572ba19b"
+      "RemoteSha": "1e9747b5ae256e2b59632bf7f941f62566d0e7c4",
+      "Hash": "940c12242e7ffbc5af01e26563e46c49"
     },
     "stringi": {
       "Package": "stringi",
@@ -1191,10 +1191,15 @@
     },
     "targets": {
       "Package": "targets",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "c893326d7a0f169964e16c94edfba375"
+      "Version": "0.3.1.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "ropensci",
+      "RemoteRepo": "targets",
+      "RemoteRef": "main",
+      "RemoteSha": "62bc91bdd01db47753ec2d6de476ed0c998035a0",
+      "Hash": "c4f338a52aacebbd27b35d923232d959"
     },
     "testthat": {
       "Package": "testthat",

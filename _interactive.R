@@ -1,6 +1,6 @@
 # script for quickly loading
 
-source("_packages.R")
+source("_targets_packages.R")
 source("R/functions.R")
 source("R/utils.R")
 
