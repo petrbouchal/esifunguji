@@ -13,7 +13,7 @@ t_html <- list(
     siteconf
     sitefiles
     rmarkdown::render_site(s_readme_rmd)
-    "docs/doc.html"}),
+    "docs/README.html"}),
   tar_file(s_inputchecks_rmd, "s_inputchecks.Rmd"),
   tar_file(s_inputchecks_html, command = {!! tar_knitr_deps_expr("s_inputchecks.Rmd")
     siteconf
