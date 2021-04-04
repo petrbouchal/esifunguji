@@ -14,6 +14,9 @@ tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
                imports = c("purrrow", "statnipokladna"),
                )
 
+options(crayon.enabled = TRUE,
+        scipen = 100)
+
 future::plan(multicore)
 
 source("R/functions.R")
@@ -32,6 +35,30 @@ t_public_list <- list(
   tar_target(ef_pub, read_pubxls(ef_pubxls))
 )
 
+
+# Custom MS sestavy -------------------------------------------------------
+
+sest_dir <- cnf$sest_dir
+sest_xlsx_prj <- cnf$sest_xlsx_prj
+sest_xlsx_fin <- cnf$sest_xlsx_fin
+sest_xlsx_zop <- cnf$sest_xlsx_zop
+sest_xlsx_obl <- cnf$sest_xlsx_obl
+
+t_sestavy <- list(
+  tar_target(efs_fin, load_efs_fin(sest_dir, sest_xlsx_fin)),
+  tar_target(efs_zop, load_efs_zop(sest_dir, sest_xlsx_zop)),
+  tar_target(efs_prj, load_efs_prj(sest_dir, sest_xlsx_prj)),
+  tar_target(efs_obl, load_efs_obl(sest_dir, sest_xlsx_obl)),
+  tar_target(efs_prj_basic, efs_prj %>% select(-starts_with("kat_"),
+                                               -starts_with("sc_")) %>%
+               distinct()),
+  tar_target(efs_prj_sc, efs_prj %>%
+               select(prj_id, starts_with("sc_")) %>%
+               distinct()),
+  tar_target(efs_prj_kat, efs_prj %>%
+               select(prj_id, starts_with("kat_")) %>%
+               distinct())
+  )
 
 # Geographically disaggregated (obce) ESIF data ---------------------------
 
@@ -172,6 +199,9 @@ t_sp_data_local_grants <- list(
 
 source("R/html_output.R")
 
+
+# Compile targets lists ---------------------------------------------------
+
 list(t_public_list, t_sp_codelists, t_sp_data_central_new,
      t_sp_data_central_old, t_html, t_sp_data_local, t_esif_obce,
-     t_sp_data_local_grants)
+     t_sp_data_local_grants, t_sestavy)

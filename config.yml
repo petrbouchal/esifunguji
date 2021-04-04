@@ -20,3 +20,10 @@ default:
 
   # URL for getting project data
   doteu_xls_url: https://dotaceeu.cz/getmedia/6043cc3d-ca8c-4866-ba4a-25d0184d1269/2021_02-Seznam-operaci-_List-of-operations_1.xls.aspx?ext=.xls
+
+  # sestavy from MS
+  sest_dir: "data-input/sestavy"
+  sest_xlsx_prj: "E001 Identifikace projektu 20210128.xlsx"
+  sest_xlsx_fin: "E003 Finance celkem 20210128.xlsx"
+  sest_xlsx_zop: "E004 Žádosti o platbu 20210128.xlsx"
+  sest_xlsx_obl: "E005 Kategorizace_oblast 20210128.xlsx"
