@@ -13,9 +13,9 @@ load_efs_fin <- function(dir, filename) {
     ~V1, ~one,
     "projekt", "prj",
     "stav projektu", "real_stav",
-    "poměry zdrojů financování", "pomery",
-    "finanční prostředky v zaregistrovaných žádostech o podporu (číslo 13)", "fin_zadosti",
-    "finanční prostředky v právních aktech o poskytnutí / převodu podpory (číslo 39)", "fin_pravniakty",
+    "poměry zdrojů financování", "pomer",
+    "finanční prostředky v zaregistrovaných žádostech o podporu (číslo 13)", "fin_zadost",
+    "finanční prostředky v právních aktech o poskytnutí / převodu podpory (číslo 39)", "fin_pravniakt",
     "finanční prostředky vyúčtované v žádostech o platbu (číslo 50)", "fin_vyuct",
     "finanční prostředky ve finančně ukončených operacích ze strany MF-PCO (číslo 65)", "fin_ukonc"
   )
@@ -27,15 +27,15 @@ load_efs_fin <- function(dir, filename) {
     "číslo stavu", "id",
     "název stavu", "název",
     "příspěvek Unie", "eu",
-    "národní zdroje", "národní zdroje",
-    "vlastní podíl", "vlastní zdroje",
+    "národní zdroje", "národní",
+    "vlastní podíl", "vlastní",
     "celkové zdroje připadající na způsobilé výdaje", "czv",
     "finanční prostředky ze státního rozpočtu", "sr",
     "finanční prostředky ze státních fondů", "sf",
     "finanční prostředky z rozpočtu krajů/kraje", "kraj",
     "finanční prostředky z rozpočtu obcí/obce", "obec",
-    "jiné národní veřejné finanční prostředky", "jine_narodni_verejne",
-    "soukromé zdroje", "soukrome")
+    "jiné národní veřejné finanční prostředky", "jine_nar_ver",
+    "soukromé zdroje", "soukr")
 
   efs_fin_names <- efs_fin_headers_l %>%
     left_join(translate_v1) %>%
