@@ -19,6 +19,7 @@ options(crayon.enabled = TRUE,
 
 future::plan(multicore)
 
+source("R/utils.R")
 source("R/functions.R")
 
 cnf <- config::get(config = "default")
@@ -124,7 +125,8 @@ t_sp_data_central_new <- list(
              budget_arrow_months(table_file, c_sp_central_arrowdir_new,
                                  c_sp_months_central_new, load_budget_yearsum_central_new,
                                  codelists = sp_cl),
-             format = "file")
+             format = "file"),
+  tar_target(sp_central_new_ops, budget_new_ops(sp_central_new_arrdir, nastroj_op, sp_cl))
 )
 
 # Local budget data -----------------------------------------------
