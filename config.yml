@@ -27,3 +27,7 @@ default:
   sest_xlsx_fin: "E003 Finance celkem 20210128.xlsx"
   sest_xlsx_zop: "E004 Žádosti o platbu 20210128.xlsx"
   sest_xlsx_obl: "E005 Kategorizace_oblast 20210128.xlsx"
+
+  # Excel file with hierarchy of all objectives and categories
+  hier_excel_path: "data-input/matice/Hierarchie_uprava_CSR_NPR-O27-uprava_20210125.xlsx"
+  hier_excel_sheet: SC
