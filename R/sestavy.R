@@ -116,6 +116,8 @@ load_efs_prj <- function(dir, filename) {
            dt_zahaj_fyz_predpokl = predpokladane_datum_ukonceni_fyzicke_realizace_projektu_20
     ) %>%
     drop_na(prj_id)
+    drop_na(prj_id) %>%
+    add_op_labels()
   return(efs_prj)
 }
 
