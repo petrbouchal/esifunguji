@@ -77,7 +77,9 @@ load_efs_zop <- function(dir, filename) {
       fin_vyuct_obec = financni_prostredky_z_rozpoctu_obci_obce,
       fin_vyuct_jine_narodni_verejne = jine_narodni_verejne_financni_prostredky,
       fin_vyuct_soukrome = soukrome_zdroje
-    )
+    ) %>%
+    mutate(fin_vyuct_narodni_verejne = fin_vyuct_czv - fin_vyuct_soukrome - fin_vyuct_eu,
+           fin_vyuct_narodni = fin_vyuct_czv - fin_vyuct_eu)
 
   return(efs_zop)
 }

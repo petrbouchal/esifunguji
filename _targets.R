@@ -97,6 +97,30 @@ t_cats <- list(
                                               macrocat_quest,
                                               macrocat_hermin))
 )
+
+
+# Compile for macro -------------------------------------------------------
+
+t_compile <- list(
+  tar_target(compiled_macro_quarterly, compile_ef(efs_macrocat, eo_kraj, efs_zop_quarterly)),
+  tar_target(compiled_macro_prv_quarterly, compile_ef_prv(efs_prv_quarterly, macrocat_quest_prv)),
+  tar_target(compiled_macro_sum_annual, summarise_macro(compiled_macro_quarterly,
+                                                 compiled_macro_prv_quarterly,
+                                                 quarterly = FALSE)),
+  tar_target(compiled_macro_sum_quarterly, summarise_macro(compiled_macro_quarterly,
+                                                 compiled_macro_prv_quarterly,
+                                                 quarterly = TRUE))
+)
+
+# Objective/category hierarchy --------------------------------------------
+
+c_ef_hier_path <- cnf$hier_excel_path
+c_ef_hier_sheet <- cnf$hier_excel_sheet
+
+t_hier <- list(
+  tar_file(ef_hier_path, c_ef_hier_path),
+  tar_target(ef_hier_raw, load_hierarchy(ef_hier_path, c_ef_hier_sheet)),
+  tar_target(ef_hier, process_hierarchy(ef_hier_raw, efs_prj))
 )
 
 # Statnipokladna - číselníky ----------------------------------------------
