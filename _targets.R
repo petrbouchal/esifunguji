@@ -259,5 +259,6 @@ source("R/html_output.R")
 # Compile targets lists ---------------------------------------------------
 
 list(t_public_list, t_sp_codelists, t_sp_data_central_new,
+     t_cats,
      t_sp_data_central_old, t_html, t_sp_data_local, t_esif_obce,
-     t_sp_data_local_grants, t_sestavy)
+     t_sp_data_local_grants, t_sestavy, t_hier, t_compile)
