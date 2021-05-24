@@ -131,7 +131,17 @@ load_efs_obl <- function(dir, filename) {
   efs_obl <- efs_obl0 %>%
     rename(prj_id = registracni_cislo_projektu,
            oblast_intervence_podil = oblast_intervence_procentni_podil,
-           fin_eu = fin_prostredky_eu)
+           fin_pravniakt_eu = fin_prostredky_eu,
+           impl_stav_id = kod_stavu,
+           impl_stav_nazev = nazev_stavu) %>%
+    group_by(prj_id, oblast_intervence_kod, oblast_intervence_nazev, impl_stav_nazev,
+             impl_stav_id) %>%
+    summarise(across(contains("fin_"), sum, na.rm = T)) %>%
+    ungroup() %>%
+    add_count(prj_id, wt = fin_pravniakt_eu, name = "total") %>%
+    mutate(oblast_intervence_podil = fin_pravniakt_eu/total) %>%
+    arrange(oblast_intervence_podil) %>%
+    select(-total)
 
   return(efs_obl)
 }
