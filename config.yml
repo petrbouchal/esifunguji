@@ -6,6 +6,9 @@ default:
   sp_central_arrowdir_new: "data-processed/sp-central-new-arr"
 
 
+  sp_nastroj_ids_1420_ops: ["102", "103", "104", "105", "106", "107", "108", "109"]
+  sp_nastroj_ids_1420_prv: ["130", "187"]
+
   # settings for FINU (central budget 2010-2014)
   sp_years_central_old: !expr 2010:2014
   sp_months_central_old: 12
