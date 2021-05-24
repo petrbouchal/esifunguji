@@ -158,3 +158,19 @@ load_efs_obl <- function(dir, filename) {
 #
 # efs_zop %>%
 #   count(real_stav_nazev, wt = vyuct_czv/1e9)
+
+summarise_zop <- function(efs_zop, quarterly) {
+  zop_prep <- efs_zop %>%
+    mutate(zop_rok = year(dt_zop_proplaceni))
+
+  if(quarterly) {
+    zop_grp <- zop_prep %>%
+      mutate(zop_kvartal = month(dt_zop_proplaceni) %/% 4 + 1) %>%
+      group_by(prj_id, zop_rok, zop_kvartal)
+  } else {
+    zop_grp <- zop_prep %>%
+      group_by(prj_id, zop_rok)
+  }
+  zop_grp %>%
+    summarise(across(starts_with("fin_"), sum, na.rm = T), .groups = "drop")
+}
