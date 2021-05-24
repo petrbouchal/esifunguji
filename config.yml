@@ -27,6 +27,11 @@ default:
   sest_xlsx_zop: "E004 Žádosti o platbu 20210128.xlsx"
   sest_xlsx_obl: "E005 Kategorizace_oblast 20210128.xlsx"
 
+  # Quest/Hermin categorisations
+  c_mc_xlsx_q: "data-input/kategorie_questNEW.xlsx"
+  c_mc_xlsx_h: "data-input/AIS_desagregace_rHERMIN.xlsx"
+  c_mc_xlsx_q_prv: "data-input/prv/Navrh - KATEGORIZACE - Operace PRV + priority.xlsx"
+
   # Arrow directory of cleaned up geolocation data for projects
   ef_obce_arrowdir: "data-input/esif-projekty-obce"
 

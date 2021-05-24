@@ -81,6 +81,21 @@ t_esif_obce <- list(
   tar_target(eo_kraj, summarise_geo_by_kraj(esif_obce, pop_obce, zuj_obec))
 )
 
+
+# Modeling categorisations ------------------------------------------------
+
+c_mc_xlsx_q <- cnf$c_mc_xlsx_q
+c_mc_xlsx_h <- cnf$c_mc_xlsx_h
+c_mc_xlsx_q_prv <- cnf$c_mc_xlsx_q_prv
+
+t_cats <- list(
+  tar_target(macrocat_quest, load_macrocat_quest(c_mc_xlsx_q, prv = FALSE)),
+  tar_target(macrocat_quest_prv, load_macrocat_quest(c_mc_xlsx_q_prv, prv = TRUE)),
+  tar_target(macrocat_hermin, load_macrocat_hermin(c_mc_xlsx_h)),
+  tar_target(efs_macrocat, build_efs_macrocat(efs_prj_kat, efs_obl,
+                                              macrocat_quest,
+                                              macrocat_hermin))
+)
 )
 
 # Statnipokladna - číselníky ----------------------------------------------
