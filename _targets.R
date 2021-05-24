@@ -50,7 +50,7 @@ t_sestavy <- list(
   tar_target(efs_zop, load_efs_zop(sest_dir, sest_xlsx_zop)),
   tar_target(efs_prj, load_efs_prj(sest_dir, sest_xlsx_prj)),
   tar_target(efs_obl, load_efs_obl(sest_dir, sest_xlsx_obl)),
-  tar_target(efs_prj_basic, efs_prj %>% select(-starts_with("kat_"),
+  tar_target(efs_prj_basic, efs_prj %>% select(-starts_with("katekon_"),
                                                -starts_with("sc_")) %>%
                distinct()),
   tar_target(efs_prj_sc, efs_prj %>%
