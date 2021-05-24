@@ -43,7 +43,7 @@ load_efs_fin <- function(dir, filename) {
     unite(col = "name", one, two) %>%
     pull(name)
 
-  efs_fin <- read_excel("data-input/sestavy/E003 Finance celkem 20210128.xlsx",
+  efs_fin <- read_excel(path,
                         col_names = efs_fin_names, skip = 4) %>%
     janitor::clean_names() %>%
     select(-prj_nazev)
