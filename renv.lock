@@ -1191,22 +1191,17 @@
     },
     "tarchetypes": {
       "Package": "tarchetypes",
-      "Version": "0.1.0",
+      "Version": "0.2.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1270e517deebe89a4140ed2445e82bea"
+      "Hash": "a5270db1c2b225697a08c5612b44facb"
     },
     "targets": {
       "Package": "targets",
-      "Version": "0.3.1.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "ropensci",
-      "RemoteRepo": "targets",
-      "RemoteRef": "main",
-      "RemoteSha": "62bc91bdd01db47753ec2d6de476ed0c998035a0",
-      "Hash": "c4f338a52aacebbd27b35d923232d959"
+      "Version": "0.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a46df8ab3d40fd1627deeca2783df151"
     },
     "testthat": {
       "Package": "testthat",

@@ -30,9 +30,8 @@ cnf <- config::get(config = "default")
 c_ef_pubxls_url <- cnf$doteu_xls_url
 
 t_public_list <- list(
-  tar_url(ef_pubxls_tarurl, c_ef_pubxls_url),
-  tar_file(ef_pubxls, curl::curl_download(ef_pubxls_tarurl,
-                                          here::here("data-input/ef_publish.xls"))),
+  tar_download(ef_pubxls, c_ef_pubxls_url,
+               here::here("data-input/ef_publish.xls")),
   tar_target(ef_pub, read_pubxls(ef_pubxls))
 )
 
