@@ -1,5 +1,5 @@
 ---
-title: "New site"
+title: "ESIF data pipeline"
 lang: cs
 ---
 
@@ -39,12 +39,12 @@ meta() %>%
   meta_description(
     "Description"
   ) %>% 
-  meta_name("github-repo" = "petrbouchal/...") %>% 
+  meta_name("github-repo" = "petrbouchal/esifunguji") %>% 
   meta_viewport() %>% 
   meta_social(
     title = "Social title",
-    url = "https://petrbouchal.xyz/.../",
-    image = "https://petrbouchal.xyz/.../twitter_card_large.png",
+    url = "https://petrbouchal.xyz/esifunguji/",
+    image = "https://petrbouchal.xyz/esifunguji/twitter_card_large.png",
     image_alt = "Image alt",
     og_type = "website",
     og_author = c("Petr Bouchal"),

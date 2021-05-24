@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="cs" xml:lang="cs">
+<html>
 
 <head>
 
@@ -11,7 +11,7 @@
 
 
 
-<title>ESIF data pipeline</title>
+<title>esifunguji</title>
 
 <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -34,25 +34,6 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, orientation=auto"/>
-<meta name="description" content="Description"/>
-<meta name="github-repo" content="petrbouchal/esifunguji"/>
-<meta name="twitter:title" content="Social title"/>
-<meta name="twitter:description" content="Description"/>
-<meta name="twitter:url" content="https://petrbouchal.xyz/esifunguji/"/>
-<meta name="twitter:image:src" content="https://petrbouchal.xyz/esifunguji/twitter_card_large.png"/>
-<meta name="twitter:image:alt" content="Image alt"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:creator" content="@petrbouchal"/>
-<meta name="twitter:site" content="@petrbouchal"/>
-<meta property="og:title" content="Social title"/>
-<meta property="og:description" content="Description"/>
-<meta property="og:url" content="https://petrbouchal.xyz/esifunguji/"/>
-<meta property="og:image" content="https://petrbouchal.xyz/esifunguji/twitter_card_large.png"/>
-<meta property="og:image:alt" content="Image alt"/>
-<meta property="og:type" content="website"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="article:author" content="Petr Bouchal"/>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -292,49 +273,31 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">ESIF data pipeline</h1>
+<h1 class="title toc-ignore">esifunguji</h1>
 
 </div>
 
 
-<div id="section" class="section level1 tabset">
-<h1 class="tabset"></h1>
-<div id="tab-1" class="section level2 tabset tabset-pills">
-<h2 class="tabset tabset-pills">Tab 1</h2>
-<pre><code>## FileSystemDataset with 15 Parquet files
-## ucjed: string
-## ico: string
-## paragraf: string
-## polozka: string
-## polozka_nazev: string
-## trida: string
-## seskupeni: string
-## podseskupeni: string
-## kapitola: string
-## budget_adopted: double
-## budget_amended: double
-## budget_final: double
-## budget_spending: double
-## per_yr: int32
-## period_vykaz: string
-## druh: string</code></pre>
-<div id="subtab-1" class="section level3">
-<h3>Subtab 1</h3>
-<p><img src="index_files/figure-html/subtab2-1.png" width="90%" /></p>
-<p>„Hello“</p>
-</div>
-<div id="subtab-2" class="section level3">
-<h3>Subtab 2</h3>
-</div>
-</div>
-<div id="data-disclaimer" class="section level2">
-<h2>Data &amp; disclaimer</h2>
-<p>Text</p>
-</div>
-</div>
-<div id="section-1" class="section level1">
-<h1></h1>
-<p>Last built on 2021-04-27 00:31 CEST</p>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<div id="macro-esif-budget" class="section level1">
+<h1>macro-esif-budget</h1>
+<!-- badges: start -->
+<!-- badges: end -->
+<p>Tento repozitář obsahuje kód na zpracování dat o výdajích financovaných z ESI fondů v ČR primárně v letech 2014-2020. Cílem je:</p>
+<ul>
+<li>sestavit dataset použitelný pro modelování dopadů ESI fondů na HDP (QUEST, HERMIN - tj. republiková a krajská úroveň, kategorizace výdajů podle specifikace modelů)</li>
+<li>ověřit spolehlivost dat státní pokladny o zdrojích veřejných výdajů (u výdajů ústředních orgánů informace o zdroji, u místně řízených organizací informace o přijatých transferech)</li>
+<li>připravit dataset pro vyhodnocení role ESI fondů ve veřejných výdajích</li>
+<li>[buď zde nebo jinde] analýza role ESI fondů ve veřejných výdajích</li>
+</ul>
+<p><strong>Vytvořeno pro Úřad vlády ČR jako součást projektu <em>Systémová podpora společné evropské politiky podpory a pomoci, ESI a obdobných fondů na Úřadu vlády ČR</em> (CZ.08.1.125/0.0/0.0/15_001/0000176)</strong></p>
+<p>Relevantní předchozí publikace v této oblasti:</p>
+<ul>
+<li><a href="https://dotaceeu.cz/cs/evropske-fondy-v-cr/narodni-organ-pro-koordinaci/evaluace/knihovna-evaluaci/verejne-vydaje-a-fondy-eu-2007%e2%80%932015">MMR (2017) o roli ESI fondů ve veřejných výdajích</a> ( <a href="https://dotaceeu.cz/Dotace/media/SF/NOK/Evaluace/Evalua%c4%8dn%c3%ad%20knihovna/2017/Adicionalita/Verejne-vydaje-a-fondy-EU-final-public_1.pdf">PDF</a>)</li>
+<li><a href="https://www.vlada.cz/assets/evropske-zalezitosti/analyzy-EU/171204_Dopad_ESI_fondu_na_hospodarsky_rust_CR_final.pdf">Předchozí studie Úřadu vlády (2017) - makroekonomické odhady dopadu ESIF na ekonomiku</a></li>
+<li><a href="https://www.vlada.cz/assets/evropske-zalezitosti/analyzy-EU/Dopad-ESI-fondu-na-hospodarstvi-CR.pdf">Navazující studie Úřadu vlády (2018)</a></li>
+<li><a href="https://www.vlada.cz/assets/evropske-zalezitosti/aktualne/Vyuzivani-makroevaluaci-a-makroekonomickych-modelu-clenskymi-staty-EU.pdf">Úřad vlády (2019) přehled využívání makro modelů v zemích EU</a></li>
+</ul>
 </div>
 
 
