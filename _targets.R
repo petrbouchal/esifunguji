@@ -57,9 +57,16 @@ t_sestavy <- list(
                select(prj_id, starts_with("sc_")) %>%
                distinct()),
   tar_target(efs_prj_kat, efs_prj %>%
-               select(prj_id, starts_with("kat_")) %>%
-               distinct())
-  )
+               select(prj_id, starts_with("katekon_")) %>%
+               distinct() %>%
+               group_by(prj_id) %>%
+               mutate(katekon_podil = 1/n())),
+  tar_target(efs_zop_annual, summarise_zop(efs_zop, quarterly = FALSE)),
+  tar_target(efs_zop_quarterly, summarise_zop(efs_zop, quarterly = TRUE)),
+  tar_target(efs_prv, load_prv(prv_data_path, cis_kraj)),
+  tar_target(efs_prv_annual, summarise_prv(efs_prv, quarterly = FALSE)),
+  tar_target(efs_prv_quarterly, summarise_prv(efs_prv, quarterly = TRUE))
+)
 
 # Geographically disaggregated (obce) ESIF data ---------------------------
 
