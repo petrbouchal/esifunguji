@@ -24,6 +24,7 @@ read_pubxls <- function(path) {
     rename_with(~str_replace(.x, "celkove_zpusobile_vydaje", "czv")) %>%
     rename_with(~str_remove(.x, "_czk$")) %>%
     rename(prj_id = registracni_cislo_projektu_operace,
+           op_zkr = program,
            prj_nazev = nazev_projektu_nazev_operace,
            prj_priorita_nazev = nazev_prioritni_osy_priority_unie,
            prj_nuts3_nazev = nazev_nuts_3,
@@ -39,6 +40,8 @@ read_pubxls <- function(path) {
            real_ukon_fyz_skut = skutecne_datum_ukonceni_fyzicke_realizace_operace,
            real_ukon_fyz_predp = predpokladane_datum_ukonceni_fyzicke_realizace_operace,
            real_stav = stav_realizace
-           )
+           ) %>%
+    mutate(op_zkr = recode(op_zkr, `OP ŽP` = "OP ZP")) %>%
+    add_op_labels()
   return(esif)
 }
