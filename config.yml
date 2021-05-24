@@ -27,6 +27,10 @@ default:
   sest_xlsx_zop: "E004 Žádosti o platbu 20210128.xlsx"
   sest_xlsx_obl: "E005 Kategorizace_oblast 20210128.xlsx"
 
+  # PRV data-input
+
+  prv_data: "data-input/prv/PRV 2014-20 k XII. 2020.XLSX"
+
   # Quest/Hermin categorisations
   c_mc_xlsx_q: "data-input/kategorie_questNEW.xlsx"
   c_mc_xlsx_h: "data-input/AIS_desagregace_rHERMIN.xlsx"

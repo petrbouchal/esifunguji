@@ -44,6 +44,7 @@ sest_xlsx_prj <- cnf$sest_xlsx_prj
 sest_xlsx_fin <- cnf$sest_xlsx_fin
 sest_xlsx_zop <- cnf$sest_xlsx_zop
 sest_xlsx_obl <- cnf$sest_xlsx_obl
+prv_data_path <- cnf$prv_data
 
 t_sestavy <- list(
   tar_target(efs_fin, load_efs_fin(sest_dir, sest_xlsx_fin)),
