@@ -304,6 +304,13 @@
       "Repository": "CRAN",
       "Hash": "2b7d10581cc730804e9ed178c8374bd6"
     },
+    "czso": {
+      "Package": "czso",
+      "Version": "0.3.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "53fbcbc0d12b46c7ba668a351510852c"
+    },
     "data.table": {
       "Package": "data.table",
       "Version": "1.13.6",
@@ -1114,12 +1121,12 @@
       "Repository": "CRAN",
       "Hash": "67f284ca3b12634dfabbbb5c247f5966"
     },
-    "shinycssloaders": {
-      "Package": "shinycssloaders",
-      "Version": "1.0.0",
+    "shinybusy": {
+      "Package": "shinybusy",
+      "Version": "0.2.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "f39bb3c44a9b496723ec7e86f9a771d8"
+      "Hash": "c38fc071d4def5e642c8dc34c3a082e4"
     },
     "snakecase": {
       "Package": "snakecase",
@@ -1144,8 +1151,8 @@
       "RemoteUsername": "petrbouchal",
       "RemoteRepo": "statnipokladna",
       "RemoteRef": "master",
-      "RemoteSha": "1e9747b5ae256e2b59632bf7f941f62566d0e7c4",
-      "Hash": "940c12242e7ffbc5af01e26563e46c49"
+      "RemoteSha": "cfc2846b4b893bec83d8d37b25f63f8409695775",
+      "Hash": "98e6b0dbc366409a851308c6ca07638e"
     },
     "stringi": {
       "Package": "stringi",
@@ -1319,6 +1326,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "caf4781c674ffa549a4676d2d77b13cc"
+    },
+    "writexl": {
+      "Package": "writexl",
+      "Version": "1.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "edd181b6e10c87497db16d1f8c0d4ed5"
     },
     "xfun": {
       "Package": "xfun",
