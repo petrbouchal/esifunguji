@@ -46,25 +46,40 @@ sest_xlsx_obl <- cnf$sest_xlsx_obl
 prv_data_path <- cnf$prv_data
 
 t_sestavy <- list(
+  # finanční pokrok
   tar_target(efs_fin, load_efs_fin(sest_dir, sest_xlsx_fin)),
+  # seznam ŽOPek
   tar_target(efs_zop, load_efs_zop(sest_dir, sest_xlsx_zop)),
+  # základní info o projektech
+  # obsahuje ekonomické kategorie intervence, SC atd.
   tar_target(efs_prj, load_efs_prj(sest_dir, sest_xlsx_prj)),
+  # oblasti intervence
   tar_target(efs_obl, load_efs_obl(sest_dir, sest_xlsx_obl)),
+  # výřes základních informací o projektech
   tar_target(efs_prj_basic, efs_prj %>% select(-starts_with("katekon_"),
                                                -starts_with("sc_")) %>%
                distinct()),
+  # specifické cíle
+  # bez rozpadu na kategorie intervence
+  # protože ten je v datech nepřiznaný
   tar_target(efs_prj_sc, efs_prj %>%
                select(prj_id, starts_with("sc_")) %>%
                distinct()),
+  # kategorie intervence, bez rozpadu na SC
   tar_target(efs_prj_kat, efs_prj %>%
                select(prj_id, starts_with("katekon_")) %>%
                distinct() %>%
                group_by(prj_id) %>%
                mutate(katekon_podil = 1/n())),
+  # sečíst ŽOP za každý projekt po letech
   tar_target(efs_zop_annual, summarise_zop(efs_zop, quarterly = FALSE)),
+  # a po čtvrtletích
   tar_target(efs_zop_quarterly, summarise_zop(efs_zop, quarterly = TRUE)),
+  # načíst PRV
   tar_target(efs_prv, load_prv(prv_data_path, cis_kraj)),
+  # posčítat platby za projekt po letech
   tar_target(efs_prv_annual, summarise_prv(efs_prv, quarterly = FALSE)),
+  # a po čtvrtletích
   tar_target(efs_prv_quarterly, summarise_prv(efs_prv, quarterly = TRUE))
 )
 
@@ -75,9 +90,14 @@ c_czso_pop_table_id <- cnf$czso_pop_table_id
 
 t_esif_obce <- list(
   tar_file(esif_obce, c_ef_obce_arrowdir),
+  # vazby ZÚJ a obcí, abychom mohli ZÚJ v datech
+  # převést na obce
   tar_target(zuj_obec, get_zuj_obec()),
+  # číselník krajů pro vložení kódu kraje v PRV
   tar_target(cis_kraj, czso::czso_get_codelist("cis100")),
+  # populace obcí pro vážení projektů mezi kraji
   tar_target(pop_obce, get_stats_pop_obce(c_czso_pop_table_id)),
+  # spočítat podíly krajů na každém projektu
   tar_target(eo_kraj, summarise_geo_by_kraj(esif_obce, pop_obce, zuj_obec))
 )
 
@@ -88,10 +108,15 @@ c_mc_xlsx_q <- cnf$c_mc_xlsx_q
 c_mc_xlsx_h <- cnf$c_mc_xlsx_h
 c_mc_xlsx_q_prv <- cnf$c_mc_xlsx_q_prv
 
+# dodané a ručně upravené vazby
 t_cats <- list(
+  # QUEST kategorie <=> oblast intervence
   tar_target(macrocat_quest, load_macrocat_quest(c_mc_xlsx_q, prv = FALSE)),
+  # QUEST <=> typ operace v PRV
   tar_target(macrocat_quest_prv, load_macrocat_quest(c_mc_xlsx_q_prv, prv = TRUE)),
+  # HERMIN podkategorie QUEST AIS <=> kategorie intervence
   tar_target(macrocat_hermin, load_macrocat_hermin(c_mc_xlsx_h)),
+  # rozkategorizovat všechna data
   tar_target(efs_macrocat, build_efs_macrocat(efs_prj_kat, efs_obl,
                                               macrocat_quest,
                                               macrocat_hermin))
@@ -101,17 +126,23 @@ t_cats <- list(
 # Compile for macro -------------------------------------------------------
 
 t_compile <- list(
+  # rozpad na kraj x platby po letech x makro kategorie => sečíst
   tar_target(compiled_macro_quarterly, compile_ef(efs_macrocat, eo_kraj, efs_zop_quarterly)),
+  # U PRV jen stačí navázat makro kategorizaci a sečíst letech/kvartálech
   tar_target(compiled_macro_prv_quarterly, compile_ef_prv(efs_prv_quarterly, macrocat_quest_prv)),
+  # spojit PRV a ostatní po letech
   tar_target(compiled_macro_sum_annual, summarise_macro(compiled_macro_quarterly,
                                                  compiled_macro_prv_quarterly,
                                                  quarterly = FALSE)),
+  # spojit PRV a ostatní po kvartálech
   tar_target(compiled_macro_sum_quarterly, summarise_macro(compiled_macro_quarterly,
                                                  compiled_macro_prv_quarterly,
                                                  quarterly = TRUE))
 )
 
 # Objective/category hierarchy --------------------------------------------
+
+# vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
 
 c_ef_hier_path <- cnf$hier_excel_path
 c_ef_hier_sheet <- cnf$hier_excel_sheet
