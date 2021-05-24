@@ -9,7 +9,7 @@ library(future)
 tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
                             "janitor", "curl", "httr", "stringr", "config",
                             "dplyr", "purrrow", "future", "arrow", "tidyr",
-                            "ragg"),
+                            "ragg", "magrittr", "czso", "lubridate"),
                # debug = "sp_local_arrdir",
                imports = c("purrrow", "statnipokladna"),
                )
@@ -63,10 +63,17 @@ t_sestavy <- list(
 
 # Geographically disaggregated (obce) ESIF data ---------------------------
 
-c_ef_obce_arrowdir <- cnf$c_ef_obce_arrowdir
+c_ef_obce_arrowdir <- cnf$ef_obce_arrowdir
+c_czso_pop_table_id <- cnf$czso_pop_table_id
 
 t_esif_obce <- list(
-  tar_file(esif_obce, c_ef_obce_arrowdir)
+  tar_file(esif_obce, c_ef_obce_arrowdir),
+  tar_target(zuj_obec, get_zuj_obec()),
+  tar_target(cis_kraj, czso::czso_get_codelist("cis100")),
+  tar_target(pop_obce, get_stats_pop_obce(c_czso_pop_table_id)),
+  tar_target(eo_kraj, summarise_geo_by_kraj(esif_obce, pop_obce, zuj_obec))
+)
+
 )
 
 # Statnipokladna - číselníky ----------------------------------------------

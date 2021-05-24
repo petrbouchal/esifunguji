@@ -5,7 +5,6 @@ default:
   sp_months_central_new: 12 # which month's data to download
   sp_central_arrowdir_new: "data-processed/sp-central-new-arr"
 
-  c_ef_obce_arrowdir: "data-input/esif-projekty-obce"
 
   # settings for FINU (central budget 2010-2014)
   sp_years_central_old: !expr 2010:2014
@@ -28,6 +27,12 @@ default:
   sest_xlsx_zop: "E004 Žádosti o platbu 20210128.xlsx"
   sest_xlsx_obl: "E005 Kategorizace_oblast 20210128.xlsx"
 
+  # Arrow directory of cleaned up geolocation data for projects
+  ef_obce_arrowdir: "data-input/esif-projekty-obce"
+
   # Excel file with hierarchy of all objectives and categories
   hier_excel_path: "data-input/matice/Hierarchie_uprava_CSR_NPR-O27-uprava_20210125.xlsx"
   hier_excel_sheet: SC
+
+  # IDs
+  czso_pop_table_id: "130149"
