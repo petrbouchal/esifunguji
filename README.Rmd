@@ -1,6 +1,6 @@
 ---
 title: esifunguji
-output: github_document
+output: md_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -11,8 +11,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-
-# macro-esif-budget
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -25,6 +23,10 @@ Tento repozitář obsahuje kód na zpracování dat o výdajích financovaných 
 - [buď zde nebo jinde] analýza role ESI fondů ve veřejných výdajích
 
 **Vytvořeno pro Úřad vlády ČR jako součást projektu *Systémová podpora společné evropské politiky podpory a pomoci, ESI a obdobných fondů na Úřadu vlády ČR* (CZ.08.1.125/0.0/0.0/15_001/0000176)**
+
+Detailnější dokumentace k pipelinu na tvorbu dat pro makro modely:
+
+- 
 
 Relevantní předchozí publikace v této oblasti:
 

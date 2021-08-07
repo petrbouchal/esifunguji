@@ -1,71 +1,265 @@
 ---
-title: "Input checks"
+title: "Vstupní kontrola dat"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("_packages.R")
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+source("_targets_packages.R")
 ```
 
 ```{r}
-targets::tar_load(sp_cl)
-targets::tar_load(sp_central_new_arrdir)
-targets::tar_load(sp_central_old_arrdir)
-targets::tar_load(sp_local_arrdir)
+targets::tar_load(ef_pub)
+targets::tar_load(efs_obl)
+targets::tar_load(efs_prv)
+targets::tar_load(efs_fin)
+targets::tar_load(efs_zop)
+targets::tar_load(efs_prj)
+targets::tar_load(efs_prj_basic)
+targets::tar_load(efs_prj_kat)
+targets::tar_load(efs_prj_sc)
+targets::tar_load(compiled_macro_sum_quarterly)
 ```
 
+## Sestavy
+
+### Oblasti intervence - stavy
 
 ```{r}
-ico_oss <- sp_cl$ucjed %>% filter(druhuj_id == "1") %>% pull(ico) %>% unique()
-```
-
-
-```{r}
-plot(mtcars)
-```
-
-https://monitor.statnipokladna.cz/analyza/##query=uq_247a15da-aad1-4ddb-889d-6b8b76dd4a61
-
-![](site/images/monitor-soucty-sr.png)
-
-```{r}
-bind_rows(
-  open_dataset(sp_central_old_arrdir) %>% 
-    filter(ico %in% ico_oss) %>%
-    select(per_yr, druh, budget_spending) %>% 
-    collect() %>% 
-    count(per_yr, druh, wt = budget_spending/1e9) %>% 
-    spread(druh, n),
-  open_dataset(sp_central_new_arrdir) %>% 
-    filter(ico %in% ico_oss) %>%
-    select(per_yr, druh, budget_spending) %>% 
-    collect() %>% 
-    count(per_yr, druh, wt = budget_spending/1e9) %>% 
-    spread(druh, n)
-)
-```
-https://monitor.statnipokladna.cz/analyza/##query=uq_5fb642ff-31a3-4640-9d29-2fbdb2d0bb72
-
-![](site/images/monitor_lokalni.png)
-
-```{r}
-open_dataset(sp_local_arrdir) %>% 
-  # filter(ico %in% ico_oss) %>%
-  select(per_yr, druh, budget_spending, kraj) %>% 
-  collect() %>% 
-  # filter(per_yr == 2020) %>% 
-  count(per_yr, druh, wt = budget_spending/1e9) %>% 
-  spread(druh, n) 
-  # arrange(`Příjmy`)
-```
-```{r}
-lgs <- open_dataset(targets::tar_read(sp_local_grants_arrdir))
-
-lgs %>% 
-  filter(per_yr == 2020) %>% 
-  select(ucelznak_ucelznak_nazev, budget_grants) %>% 
-  collect() %>% 
-  count(ucelznak_ucelznak_nazev, wt = budget_grants/1e9, sort = T) %>% 
+efs_obl %>% 
+  distinct(prj_id, impl_stav_nazev, impl_stav_id, fin_pravniakt_eu) %>% 
+  count(impl_stav_nazev, impl_stav_id, wt = fin_pravniakt_eu/1e9, sort = T) %>% 
   head()
+```
+```{r}
+efs_obl %>% 
+  count(wt = n_distinct(prj_id))
+```
+```{r}
+efs_obl %>% 
+  count(wt = fin_pravniakt_eu*oblast_intervence_podil/1e9)
+```
+
+
+### Finanční pokrok
+
+```{r}
+efs_fin %>% 
+  count(wt = n_distinct(prj_id))
+```
+
+
+```{r}
+efs_fin %>% 
+  add_op_labels() %>%  
+  count(op_nazev, wt = fin_vyuct_eu/1e9, sort = T)
+```
+
+
+```{r}
+efs_obl %>% 
+  filter(prj_id %in% efs_fin$prj_id) %>% 
+  count(wt = fin_pravniakt_eu*oblast_intervence_podil/1e9)
+```
+
+
+```{r}
+efs_fin %>% 
+  filter(prj_id %in% efs_obl$prj_id) %>% 
+  count(wt = fin_pravniakt_czv/1e9)
+```
+
+
+```{r}
+efs_fin %>% 
+  # filter(real_stav_id >= "PP27a") %>%
+  summarise(across(starts_with("fin_"), ~round(sum(.x, na.rm = T)/1e9))) %>% 
+  t()
+```
+
+
+```{r}
+efs_zop %>% 
+  count(wt = fin_vyuct_czv/1e9)
+```
+
+
+```{r}
+efs_fin %>% 
+  filter(!prj_id %in% efs_obl$prj_id)
+```
+
+
+```{r}
+efs_obl %>% 
+  group_by(prj_id) %>% 
+  count(wt = oblast_intervence_podil, sort = T)
+```
+
+
+```{r}
+length(unique(efs_obl$prj_id))
+```
+
+
+```{r}
+efs_obl %>% 
+  filter(prj_id %in% efs_fin$prj_id,
+         str_detect(impl_stav_id, "PP")) %>%
+  filter(impl_stav_id >= "PP27a") %>%
+  select(-oblast_intervence_podil) %>% 
+  distinct() %>% 
+  # group_by(prj_id, kod_stavu) %>%
+  # mutate(sm = sum(oblast_intervence_podil, na.rm = T)) %>%
+  # filter(sm <= 1) %>%
+  # ungroup() %>%
+  count(wt = fin_pravniakt_eu/1e9)
+```
+
+
+```{r}
+efs_prj %>% 
+  distinct() %>% 
+  nrow()
+```
+
+
+```{r}
+efs_obl %>% 
+  add_count(prj_id, oblast_intervence_kod) %>% 
+  arrange(desc(n))
+```
+
+```{r}
+efs_obl %>% 
+  count(prj_id, wt = oblast_intervence_podil) %>% 
+  arrange(desc(n))
+```
+
+
+```{r}
+efs_obl %>%
+  group_by(prj_id) %>% 
+  filter(sum(oblast_intervence_podil) > 1) %>% 
+  writexl::write_xlsx("data-output/E005_Kategorizace_oblast_nad100procent.xlsx")
+```
+```{r}
+efs_fin %>% 
+  filter(fin_vyuct_czv < fin_ukonc_czv) %>%
+  select(prj_id, fin_vyuct_czv, fin_ukonc_czv) %>% 
+  writexl::write_xlsx("data-output/E003_Finance_ukoncene-vic-nez-vyuctovane.xlsx")
+```
+
+
+```{r}
+efs_prj_basic %>% 
+  count(op_nazev)
+```
+
+
+```{r}
+efs_prj_kat %>% 
+  add_count(prj_id) %>% 
+  count(n)
+```
+
+
+```{r}
+efs_prj_sc %>% 
+  add_count(prj_id, wt = sc_podil) %>% 
+  filter(n > 1)
+```
+
+
+```{r}
+efs_fin %>% 
+  replace_na(list(fin_vyuct_czv = 0, fin_ukonc_czv = 0)) %>%
+  # filter(fin_ukonc_czv > fin_vyuct_czv) %>% 
+  select(prj_id, fin_vyuct_czv, fin_ukonc_czv) %>% 
+  add_op_labels() %>%  
+  # group_by(op_zkr) %>% 
+  summarise(across(starts_with("fin"), ~sum(.x)/1e9)) %>% 
+  mutate(delta = fin_ukonc_czv - fin_vyuct_czv,
+         delta_prop = delta/fin_vyuct_czv)
+```
+
+
+```{r}
+efs_zop %>% 
+  count(wt = fin_vyuct_czv)
+```
+
+
+```{r}
+efs_fin %>% 
+  count(wt = fin_vyuct_czv)
+```
+
+
+```{r}
+efs_fin %>% 
+  add_op_labels() %>% 
+  filter(is.na(fin_vyuct_czv) & fin_ukonc_czv == fin_pravniakt_czv) %>% 
+  count(op_zkr)
+```
+
+
+```{r}
+ef_pub %>% 
+  count(op_zkr, wt = fin_vyuct_v_zop_czv/1e9)
+```
+
+
+```{r}
+efs_fin %>% 
+  summarise(across(starts_with("fin"), sum, na.rm = T)) %>% 
+  mutate(zop_stat_a_eu = (fin_vyuct_eu + fin_vyuct_sr)/1e9,
+         pa_stat_a_eu = (fin_pravniakt_eu + fin_pravniakt_sr)/1e9,
+         uk_stat_a_eu = (fin_ukonc_eu + fin_ukonc_sr)/1e9) %>% 
+  select(zop_stat_a_eu, pa_stat_a_eu, uk_stat_a_eu)
+```
+
+
+```{r}
+efs_fin %>%
+  add_op_labels() %>%  
+  mutate(pomer_sum = pomer_eu + pomer_narodni + pomer_vlastni) %>% 
+  group_by(op_nazev, pomer_eu, pomer_narodni, pomer_vlastni, pomer_sum) %>%
+  summarise(across(c(starts_with("fin_vyuct"),
+                     starts_with("fin_ukonc")), ~round(sum(.x, na.rm = T)/1e9, 1))) %>% 
+  select(op_nazev, matches("czv|eu|sr|soukrome|pomer"))
+```
+
+
+## PRV
+
+```{r, echo=TRUE}
+targets::tar_load(efs_prv)
+all(efs_prv %>% count(prj_id) %>% pull() == 1)
+```
+
+## Veřejný seznam projektů
+
+```{r}
+targets::tar_load(ef_pub)
+```
+
+### Součet
+
+```{r}
+ef_pub %>% 
+  count(wt = fin_vyuct_v_zop_czv/1e9)
+```
+
+### Oblasti intervencí
+
+```{r}
+ef_pub %>% 
+  select(prj_id, oblast_intervence_kod, fin_vyuct_v_zop_czv) %>% 
+  separate_rows(oblast_intervence_kod, sep = ";") %>% 
+  mutate(oblast_intervence_kod = str_trim(oblast_intervence_kod)) %>% 
+  group_by(oblast_intervence_kod) %>% 
+  mutate(oblast_intervence_count = n()) %>% 
+  count(oblast_intervence_kod, sort = T, wt = fin_vyuct_v_zop_czv/1e9)
 ```
 

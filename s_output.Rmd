@@ -1,0 +1,14 @@
+---
+title: "Výstup: dokumentace, validace"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+source("_targets_packages.R")
+```
+
+```{r}
+
+```
+

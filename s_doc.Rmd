@@ -1,0 +1,115 @@
+---
+title: "Základní dokumentace"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+source("_targets_packages.R")
+```
+
+```{r}
+cnf <- config::get()
+```
+
+## Základní analytická logika systému
+
+Cílem této datové pipeline je vytvořit vstupní data o výdajích z ESI fondů pro makroekonomické modely QUEST a HERMIN za období 2014-2020.
+
+Výsledkem je rozpad výdajů na kraje, čtvrletí a kategorie QUEST/HERMIN.
+
+Vycházíme z dat o projektech, platbách (ŽOP) a z očištěných dat o geolokaci projektů. Základním vstupem jsou sestavy z MSSF, od SZIF (pro PRV) a data o geolokaci projektů mimo PRV od MMR (výstup předchozího projektu.)
+
+## Data a rozhodnutí
+
+### MSSF a PRV
+
+#### Zdroje
+
+- data ke všem OP kromě PRV pochází ze sestav `` `r 
+cnf$sest_dir` ``. Nejsou zde data o příhraniční spolupráci. Název adresáře obsahuje datum, ke kterému jsou v sestavách aktuální data
+  - E001 Identifikace projektu: rozpad projektu na SC a ekonomické kategorie intervence
+  - E005 Kategorizace_oblast: oblasti intervence podle nařízení
+  - E003 Finance celkem: více finančních řezů, co řádek, to projekt
+  - E004 Žádosti o platbu: co řádek, to platba s datem
+- lokalizace projektů běžných OP:
+  - využíváme výstup předchozího projektu MMR - `Arrow` dataset v adresáři `` `r 
+  cnf$ef_obce_arrowdir` ``
+- data k PRV pochází od MZe a jsou výrazně jednodušší:
+  - jediná tabulka
+  - co řádek, to projekt, včetně financí a NUTS3 (každý projekt má jen jednu NUTS3)
+  
+##### Technické zádrhele u vstupních sestav
+
+- mezi verzí z ledna 2021 a května 2021 se mírně změnila struktura XLSX souborů - na začátku se změnil počet volných řádek. Toto tedy je nejpravděopdobnější zdroj chyb u dalších aktualizací sestav.
+- ve verzi z ledna 2021 bylo zmatení názvů a obsahu některých XLSX souborů
+- v XLSX s oblastmi intervencí zřejmě chybí sloupce s rozpadem na SC, přičemž ale projekty jsou na SC rozpadlé do řádek, proto součty peněz v jednom projektu přesahují 100 %.
+
+### Kategorizace pro makro modely
+
+Pro QUEST i HERMIN převádíme kategorizace z dat na kategorizace pro makro modely následně:
+
+- u běžných OP převádíme z oblasti intervencí (`oblast_intervence` z `E005 Kategorizace_oblast`) pro QUEST a pro jemnější členění kategorie AIS pro model HERMIN využíváme ekonomické kategorie (`katekon`) ze sestavy `001 Identifikace projektu`.
+- u PRV odvozujeme kategorie QUEST a HERMIN z kódu operace
+
+#### QUEST
+
+
+`` `r 
+cnf$c_mc_xlsx_q` ``
+
+`r DT::datatable(tar_read(macrocat_quest))`
+
+#### HERMIN
+
+`` `r 
+cnf$c_mc_xlsx_h` ``
+
+
+`r DT::datatable(tar_read(macrocat_hermin))`
+
+#### QUEST i HERMIN pro PRV 
+
+Zde jsou k zamyšlení operace 4.1.1, 4.2.1 a 6.1.1:
+
+```{r}
+targets::tar_read(efs_prv) %>% 
+  group_by(prv_operace_kod) %>% 
+  summarise(pocet = n(),
+            suma = sum(fin_vyuct_czv, na.rm = T)) %>% 
+  arrange(desc(suma))
+```
+
+```{r}
+tar_read(macrocat_prv) %>% filter(prv_operace_kod %in% c("4.1.1",
+                                                         "4.2.1",
+                                                         "6.1.1"))
+```
+
+
+`` `r 
+cnf$c_mc_xlsx_prv` ``
+
+`r DT::datatable(tar_read(macrocat_prv))`
+
+### Geografický rozpad
+
+- dataset geografické alokace projektů nepochází ze stejné sady sestav, proto ani časově neodpovídá (momentálně je starší o několik měsíců), proto se ne všechny projekty podařilo lokalizovat
+- dataset pochází z předchozího projektu, kde cílem bylo lokalizovat do obcí projekty často lokalizované jen na NUTS3
+- u projektů lokalizovaných do více krajů jsou ve výstupu dvě varianty rozpadu: podle počtu krajů, kde se projekt realizoval, a s každým krajem váženým podle poču obyvatel obcí, kde se projekt konal.
+- počty obyvatel pro toto vážení pochází z ČSÚ, dataset číslo [`` `r
+cnf$czso_pop_table_id` ``](https://www.czso.cz/csu/czso/obyvatelstvo-k-3112-podle-pohlavi-v-obcich) (průměr hodnot za roky 2014 až 2020)
+- geografické údaje obsažené v balíku sestav (E007 a E002) jsou pouze o sídle žadatele - z toho nelze usuzovat na lokalizaci projektu
+
+### Časování plateb
+
+- u části žádostí o platbu chyběla data proplacení žádosti, ale z čísla žádosti lze dovodit rok podání žádosti. U těchto žádostí rozkládáme datum proplacení rovnoměrně do všech kvartálů daného roku
+- nepracujeme tedy se začátkem a koncem realizace projektů
+- pro lepší přesnost by bylo vhodné tyto platby ještě posunout o cca 100 dnů (1 kvartál) dále v čase (odhadovaná prodleva mezi 30. 6. - coby očekávaná střední doba podání ŽOP v roce - a proplacením)
+
+### Hodnoty konfiguračních proměnných v souboru `config.yml`
+
+```{r}
+cnf
+```
+
