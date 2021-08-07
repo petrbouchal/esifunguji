@@ -23,11 +23,9 @@ source("R/utils.R")
 source("R/functions.R")
 
 cnf <- config::get(config = "default")
-
+list2env(cnf, envir = .GlobalEnv)
 
 # Public project data -----------------------------------------------------
-
-c_ef_pubxls_url <- cnf$doteu_xls_url
 
 t_public_list <- list(
   tar_download(ef_pubxls, c_ef_pubxls_url,
@@ -38,23 +36,16 @@ t_public_list <- list(
 
 # Custom MS sestavy -------------------------------------------------------
 
-sest_dir <- cnf$sest_dir
-sest_xlsx_prj <- cnf$sest_xlsx_prj
-sest_xlsx_fin <- cnf$sest_xlsx_fin
-sest_xlsx_zop <- cnf$sest_xlsx_zop
-sest_xlsx_obl <- cnf$sest_xlsx_obl
-prv_data_path <- cnf$prv_data
-
 t_sestavy <- list(
   # finanční pokrok
-  tar_target(efs_fin, load_efs_fin(sest_dir, sest_xlsx_fin)),
+  tar_target(efs_fin, load_efs_fin(c_sest_dir, c_sest_xlsx_fin)),
   # seznam ŽOPek
-  tar_target(efs_zop, load_efs_zop(sest_dir, sest_xlsx_zop)),
+  tar_target(efs_zop, load_efs_zop(c_sest_dir, c_sest_xlsx_zop)),
   # základní info o projektech
   # obsahuje ekonomické kategorie intervence, SC atd.
-  tar_target(efs_prj, load_efs_prj(sest_dir, sest_xlsx_prj)),
+  tar_target(efs_prj, load_efs_prj(c_sest_dir, c_sest_xlsx_prj)),
   # oblasti intervence
-  tar_target(efs_obl, load_efs_obl(sest_dir, sest_xlsx_obl)),
+  tar_target(efs_obl, load_efs_obl(c_sest_dir, c_sest_xlsx_obl)),
   # výřes základních informací o projektech
   tar_target(efs_prj_basic, efs_prj %>% select(-starts_with("katekon_"),
                                                -starts_with("sc_")) %>%
@@ -76,17 +67,14 @@ t_sestavy <- list(
   # a po čtvrtletích
   tar_target(efs_zop_quarterly, summarise_zop(efs_zop, quarterly = TRUE)),
   # načíst PRV
-  tar_target(efs_prv, load_prv(prv_data_path, cis_kraj)),
-  # posčítat platby za projekt po letech
+  tar_target(efs_prv, load_prv(c_prv_data_path, cis_kraj)),
+  # posčítat platby PRV za projekt po letech
   tar_target(efs_prv_annual, summarise_prv(efs_prv, quarterly = FALSE)),
-  # a po čtvrtletích
+  # a PRV po čtvrtletích
   tar_target(efs_prv_quarterly, summarise_prv(efs_prv, quarterly = TRUE))
 )
 
 # Geographically disaggregated (obce) ESIF data ---------------------------
-
-c_ef_obce_arrowdir <- cnf$ef_obce_arrowdir
-c_czso_pop_table_id <- cnf$czso_pop_table_id
 
 t_esif_obce <- list(
   tar_file(esif_obce, c_ef_obce_arrowdir),
@@ -104,16 +92,12 @@ t_esif_obce <- list(
 
 # Modeling categorisations ------------------------------------------------
 
-c_mc_xlsx_q <- cnf$c_mc_xlsx_q
-c_mc_xlsx_h <- cnf$c_mc_xlsx_h
-c_mc_xlsx_q_prv <- cnf$c_mc_xlsx_q_prv
-
 # dodané a ručně upravené vazby
 t_cats <- list(
   # QUEST kategorie <=> oblast intervence
   tar_target(macrocat_quest, load_macrocat_quest(c_mc_xlsx_q, prv = FALSE)),
   # QUEST <=> typ operace v PRV
-  tar_target(macrocat_quest_prv, load_macrocat_quest(c_mc_xlsx_q_prv, prv = TRUE)),
+  tar_target(macrocat_prv, load_macrocat_quest(c_mc_xlsx_prv, prv = TRUE)),
   # HERMIN podkategorie QUEST AIS <=> kategorie intervence
   tar_target(macrocat_hermin, load_macrocat_hermin(c_mc_xlsx_h)),
   # rozkategorizovat všechna data
@@ -144,12 +128,9 @@ t_compile <- list(
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
 
-c_ef_hier_path <- cnf$hier_excel_path
-c_ef_hier_sheet <- cnf$hier_excel_sheet
-
 t_hier <- list(
-  tar_file(ef_hier_path, c_ef_hier_path),
-  tar_target(ef_hier_raw, load_hierarchy(ef_hier_path, c_ef_hier_sheet)),
+  tar_file(ef_hier_path, c_hier_excel_path),
+  tar_target(ef_hier_raw, load_hierarchy(c_hier_excel_path, c_hier_excel_sheet)),
   tar_target(ef_hier, process_hierarchy(ef_hier_raw, efs_prj))
 )
 
@@ -189,10 +170,6 @@ t_sp_codelists <- list(
 
 # read_tarrow(target_name)
 
-c_sp_years_central_new <- cnf$sp_years_central_new
-c_sp_months_central_new <- cnf$sp_months_central_new
-c_sp_central_arrowdir_new <- cnf$sp_central_arrowdir_new
-
 t_sp_data_central_new <- list(
   tar_target(d_years, c_sp_years_central_new),
   tar_target(d_years_ptrn, d_years, pattern = map(d_years)),
@@ -217,10 +194,6 @@ t_sp_data_central_new <- list(
 
 # read_tarrow(target_name)
 
-c_sp_years_local <- cnf$sp_years_local
-c_sp_months_local <- cnf$sp_months_local
-c_sp_local_arrowdir <- cnf$sp_local_arrowdir
-
 t_sp_data_local <- list(
   tar_target(d_years_l, c_sp_years_local),
   tar_target(d_years_l_ptrn, d_years_l, pattern = map(d_years_l)),
@@ -242,10 +215,6 @@ t_sp_data_local <- list(
 
 # Pre-2015 central budget data --------------------------------------------
 
-c_sp_years_central_old <- cnf$sp_years_central_old
-c_sp_months_central_old<- cnf$sp_months_central_old
-c_sp_central_arrowdir_old <- cnf$sp_central_arrowdir_old
-
 t_sp_data_central_old <- list(
   tar_target(d_years_o, c_sp_years_central_old),
   tar_target(d_years_o_ptrn, d_years_o, pattern = map(d_years_o)),
@@ -266,8 +235,6 @@ t_sp_data_central_old <- list(
 )
 
 # Local budgets - grants --------------------------------------------------
-
-c_sp_local_grants_arrowdir <- cnf$sp_local_grants_arrowdir
 
 t_sp_data_local_grants <- list(
   tar_target(table_file_lg, sp_get_table_file("budget-local-purpose-grants",

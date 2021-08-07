@@ -1,50 +1,57 @@
 default:
 
   # settings for MISRIS (central budget starting from 2015)
-  sp_years_central_new: !expr 2015:2020 # which years to download
-  sp_months_central_new: 12 # which month's data to download
-  sp_central_arrowdir_new: "data-processed/sp-central-new-arr"
+  c_sp_years_central_new: !expr 2015:2020 # which years to download
+  c_sp_months_central_new: 12 # which month's data to download
+  c_sp_central_arrowdir_new: "data-processed/sp-central-new-arr"
 
 
-  sp_nastroj_ids_1420_ops: ["102", "103", "104", "105", "106", "107", "108", "109"]
-  sp_nastroj_ids_1420_prv: ["130", "187"]
+  c_sp_nastroj_ids_1420_ops: ["102", "103", "104", "105", "106", "107", "108", "109"]
+  c_sp_nastroj_ids_1420_prv: ["130", "187"]
 
   # settings for FINU (central budget 2010-2014)
-  sp_years_central_old: !expr 2010:2014
-  sp_months_central_old: 12
-  sp_central_arrowdir_old: "data-processed/sp-central-old-arr"
+  c_sp_years_central_old: !expr 2010:2014
+  c_sp_months_central_old: 12
+  c_sp_central_arrowdir_old: "data-processed/sp-central-old-arr"
 
   # settings for FINM (local budget 2010-2014)
-  sp_years_local: !expr 2010:2020
-  sp_months_local: 12
-  sp_local_arrowdir: "data-processed/sp-local-arr"
-  sp_local_grants_arrowdir: "data-processed/sp-local-grants-arr"
+  c_sp_years_local: !expr 2010:2020
+  c_sp_months_local: 12
+  c_sp_local_arrowdir: "data-processed/sp-local-arr"
+  c_sp_local_grants_arrowdir: "data-processed/sp-local-grants-arr"
 
   # URL for getting project data
-  doteu_xls_url: https://dotaceeu.cz/getmedia/6043cc3d-ca8c-4866-ba4a-25d0184d1269/2021_02-Seznam-operaci-_List-of-operations_1.xls.aspx?ext=.xls
+  c_ef_pubxls_url: https://dotaceeu.cz/getmedia/6297d56b-0b57-418d-ad25-dd16bd687479/2021_06-Seznam-operaci-_-List-of-operations.xls.aspx?ext=.xls
 
   # sestavy from MS
-  sest_dir: "data-input/sestavy"
-  sest_xlsx_prj: "E001 Identifikace projektu 20210128.xlsx"
-  sest_xlsx_fin: "E003 Finance celkem 20210128.xlsx"
-  sest_xlsx_zop: "E004 Žádosti o platbu 20210128.xlsx"
-  sest_xlsx_obl: "E005 Kategorizace_oblast 20210128.xlsx"
+  c_sest_dir: "data-input/sestavy 20210528"
+  c_sest_xlsx_prj: "E001 Identifikace projektu.xlsx"
+  c_sest_xlsx_fin: "E003 Finance celkem.xlsx"
+  c_sest_xlsx_zop: "E004 Žádosti o platbu.xlsx"
+  c_sest_xlsx_obl: "E005 Kategorizace_oblast.xlsx"
 
   # PRV data-input
 
-  prv_data: "data-input/prv/PRV 2014-20 k XII. 2020.XLSX"
+  c_prv_data_path: "data-input/prv/PRV 2014-20 k XII. 2020.XLSX"
 
   # Quest/Hermin categorisations
   c_mc_xlsx_q: "data-input/kategorie_questNEW.xlsx"
   c_mc_xlsx_h: "data-input/AIS_desagregace_rHERMIN.xlsx"
-  c_mc_xlsx_q_prv: "data-input/prv/Navrh - KATEGORIZACE - Operace PRV + priority.xlsx"
+  c_mc_xlsx_prv: "data-input/prv/Navrh - KATEGORIZACE - Operace PRV + priority.xlsx"
 
   # Arrow directory of cleaned up geolocation data for projects
-  ef_obce_arrowdir: "data-input/esif-projekty-obce"
+  c_ef_obce_arrowdir: "data-input/esif-projekty-obce"
 
   # Excel file with hierarchy of all objectives and categories
-  hier_excel_path: "data-input/matice/Hierarchie_uprava_CSR_NPR-O27-uprava_20210125.xlsx"
-  hier_excel_sheet: SC
+  c_hier_excel_path: "data-input/matice/Hierarchie_uprava_CSR_NPR-O27-uprava_20210125.xlsx"
+  c_hier_excel_sheet: SC
 
   # IDs
-  czso_pop_table_id: "130149"
+  c_czso_pop_table_id: "130149"
+
+  # export location
+  c_macro_export_dir: "data-export/export_202108"
+  c_macro_export_xlsx_a: "macro-sum_quarterly.xlsx"
+  c_macro_export_xlsx_q: "macro-sum_annual.xlsx"
+  c_macro_export_csv_a: "macro-sum_quarterly.csv"
+  c_macro_export_csv_q: "macro-sum_annual.csv"
