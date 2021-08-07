@@ -2,7 +2,7 @@ name: ESIF data pro makromodelování
 output_dir: docs
 lang: cs
 include: ["demo.R"]
-exclude: ["LICENSE.md", "*.csv", "*.rds", "renv", "renv.lock", "data-input", "data-output", "data-processed", "sp_data", "config.yml", "R", "data-export"]
+exclude: ["LICENSE.md", "*.csv", "*.rds", "renv", "renv.lock", "data-input", "data-output", "data-processed", "sp_data", "config.yml", "R", "data-export", "scripts"]
 navbar:
   title: "ESIF data"
   left:
@@ -13,7 +13,7 @@ navbar:
   - text: Validace vstupů
     href: s_inputchecks.html
   - text: Validace & dokumentace výstupů
-    href: s_outputchecks.html
+    href: s_output.html
   - text: Technická dokumentace
     href: dev.html
   right:

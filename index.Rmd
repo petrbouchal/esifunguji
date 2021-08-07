@@ -53,39 +53,8 @@ meta() %>%
   )
 ```
 
-# {.tabset}
-
-## Tab 1 {.tabset .tabset-pills} 
-
-```{r tab1}
-ds <- arrow::open_dataset(targets::tar_read(sp_central_old_arrdir))
+```{r x, child='README.Rmd'}
 ```
 
-```{r}
-ds
-```
-
-
-### Subtab 1
-
-
-```{r subtab2}
-library(ggplot2)
-
-ggplot(mtcars) +
-  geom_point(aes(mpg, wt)) +
-  ggtitle("Abc 123 xyx") +
-  theme_ptrr()
-```
-
-"Hello"
-
-### Subtab 2
-
-## Data & disclaimer
-
-Text
-
-# 
 
 Last built on `r format(lubridate::now("CET"), "%Y-%m-%d %H:%M %Z")`

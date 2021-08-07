@@ -24,7 +24,10 @@ společné evropské politiky podpory a pomoci, ESI a obdobných fondů na
 
 Detailnější dokumentace k pipelinu na tvorbu dat pro makro modely:
 
--   
+-   [obsahová dokumentace](s_doc.html)
+-   [vstupní validace dat](s_inputchecks.html)
+-   [dokumantace a validace výstupu](s_output.html)
+-   [technická dokumentace](dev.html)
 
 Relevantní předchozí publikace v této oblasti:
 
