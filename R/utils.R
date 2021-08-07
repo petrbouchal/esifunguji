@@ -16,7 +16,8 @@ op_labels <- tibble::tribble(
   mutate(op_nazev_zkr = str_replace(op_nazev, "[Oo]perační program|INTERREG V-A", "OP") %>%
            str_replace("Česká republika", "ČR"))
 
-add_op_labels <- function(data, abbrevs = op_labels, drop_orig = TRUE, drop_duplicate_cols = T) {
+add_op_labels <- function(data, abbrevs = op_labels,
+                          drop_orig = TRUE, drop_duplicate_cols = T) {
 
   if(!"op_id" %in% names(data) & "prj_id" %in% names(data)) {
     data$op_id <- str_sub(data$prj_id, 4, 5)
@@ -47,3 +48,11 @@ nastroj_op <- tibble::tribble(~nastroj_id, ~op_id,
                       "110",       "11",
                       "130",       "YY",
                       "187",       "YY")
+
+extract_cl <- function(cl_target_list, cl_string) {
+
+  cl_branchname <- names(cl_target_list)[str_detect(names(cl_target_list),
+                                                  paste0(cl_string, "$"))]
+  cl <- cl_target_list[[cl_branchname]]
+  return(cl)
+}

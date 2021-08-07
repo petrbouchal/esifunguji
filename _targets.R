@@ -2,17 +2,17 @@ library(targets)
 library(tarchetypes)
 library(future)
 
-
 # Config ------------------------------------------------------------------
 
 # Set target-specific options such as packages.
 tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
                             "janitor", "curl", "httr", "stringr", "config",
                             "dplyr", "purrrow", "future", "arrow", "tidyr",
-                            "ragg", "magrittr", "czso", "lubridate"),
-               # debug = "sp_local_arrdir",
+                            "ragg", "magrittr", "czso", "lubridate", "writexl",
+                            "readr", "purrr", "pointblank"),
+               # debug = "compiled_macro_quarterly",
                imports = c("purrrow", "statnipokladna"),
-               )
+)
 
 options(crayon.enabled = TRUE,
         scipen = 100)
@@ -96,7 +96,7 @@ t_esif_obce <- list(
 t_cats <- list(
   # QUEST kategorie <=> oblast intervence
   tar_target(macrocat_quest, load_macrocat_quest(c_mc_xlsx_q, prv = FALSE)),
-  # QUEST <=> typ operace v PRV
+  # QUEST a HERMIN <=> typ operace v PRV (u PRV máme HERMIN a QUEST v jedné tabulce)
   tar_target(macrocat_prv, load_macrocat_quest(c_mc_xlsx_prv, prv = TRUE)),
   # HERMIN podkategorie QUEST AIS <=> kategorie intervence
   tar_target(macrocat_hermin, load_macrocat_hermin(c_mc_xlsx_h)),
@@ -109,19 +109,52 @@ t_cats <- list(
 
 # Compile for macro -------------------------------------------------------
 
-t_compile <- list(
+t_macro_compile <- list(
   # rozpad na kraj x platby po letech x makro kategorie => sečíst
-  tar_target(compiled_macro_quarterly, compile_ef(efs_macrocat, eo_kraj, efs_zop_quarterly)),
-  # U PRV jen stačí navázat makro kategorizaci a sečíst letech/kvartálech
-  tar_target(compiled_macro_prv_quarterly, compile_ef_prv(efs_prv_quarterly, macrocat_quest_prv)),
+  tar_target(compiled_macro_quarterly,
+             compile_ef(efs_macrocat, eo_kraj, efs_zop_quarterly)),
+  # U PRV jen stačí navázat makro kategorizaci a sečíst po letech/kvartálech
+  tar_target(compiled_macro_prv_quarterly,
+             compile_ef_prv(efs_prv_quarterly, macrocat_prv)),
   # spojit PRV a ostatní po letech
-  tar_target(compiled_macro_sum_annual, summarise_macro(compiled_macro_quarterly,
-                                                 compiled_macro_prv_quarterly,
-                                                 quarterly = FALSE)),
+  tar_target(compiled_macro_sum_annual,
+             summarise_macro(compiled_macro_quarterly,
+                             compiled_macro_prv_quarterly,
+                             quarterly = FALSE)),
   # spojit PRV a ostatní po kvartálech
-  tar_target(compiled_macro_sum_quarterly, summarise_macro(compiled_macro_quarterly,
-                                                 compiled_macro_prv_quarterly,
-                                                 quarterly = TRUE))
+  tar_target(compiled_macro_sum_quarterly,
+             summarise_macro(compiled_macro_quarterly,
+                             compiled_macro_prv_quarterly,
+                             quarterly = TRUE))
+)
+
+
+# Compile by OP -----------------------------------------------------------
+
+t_op_compile <- list(
+  tar_target(compiled_op_sum,
+             summarise_by_op(efs_zop_quarterly, efs_prv_quarterly)))
+
+
+# Export data for macro models --------------------------------------------
+
+t_macro_export <- list(
+  tar_file(macro_export_annual_csv,
+           export_table(compiled_macro_sum_annual,
+                        here::here(c_macro_export_dir, c_macro_export_csv_a),
+                        write_excel_csv2)),
+  tar_file(macro_export_quarterly_csv,
+           export_table(compiled_macro_sum_quarterly,
+                        here::here(c_macro_export_dir, c_macro_export_csv_q),
+                        write_excel_csv2)),
+  tar_file(macro_export_annual_excel,
+           export_table(compiled_macro_sum_annual,
+                        here::here(c_macro_export_dir, c_macro_export_xlsx_a),
+                        write_xlsx)),
+  tar_file(macro_export_quarterly_excel,
+           export_table(compiled_macro_sum_quarterly,
+                        here::here(c_macro_export_dir, c_macro_export_xlsx_q),
+                        write_xlsx))
 )
 
 # Objective/category hierarchy --------------------------------------------
@@ -258,4 +291,6 @@ source("R/html_output.R")
 list(t_public_list, t_sp_codelists, t_sp_data_central_new,
      t_cats,
      t_sp_data_central_old, t_html, t_sp_data_local, t_esif_obce,
-     t_sp_data_local_grants, t_sestavy, t_hier, t_compile)
+     t_sp_data_local_grants, t_sestavy, t_hier,
+     t_op_compile,
+     t_macro_compile, t_macro_export)

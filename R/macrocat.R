@@ -7,7 +7,13 @@ load_macrocat_quest <- function(quest_path, prv) {
     rename(q, prv_operace = id_operace) %>%
       separate(prv_operace, into = c("prv_operace_kod", "prv_operace_nazev"),
                sep = " ", extra = "merge") %>%
-      select(starts_with("prv_operace"), quest_class)
+      replace_na(list(hermin_type = "")) %>%
+      mutate(hermin_class = if_else(quest_class != "AIS",
+                                    quest_class,
+                                    # for PRV, we have QUEST and HERMIN
+                                    # categorisations in one file
+                                    paste0(quest_class, hermin_type))) %>%
+      select(starts_with("prv_operace"), quest_class, hermin_class)
   }  else {
     rename(q, quest_class = class)
   }
@@ -40,20 +46,41 @@ compile_ef <- function(efs_macrocat, eo_kraj, efs_zop_annual) {
   efs_macrocat %>%
     full_join(eo_kraj, by = "prj_id") %>%
     full_join(efs_zop_annual, by = "prj_id") %>%
-    mutate(across(starts_with("fin_"), ~.x * hermin_podil * kraj_podil_wtpocetobyv))
+    mutate(across(starts_with("fin_"),
+                  ~.x * hermin_podil * kraj_podil_wtpocetobyv,
+                  .names = "{.col}_wt_pocetobyv"),
+           across(.cols = c(starts_with("fin_"), -contains("_wt_")),
+                  ~.x * hermin_podil * kraj_podil_wtpocetkraju,
+                  .names = "{.col}_wt_pocetkraju"))
 }
 
 compile_ef_prv <- function(efs_prv, macrocat_quest_prv) {
   efs_prv %>%
-    left_join(macrocat_quest_prv, by = "prv_operace_kod")
+    left_join(macrocat_quest_prv, by = "prv_operace_kod") %>%
+    mutate(hermin_podil = 1) %>%
+    mutate(across(starts_with("fin_"),
+                  ~.x,
+                  .names = "{.col}_wt_pocetobyv"),
+           across(.cols = c(starts_with("fin_"), -contains("_wt_")),
+                  ~.x,
+                  .names = "{.col}_wt_pocetkraju"))
 }
 
-summarise_macro <- function(prv, other, quarterly) {
-  bnd <- bind_rows(prv, other)
+summarise_macro <- function(other, prv, quarterly) {
+  other$source = "mssf"
+  prv$source = "prv"
+  bnd <- bind_rows(other, prv)
   grp <- bnd %>%
-    group_by(zop_rok, kraj_id, quest_class, hermin_class)
+    group_by(zop_rok, kraj_id, quest_class, hermin_class, source)
   if (quarterly) {
     grp <- group_by(grp, zop_kvartal, .add = TRUE)
   }
   summarise(grp, across(starts_with("fin_"), sum, na.rm = TRUE), .groups = "drop")
+}
+
+export_table <- function(data, path, fun, ...) {
+
+  fun(data, path, ...)
+
+  return(path)
 }
