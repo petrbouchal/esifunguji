@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Input checks</title>
+
+<script src="site_libs/header-attrs-2.9.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="site/site.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ESIF data</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="README.html">Základní info</a>
+</li>
+<li>
+  <a href="s_doc.html">Dokumentace</a>
+</li>
+<li>
+  <a href="s_inputchecks.html">Validace vstupů</a>
+</li>
+<li>
+  <a href="s_outputchecks.html">Validace &amp; dokumentace výstupů</a>
+</li>
+<li>
+  <a href="dev.html">Technická dokumentace</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/petrbouchal/esifunguji">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://petrbouchal.xyz">
+    <span class="fas fa-asterisk fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Input checks</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#vstupní-kontrola-dat">Vstupní kontrola dat</a>
+<ul>
+<li><a href="#rozpočty">Rozpočty</a>
+<ul>
+<li><a href="#příjmy-a-výdaje-centrální">Příjmy a výdaje centrální</a></li>
+<li><a href="#příjmy-a-výdaje-samospráv">Příjmy a výdaje samospráv</a></li>
+<li><a href="#lokální-přijaté-od-státu">Lokální přijaté od státu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="vstupní-kontrola-dat" class="section level1 tabset">
+<h1 class="tabset">Vstupní kontrola dat</h1>
+<div id="rozpočty" class="section level2">
+<h2>Rozpočty</h2>
+<p><a href="https://monitor.statnipokladna.cz/analyza/##query=uq_247a15da-aad1-4ddb-889d-6b8b76dd4a61" class="uri">https://monitor.statnipokladna.cz/analyza/##query=uq_247a15da-aad1-4ddb-889d-6b8b76dd4a61</a></p>
+<div id="příjmy-a-výdaje-centrální" class="section level3">
+<h3>Příjmy a výdaje centrální</h3>
+<p>Podle Monitoru:</p>
+<p><img src="site/images/monitor-soucty-sr.png" /></p>
+<p>Z dat:</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["per_yr"],"name":[1],"type":["int"],"align":["right"]},{"label":["Financování"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Příjmy"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Výdaje"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"2010","2":"156.416384","3":"1000.371","4":"1156.793"},{"1":"2011","2":"142.770832","3":"1012.755","4":"1155.526"},{"1":"2012","2":"100.999808","3":"1051.387","4":"1152.387"},{"1":"2013","2":"81.264427","3":"1091.863","4":"1173.128"},{"1":"2014","2":"77.782245","3":"1133.826","4":"1211.608"},{"1":"2015","2":"62.804243","3":"1234.517","4":"1297.322"},{"1":"2016","2":"-61.774041","3":"1281.618","4":"1219.844"},{"1":"2017","2":"6.151274","3":"1273.644","4":"1279.796"},{"1":"2018","2":"-2.943629","3":"1403.918","4":"1400.974"},{"1":"2019","2":"28.515737","3":"1523.222","4":"1551.738"},{"1":"2020","2":"367.449975","3":"1475.479","4":"1842.929"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div id="op-v-tom" class="section level4">
+<h4>OP v tom</h4>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["n"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"377.1267"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["seskupeni"],"name":[1],"type":["chr"],"align":["left"]},{"label":["podseskupeni"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Investiční nákupy a související výdaje","2":"Pořízení dlouhodobého hmotného majetku","3":"4.1114333367"},{"1":"Investiční nákupy a související výdaje","2":"Pořízení dlouhodobého nehmotného majetku","3":"0.7451477102"},{"1":"Investiční transfery","2":"Investiční převody vlastním fondům","3":"0.0000000000"},{"1":"Investiční transfery","2":"Investiční transfery neziskovým a podobným organizacím","3":"5.4216310993"},{"1":"Investiční transfery","2":"Investiční transfery obyvatelstvu","3":"0.0699949117"},{"1":"Investiční transfery","2":"Investiční transfery podnikatelským subjektům","3":"44.5705336401"},{"1":"Investiční transfery","2":"Investiční transfery příspěvkovým a podobným organizacím","3":"27.7702486705"},{"1":"Investiční transfery","2":"Investiční transfery veřejným rozpočtům ústřední úrovně","3":"75.9046992931"},{"1":"Investiční transfery","2":"Investiční transfery veřejným rozpočtům územní úrovně","3":"72.2746464049"},{"1":"Neinvestiční nákupy a související výdaje","2":"Nákup materiálu","3":"0.2138412148"},{"1":"Neinvestiční nákupy a související výdaje","2":"Nákup služeb","3":"2.9115989296"},{"1":"Neinvestiční nákupy a související výdaje","2":"Nákup vody, paliv a energie","3":"0.0602225217"},{"1":"Neinvestiční nákupy a související výdaje","2":"Ostatní nákupy","3":"0.2502348993"},{"1":"Neinvestiční nákupy a související výdaje","2":"Poskytnuté zálohy, jistiny, záruky a vládní úvěry","3":"0.0000000000"},{"1":"Neinvestiční nákupy a související výdaje","2":"Výdaje na některé úpravy hmotných věcí a pořízení některých práv k hmotným věcem","3":"0.0000227920"},{"1":"Neinvestiční nákupy a související výdaje","2":"Výdaje na netransferové převody uvnitř organizace, na převzaté povinnosti a na jistoty","3":"0.0000000000"},{"1":"Neinvestiční nákupy a související výdaje","2":"Výdaje související s neinvestičními nákupy, příspěvky, náhrady a věcné dary","3":"0.0050875275"},{"1":"Neinvestiční půjčené prostředky","2":"Neinvestiční půjčené prostředky neziskovým a podobným organizacím","3":"0.0000000000"},{"1":"Neinvestiční transfery a související platby do zahraničí","2":"Neinvestiční transfery mezinárodním vládním organizacím a nadnárodním orgánům","3":"0.0001466094"},{"1":"Neinvestiční transfery a související platby do zahraničí","2":"Ostatní neinvestiční transfery do zahraničí","3":"0.5384500000"},{"1":"Neinvestiční transfery obyvatelstvu","2":"Náhrady placené obyvatelstvu","3":"0.0365233897"},{"1":"Neinvestiční transfery obyvatelstvu","2":"Ostatní neinvestiční transfery obyvatelstvu","3":"0.0492296370"},{"1":"Neinvestiční transfery soukromoprávním subjektům","2":"Neinvestiční transfery neziskovým a podobným organizacím","3":"20.4124342964"},{"1":"Neinvestiční transfery soukromoprávním subjektům","2":"Neinvestiční transfery podnikatelským subjektům","3":"40.3368397586"},{"1":"Neinvestiční transfery veřejnoprávním subjektům a mezi peněžními fondy téhož subjektu a platby daní","2":"Neinvestiční převody vlastním fondům a ve vztahu k útvarům bez plné právní subjektivity","3":"0.0379655703"},{"1":"Neinvestiční transfery veřejnoprávním subjektům a mezi peněžními fondy téhož subjektu a platby daní","2":"Neinvestiční transfery příspěvkovým a podobným organizacím","3":"26.6987548929"},{"1":"Neinvestiční transfery veřejnoprávním subjektům a mezi peněžními fondy téhož subjektu a platby daní","2":"Neinvestiční transfery veřejným rozpočtům ústřední úrovně","3":"1.0655225044"},{"1":"Neinvestiční transfery veřejnoprávním subjektům a mezi peněžními fondy téhož subjektu a platby daní","2":"Neinvestiční transfery veřejným rozpočtům územní úrovně","3":"34.0411703164"},{"1":"Neinvestiční transfery veřejnoprávním subjektům a mezi peněžními fondy téhož subjektu a platby daní","2":"Ostatní neinvestiční transfery jiným veřejným rozpočtům, platby daní a další povinné platby","3":"0.0002246200"},{"1":"Neinvestiční transfery veřejnoprávním subjektům a mezi peněžními fondy téhož subjektu a platby daní","2":"Převody vlastním fondům a ve vztahu k útvarům bez plné právní subjektivity","3":"0.1051295352"},{"1":"Neinvestiční transfery veřejnoprávním subjektům amezi peněžními fondy téhož subjektu","2":"Neinvestiční transfery příspěvkovým a podobným organizacím","3":"1.6780676874"},{"1":"Neinvestiční transfery veřejnoprávním subjektům amezi peněžními fondy téhož subjektu","2":"Neinvestiční transfery veřejným rozpočtům ústřední úrovně","3":"0.1442227711"},{"1":"Neinvestiční transfery veřejnoprávním subjektům amezi peněžními fondy téhož subjektu","2":"Neinvestiční transfery veřejným rozpočtům územní úrovně","3":"4.5091445472"},{"1":"Neinvestiční transfery veřejnoprávním subjektům amezi peněžními fondy téhož subjektu","2":"Ostatní neinvestiční transfery jiným veřejným rozpočtům","3":"0.0000195000"},{"1":"Neinvestiční transfery veřejnoprávním subjektům amezi peněžními fondy téhož subjektu","2":"Převody vlastním fondům a ve vztahu k útvarům bez plné právní subjektivity","3":"0.0176845176"},{"1":"Ostatní kapitálové výdaje","2":"Ostatní kapitálové výdaje","3":"0.0003230700"},{"1":"Ostatní neinvestiční výdaje","2":"Dočasné zatřídění výdajů","3":"0.0000000000"},{"1":"Ostatní neinvestiční výdaje","2":"Ostatní neinvestiční výdaje","3":"0.6319794638"},{"1":"Platy a podobné a související výdaje","2":"Odměny za užití duševního vlastnictví","3":"0.0061811609"},{"1":"Platy a podobné a související výdaje","2":"Ostatní platby za provedenou práci","3":"1.1031454911"},{"1":"Platy a podobné a související výdaje","2":"Platy","3":"8.2939110624"},{"1":"Platy a podobné a související výdaje","2":"Povinné pojistné placené zaměstnavatelem","3":"3.1102601364"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["nastroj_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["nastroj_nazev"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"131","2":"Přímé platby zemědělcům 2014+","3":"132.70638598"},{"1":"105","2":"OP Doprava 2014+","3":"78.99817612"},{"1":"107","2":"Integrovaný regionální operační program 2014+","3":"74.12429591"},{"1":"130","2":"Program rozvoje venkova 2014+","3":"70.76859817"},{"1":"103","2":"OP Výzkum,vývoj a vzdělávání 2014+","3":"68.70769496"},{"1":"104","2":"OP Zaměstnanost 2014+","3":"53.95845694"},{"1":"102","2":"OP Podnikání a inovace pro konkurenceschopnost 2014+","3":"51.40644282"},{"1":"106","2":"OP Životní prostředí 2014+","3":"42.03147910"},{"1":"121","2":"Komunitární programy 2014+","3":"12.01009419"},{"1":"132","2":"Společná organizace trhu 2014+","3":"5.63684302"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4.79997162"},{"1":"187","2":"Program rozvoje venkova 2014+ ÚO","3":"4.01308336"},{"1":"108","2":"OP Praha - pól růstu ČR 2014+","3":"2.92294000"},{"1":"120","2":"Jiné EU 2014+","3":"2.18478759"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"0.68164431"},{"1":"101","2":"OP Rybářství 2014+","3":"0.54544834"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"0.06634241"},{"1":"112","2":"OP meziregionální spolupráce - Technická pomoc 2014+","3":"0.01028136"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["nastroj_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["nastroj_nazev"],"name":[2],"type":["chr"],"align":["left"]},{"label":["zdroj"],"name":[3],"type":["chr"],"align":["left"]},{"label":["zdroj_nazev"],"name":[4],"type":["chr"],"align":["left"]},{"label":["n"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"131","2":"Přímé platby zemědělcům 2014+","3":"1513100","4":"EU - Přímé platby zemědělcům 2014+","5":"76.50"},{"1":"131","2":"Přímé platby zemědělcům 2014+","3":"4513100","4":"Nároky - EU - Přímé platby zemědělcům 2014+","5":"51.70"},{"1":"105","2":"OP Doprava 2014+","3":"1510502","4":"EU - OP Doprava - CF 2014+","5":"45.11"},{"1":"107","2":"Integrovaný regionální operační program 2014+","3":"1510700","4":"EU - Integrovaný regionální operační program 2014+","5":"43.96"},{"1":"103","2":"OP Výzkum,vývoj a vzdělávání 2014+","3":"1510300","4":"EU - OP Výzkum,vývoj a vzdělávání 2014+","5":"38.20"},{"1":"104","2":"OP Zaměstnanost 2014+","3":"1510400","4":"EU - OP Zaměstnanost 2014+","5":"36.34"},{"1":"130","2":"Program rozvoje venkova 2014+","3":"1513000","4":"EU - Program rozvoje venkova 2014+","5":"35.23"},{"1":"102","2":"OP Podnikání a inovace pro konkurenceschopnost 2014+","3":"1510200","4":"EU - OP Podnikání a inovace pro konkurenceschopnost 2014+","5":"31.14"},{"1":"106","2":"OP Životní prostředí 2014+","3":"1510602","4":"EU - OP Životní prostředí - CF 2014+","5":"26.14"},{"1":"107","2":"Integrovaný regionální operační program 2014+","3":"4510700","4":"Nároky - EU - Integrovaný regionální operační program 2014+","5":"25.64"},{"1":"105","2":"OP Doprava 2014+","3":"4510502","4":"Nároky - EU - OP Doprava - CF 2014+","5":"21.94"},{"1":"102","2":"OP Podnikání a inovace pro konkurenceschopnost 2014+","3":"4510200","4":"Nároky - EU - OP Podnikání a inovace pro konkurenceschopnost 2014+","5":"19.25"},{"1":"103","2":"OP Výzkum,vývoj a vzdělávání 2014+","3":"4510300","4":"Nároky - EU - OP Výzkum,vývoj a vzdělávání 2014+","5":"19.02"},{"1":"130","2":"Program rozvoje venkova 2014+","3":"1113000","4":"SR - Program rozvoje venkova 2014+","5":"18.57"},{"1":"130","2":"Program rozvoje venkova 2014+","3":"4513000","4":"Nároky - EU - Program rozvoje venkova 2014+","5":"11.81"},{"1":"106","2":"OP Životní prostředí 2014+","3":"4510602","4":"Nároky - EU - OP Životní prostředí - CF 2014+","5":"10.47"},{"1":"104","2":"OP Zaměstnanost 2014+","3":"4510400","4":"Nároky - EU - OP Zaměstnanost 2014+","5":"8.00"},{"1":"121","2":"Komunitární programy 2014+","3":"4512101","4":"Nároky - EU - KP - Nástroj pro propojení Evropy 2014+","5":"7.19"},{"1":"103","2":"OP Výzkum,vývoj a vzdělávání 2014+","3":"4110300","4":"Nároky - SR - OP Výzkum,vývoj a vzdělávání 2014+","5":"6.22"},{"1":"104","2":"OP Zaměstnanost 2014+","3":"1110400","4":"SR - OP Zaměstnanost 2014+","5":"6.13"},{"1":"105","2":"OP Doprava 2014+","3":"1510501","4":"EU - OP Doprava - ERDF 2014+","5":"5.62"},{"1":"130","2":"Program rozvoje venkova 2014+","3":"4113000","4":"Nároky - SR - Program rozvoje venkova 2014+","5":"5.08"},{"1":"105","2":"OP Doprava 2014+","3":"4510501","4":"Nároky - EU - OP Doprava - ERDF 2014+","5":"4.57"},{"1":"103","2":"OP Výzkum,vývoj a vzdělávání 2014+","3":"1110300","4":"SR - OP Výzkum,vývoj a vzdělávání 2014+","5":"4.35"},{"1":"107","2":"Integrovaný regionální operační program 2014+","3":"4110700","4":"Nároky - SR - Integrovaný regionální operační program 2014+","5":"3.42"},{"1":"187","2":"Program rozvoje venkova 2014+ ÚO","3":"1118700","4":"SR - Program rozvoje venkova 2014+ ÚO","5":"3.10"},{"1":"121","2":"Komunitární programy 2014+","3":"1512101","4":"EU - KP - Nástroj pro propojení Evropy 2014+","5":"2.91"},{"1":"108","2":"OP Praha - pól růstu ČR 2014+","3":"1510800","4":"EU - OP Praha - pól růstu ČR 2014+","5":"2.73"},{"1":"131","2":"Přímé platby zemědělcům 2014+","3":"1113100","4":"SR - Přímé platby zemědělcům 2014+","5":"2.30"},{"1":"106","2":"OP Životní prostředí 2014+","3":"4510601","4":"Nároky - EU - OP Životní prostředí - ERDF2014+","5":"2.27"},{"1":"131","2":"Přímé platby zemědělcům 2014+","3":"4113100","4":"Nároky - SR - Přímé platby zemědělcům 2014+","5":"2.22"},{"1":"132","2":"Společná organizace trhu 2014+","3":"1513201","4":"EU - Společná organizace trhu - mimo včely 2014+","5":"2.07"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1510901","4":"EU - OP Technická pomoc - MMR 2014+","5":"1.92"},{"1":"104","2":"OP Zaměstnanost 2014+","3":"4110400","4":"Nároky - SR - OP Zaměstnanost 2014+","5":"1.61"},{"1":"121","2":"Komunitární programy 2014+","3":"2512101","4":"RF EU - KP - Nástroj pro propojení Evropy 2014+","5":"1.53"},{"1":"106","2":"OP Životní prostředí 2014+","3":"1510601","4":"EU - OP Životní prostředí - ERDF2014+","5":"1.50"},{"1":"132","2":"Společná organizace trhu 2014+","3":"1113201","4":"SR - Společná organizace trhu - mimo včely 2014+","5":"1.27"},{"1":"132","2":"Společná organizace trhu 2014+","3":"4113201","4":"Nároky - SR - Společná organizace trhu - mimo včely 2014+","5":"1.01"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4510901","4":"Nároky - EU - OP Technická pomoc - MMR 2014+","5":"0.95"},{"1":"105","2":"OP Doprava 2014+","3":"4110502","4":"Nároky - SR - OP Doprava - CF 2014+","5":"0.90"},{"1":"187","2":"Program rozvoje venkova 2014+ ÚO","3":"4118700","4":"Nároky - SR - Program rozvoje venkova 2014+ ÚO","5":"0.89"},{"1":"132","2":"Společná organizace trhu 2014+","3":"4513201","4":"Nároky - EU - Společná organizace trhu - mimo včely 2014+","5":"0.87"},{"1":"102","2":"OP Podnikání a inovace pro konkurenceschopnost 2014+","3":"4110200","4":"Nároky - SR - OP Podnikání a inovace pro konkurenceschopnost 2014+","5":"0.72"},{"1":"107","2":"Integrovaný regionální operační program 2014+","3":"1110700","4":"SR - Integrovaný regionální operační program 2014+","5":"0.63"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1510902","4":"EU - OP Technická pomoc Auditní orgán 2014+","5":"0.60"},{"1":"106","2":"OP Životní prostředí 2014+","3":"1110602","4":"SR - OP Životní prostředí - CF 2014+","5":"0.53"},{"1":"105","2":"OP Doprava 2014+","3":"4110501","4":"Nároky - SR - OP Doprava - ERDF 2014+","5":"0.39"},{"1":"120","2":"Jiné EU 2014+","3":"4512003","4":"Nároky EU - Jiné EU - Operační program Potravinové a materiální pomoci 2014+","5":"0.36"},{"1":"105","2":"OP Doprava 2014+","3":"1110502","4":"SR - OP Doprava - CF 2014+","5":"0.35"},{"1":"120","2":"Jiné EU 2014+","3":"4512001","4":"Nároky EU - Jiné EU - Fond pro vnitřní bezpečnost 2014+","5":"0.33"},{"1":"120","2":"Jiné EU 2014+","3":"1512003","4":"EU - Jiné EU - Operační program Potravinové a materiální pomoci 2014+","5":"0.28"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1110901","4":"SR - OP Technická pomoc - MMR 2014+","5":"0.26"},{"1":"120","2":"Jiné EU 2014+","3":"1512002","4":"EU - Jiné EU - Azylový a migrační fond 2014+","5":"0.22"},{"1":"101","2":"OP Rybářství 2014+","3":"1510100","4":"EU - OP Rybářství 2014+","5":"0.19"},{"1":"108","2":"OP Praha - pól růstu ČR 2014+","3":"4510800","4":"Nároky - EU - OP Praha - pól růstu ČR 2014+","5":"0.19"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4510902","4":"Nároky - EU - OP Technická pomoc Auditní orgán 2014+","5":"0.19"},{"1":"106","2":"OP Životní prostředí 2014+","3":"4110602","4":"Nároky - SR - OP Životní prostředí - CF 2014+","5":"0.17"},{"1":"102","2":"OP Podnikání a inovace pro konkurenceschopnost 2014+","3":"1110200","4":"SR - OP Podnikání a inovace pro konkurenceschopnost 2014+","5":"0.16"},{"1":"132","2":"Společná organizace trhu 2014+","3":"1113202","4":"SR - Společná organizace trhu - včely 2014+","5":"0.16"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1510903","4":"EU - OP Technická pomoc Platební a certifikační orgán 2014+","5":"0.15"},{"1":"101","2":"OP Rybářství 2014+","3":"4510100","4":"Nároky - EU - OP Rybářství 2014+","5":"0.14"},{"1":"132","2":"Společná organizace trhu 2014+","3":"1513202","4":"EU - Společná organizace trhu - včely 2014+","5":"0.13"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1511000","4":"EU - Programy přeshraniční spolupráce INTERREG V-A TP 2014+","5":"0.12"},{"1":"120","2":"Jiné EU 2014+","3":"4512002","4":"Nároky EU - Jiné EU - Azylový a migrační fond 2014+","5":"0.12"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4110901","4":"Nároky - SR - OP Technická pomoc - MMR 2014+","5":"0.11"},{"1":"120","2":"Jiné EU 2014+","3":"4112001","4":"Nároky SR - Jiné EU - Fond pro vnitřní bezpečnost 2014+","5":"0.10"},{"1":"120","2":"Jiné EU 2014+","3":"1512001","4":"EU - Jiné EU - Fond pro vnitřní bezpečnost 2014+","5":"0.09"},{"1":"106","2":"OP Životní prostředí 2014+","3":"4110601","4":"Nároky - SR - OP Životní prostředí - ERDF2014+","5":"0.08"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1110902","4":"SR - OP Technická pomoc Auditní orgán 2014+","5":"0.07"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1111000","4":"SR - Programy přeshraniční spolupráce INTERREG V-A TP 2014+","5":"0.07"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4511001","4":"Nároky EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Pl 2014+","5":"0.06"},{"1":"120","2":"Jiné EU 2014+","3":"4112003","4":"Nároky SR - Jiné EU - Operační program Potravinové a materiální pomoci 2014+","5":"0.06"},{"1":"132","2":"Společná organizace trhu 2014+","3":"4513202","4":"Nároky - EU - Společná organizace trhu - včely 2014+","5":"0.06"},{"1":"101","2":"OP Rybářství 2014+","3":"4110100","4":"Nároky - SR - OP Rybářství 2014+","5":"0.05"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4111000","4":"NNV SR - Programy přeshraniční spolupráce INTERREG V-A TP 2014+","5":"0.05"},{"1":"101","2":"OP Rybářství 2014+","3":"1110100","4":"SR - OP Rybářství 2014+","5":"0.04"},{"1":"106","2":"OP Životní prostředí 2014+","3":"1110601","4":"SR - OP Životní prostředí - ERDF2014+","5":"0.04"},{"1":"120","2":"Jiné EU 2014+","3":"1112003","4":"SR - Jiné EU - Operační program Potravinové a materiální pomoci 2014+","5":"0.04"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1510905","4":"EU - OP Technická pomoc - Ostatní 2014+","5":"0.03"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4110902","4":"Nároky - SR - OP Technická pomoc Auditní orgán 2014+","5":"0.03"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1511001","4":"EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Pl 2014+","5":"0.03"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4511005","4":"Nároky EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Ss 2014+","5":"0.03"},{"1":"120","2":"Jiné EU 2014+","3":"1112002","4":"SR - Jiné EU - Azylový a migrační fond 2014+","5":"0.03"},{"1":"132","2":"Společná organizace trhu 2014+","3":"3513201","4":"MRP EU - Společná organizace trhu - mimo včely 2014+","5":"0.03"},{"1":"132","2":"Společná organizace trhu 2014+","3":"4113202","4":"Nároky - SR - Společná organizace trhu - včely 2014+","5":"0.03"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4511003","4":"Nároky EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Rk 2014+","5":"0.02"},{"1":"120","2":"Jiné EU 2014+","3":"4112002","4":"Nároky SR - Jiné EU - Azylový a migrační fond 2014+","5":"0.02"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"4511101","4":"Nároky - EU - OP nadnárodní spolupráce Central Europe 2014+","5":"0.01"},{"1":"120","2":"Jiné EU 2014+","3":"1512005","4":"EU - Jiné EU - zahraniční rozvojová spolupráce s EK 2014+","5":"0.01"},{"1":"120","2":"Jiné EU 2014+","3":"2512002","4":"RF EU - Jiné EU - Azylový a migrační fond 2014+","5":"0.01"},{"1":"120","2":"Jiné EU 2014+","3":"4512005","4":"Nároky EU - Jiné EU - zahraniční rozvojová spolupráce s EK 2014+","5":"0.01"},{"1":"106","2":"OP Životní prostředí 2014+","3":"3110602","4":"MRP SR - OP Životní prostředí - CF 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1110903","4":"SR - OP Technická pomoc Platební a certifikační orgán 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1110904","4":"SR - OP Technická pomoc CKB AFCOS 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1110905","4":"SR - OP Technická pomoc - Ostatní 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"1510904","4":"EU - OP Technická pomoc CKB AFCOS 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4110903","4":"Nároky - SR - OP Technická pomoc Platební a certifikační orgán 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4110904","4":"Nároky - SR - OP Technická pomoc CKB AFCOS 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4110905","4":"Nároky SR - OP Technická pomoc - Ostatní 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4510903","4":"Nároky - EU - OP Technická pomoc Platební a certifikační orgán 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4510904","4":"Nároky - EU - OP Technická pomoc CKB AFCOS 2014+","5":"0.00"},{"1":"109","2":"OP Technická pomoc 2014+","3":"4510905","4":"Nároky EU - OP Technická pomoc - Ostatní 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1111001","4":"SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Pl 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1111002","4":"SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Sl 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1111003","4":"SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Rk 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1111004","4":"SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Bv 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1111005","4":"SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Ss 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1511002","4":"EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Sl 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1511003","4":"EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Rk 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1511004","4":"EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Bv 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"1511005","4":"EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Ss 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4111001","4":"Nároky SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Pl 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4111002","4":"Nároky SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Sl 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4111003","4":"Nároky SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Rk 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4111004","4":"Nároky SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Bv 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4111005","4":"Nároky SR - Programy přeshraniční spolupráce INTERREG V-A ČR-Ss 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4511000","4":"NNV EU - Programy přeshraniční spolupráce INTERREG V-A TP 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4511002","4":"Nároky EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Sl 2014+","5":"0.00"},{"1":"110","2":"OP přeshraniční spolupráce 2014+","3":"4511004","4":"Nároky EU - Programy přeshraniční spolupráce INTERREG V-A ČR-Bv 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"1111100","4":"SR - OP nadnárodní spolupráce - Technická pomoc 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"1111101","4":"SR - OP nadnárodní spolupráce Central Europe 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"1111102","4":"SR - OP nadnárodní spolupráce Danube 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"1511100","4":"EU - OP nadnárodní spolupráce - Technická pomoc 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"1511101","4":"EU - OP nadnárodní spolupráce Central Europe 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"1511102","4":"EU - OP nadnárodní spolupráce Danube 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"4111100","4":"Nároky - SR - OP nadnárodní spolupráce - Technická pomoc 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"4111101","4":"Nároky - SR - OP nadnárodní spolupráce Central Europe 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"4111102","4":"Nároky - SR - OP nadnárodní spolupráce Danube 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"4511100","4":"Nároky - EU - OP nadnárodní spolupráce - Technická pomoc 2014+","5":"0.00"},{"1":"111","2":"OP nadnárodní spolupráce 2014+","3":"4511102","4":"Nároky - EU - OP nadnárodní spolupráce Danube 2014+","5":"0.00"},{"1":"112","2":"OP meziregionální spolupráce - Technická pomoc 2014+","3":"1111200","4":"SR - OP meziregionální spolupráce 2014+","5":"0.00"},{"1":"112","2":"OP meziregionální spolupráce - Technická pomoc 2014+","3":"1511200","4":"EU - OP meziregionální spolupráce 2014+","5":"0.00"},{"1":"112","2":"OP meziregionální spolupráce - Technická pomoc 2014+","3":"4111200","4":"Nároky SR - OP meziregionální spolupráce 2014+","5":"0.00"},{"1":"112","2":"OP meziregionální spolupráce - Technická pomoc 2014+","3":"4511200","4":"Nároky EU - OP meziregionální spolupráce 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"1112000","4":"SR - Jiné EU 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"1112001","4":"SR - Jiné EU - Fond pro vnitřní bezpečnost 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"1512000","4":"EU - Jiné EU 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"1512004","4":"EU - Jiné EU - Evropský fond pro přizpůsobení se globalizaci 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"2512000","4":"RF EU - Jiné EU 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"3512000","4":"MRP EU - Jiné EU 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"3512005","4":"MRP EU - Jiné EU - zahraniční rozvojová spolupráce s EK 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"4112000","4":"Nároky - SR - Jiné EU 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"4112004","4":"Nároky SR - Jiné EU - Evropský fond pro přizpůsobení se globalizaci 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"4512000","4":"Nároky - EU - Jiné EU 2014+","5":"0.00"},{"1":"120","2":"Jiné EU 2014+","3":"4512004","4":"Nároky EU - Jiné EU - Evropský fond pro přizpůsobení se globalizaci 2014+","5":"0.00"},{"1":"121","2":"Komunitární programy 2014+","3":"1112101","4":"SR - KP - Nástroj pro propojení Evropy 2014+","5":"0.00"},{"1":"121","2":"Komunitární programy 2014+","3":"3512101","4":"MRP EU - KP - Nástroj pro propojení Evropy 2014+","5":"0.00"},{"1":"121","2":"Komunitární programy 2014+","3":"4112101","4":"Nároky - SR - KP - Nástroj pro propojení Evropy 2014+","5":"0.00"},{"1":"121","2":"Komunitární programy 2014+","3":"4112102","4":"Nároky - SR - KP- Crocodile 2014+","5":"0.00"},{"1":"121","2":"Komunitární programy 2014+","3":"4512102","4":"Nároky - EU - KP- Crocodile 2014+","5":"0.00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="příjmy-a-výdaje-samospráv" class="section level3">
+<h3>Příjmy a výdaje samospráv</h3>
+<p><a href="https://monitor.statnipokladna.cz/analyza/##query=uq_5fb642ff-31a3-4640-9d29-2fbdb2d0bb72" class="uri">https://monitor.statnipokladna.cz/analyza/##query=uq_5fb642ff-31a3-4640-9d29-2fbdb2d0bb72</a></p>
+<p><img src="site/images/monitor_lokalni.png" /></p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["per_yr"],"name":[1],"type":["int"],"align":["right"]},{"label":["Příjmy"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Výdaje"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"2010","2":"456.0146","3":"457.2459"},{"1":"2011","2":"425.3996","3":"427.9926"},{"1":"2012","2":"397.3627","3":"395.7347"},{"1":"2013","2":"416.3109","3":"398.3849"},{"1":"2014","2":"439.1641","3":"427.7889"},{"1":"2015","2":"470.4072","3":"449.7426"},{"1":"2016","2":"460.9500","3":"407.6854"},{"1":"2017","2":"479.5811","3":"448.6626"},{"1":"2018","2":"540.8661","3":"532.0861"},{"1":"2019","2":"603.3910","3":"571.7112"},{"1":"2020","2":"636.5777","3":"622.6508"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="lokální-přijaté-od-státu" class="section level3">
+<h3>Lokální přijaté od státu</h3>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ucelznak_nazev"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Přímé náklady na vzdělávání","2":"148.772403"},{"1":"Neinvestiční nedávkové transfery podle zákona č. 108/2006 Sb., o sociálních službách (§ 101, § 102 a § 103)","2":"17.608699"},{"1":"IROP - Integrovaný regionální OP program č. 117030 - EU - INV","2":"14.447725"},{"1":"Jednorázový příspěvek obcím pro rok 2020 podle zákona č. 159/2020 Sb.","2":"13.367424"},{"1":"Dotace pro soukromé školy","2":"8.145936"},{"1":"Operační program životní prostředí 2014 - 2020 - program č. 115310 - prostředky EU - neinvestice","2":"7.233965"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

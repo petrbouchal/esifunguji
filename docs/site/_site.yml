@@ -2,7 +2,7 @@ name: Site name
 output_dir: docs
 lang: cs
 include: ["demo.R"]
-exclude: ["LICENSE.md", "*.csv", "*.rds", "renv", "renv.lock", "data-input", "data-output", "data-processed", "sp_data", "config.yml", "R"]
+exclude: ["LICENSE.md", "*.csv", "*.rds", "renv", "renv.lock", "data-input", "data-output", "data-processed", "sp_data", "config.yml", "R", "data-export"]
 navbar:
   title: "ESIF data pro modelování"
   right:
