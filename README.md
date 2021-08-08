@@ -42,3 +42,6 @@ Relevantní předchozí publikace v této oblasti:
     vlády (2018)](https://www.vlada.cz/assets/evropske-zalezitosti/analyzy-EU/Dopad-ESI-fondu-na-hospodarstvi-CR.pdf)
 -   [Úřad vlády (2019) přehled využívání makro modelů v zemích
     EU](https://www.vlada.cz/assets/evropske-zalezitosti/aktualne/Vyuzivani-makroevaluaci-a-makroekonomickych-modelu-clenskymi-staty-EU.pdf)
+
+*Pojmenováno s citem k regionu narození jednoho nejmenovaného šéfa
+projektového týmu.*
