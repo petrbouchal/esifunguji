@@ -56,16 +56,11 @@ load_efs_zop <- function(dir, filename) {
 
   path <- file.path(dir, filename)
 
-  efs_zop0 <- read_excel(path, skip = 0) %>%
+  efs_zop0 <- read_excel(path, skip = 0, col_types = "guess", guess_max = 10000) %>%
     janitor::clean_names() %>%
     select(-nazev_projektu)
 
   efs_zop <- efs_zop0 %>%
-    select(-financni_prostredky_ze_statniho_rozpoctu,
-           -financni_prostredky_ze_statnich_fondu,
-           -financni_prostredky_z_rozpoctu_kraju_kraje,
-           -financni_prostredky_z_rozpoctu_obci_obce,
-           -jine_narodni_verejne_financni_prostredky) %>%
     rename(
       prj_id = cislo_projektu,
       real_stav_kod = cislo_stavu,
@@ -77,10 +72,19 @@ load_efs_zop <- function(dir, filename) {
       pomer_vlastni = vlastni_podil,
       fin_vyuct_czv = celkove_zdroje_pripadajici_na_zpusobile_vydaje,
       fin_vyuct_eu = prispevek_unie_11,
-      fin_vyuct_soukrome = soukrome_zdroje
+      fin_vyuct_soukr = soukrome_zdroje,
+      fin_vyuct_sr = financni_prostredky_ze_statniho_rozpoctu,
+      fin_vyuct_sf = financni_prostredky_ze_statnich_fondu,
+      fin_vyuct_kraj = financni_prostredky_z_rozpoctu_kraju_kraje,
+      fin_vyuct_obec = financni_prostredky_z_rozpoctu_obci_obce,
+      fin_vyuct_jine_nar_ver = jine_narodni_verejne_financni_prostredky
     ) %>%
-    mutate(fin_vyuct_narodni_verejne = fin_vyuct_czv - fin_vyuct_soukrome - fin_vyuct_eu,
-           fin_vyuct_narodni = fin_vyuct_czv - fin_vyuct_eu)
+    mutate(
+      across(starts_with("fin_"), as.double),
+      across(starts_with("pomer_"), as.double),
+      across(starts_with("dt_"), as.Date),
+      fin_vyuct_narodni_verejne = fin_vyuct_czv - fin_vyuct_soukr - fin_vyuct_eu,
+      fin_vyuct_narodni = fin_vyuct_czv - fin_vyuct_eu)
 
   return(efs_zop)
 }
@@ -163,18 +167,19 @@ load_efs_obl <- function(dir, filename) {
 
 summarise_zop <- function(efs_zop, quarterly) {
   zop_prep <- efs_zop %>%
-    mutate(zop_rok = year(dt_zop_proplaceni),
-           zop_rok = if_else(is.na(zop_rok),
-                             as.double(str_extract(zop_cislo, "(?<=/)20[12][0-9](?=/)")),
-                             zop_rok))
+    mutate(dt_zop_rok = year(dt_zop_proplaceni),
+           dt_zop_rok = if_else(is.na(dt_zop_rok),
+                                as.double(str_extract(zop_cislo,
+                                                      "(?<=/)20[12][0-9](?=/)")),
+                                dt_zop_rok))
 
   if(quarterly) {
     zop_grp <- zop_prep %>%
-      mutate(zop_kvartal = month(dt_zop_proplaceni) %/% 4 + 1) %>%
-      group_by(prj_id, zop_rok, zop_kvartal)
+      mutate(dt_zop_kvartal = month(dt_zop_proplaceni) %/% 4 + 1) %>%
+      group_by(prj_id, dt_zop_rok, dt_zop_kvartal)
   } else {
     zop_grp <- zop_prep %>%
-      group_by(prj_id, zop_rok)
+      group_by(prj_id, dt_zop_rok)
   }
   zop <- zop_grp %>%
     summarise(across(starts_with("fin_"), sum, na.rm = T), .groups = "drop")
@@ -183,26 +188,26 @@ summarise_zop <- function(efs_zop, quarterly) {
   # and spread the payment across quarters in that year
 
   if(quarterly) {
-    zop_withq <- zop %>% filter(!is.na(zop_kvartal)) %>%
+    zop_withq <- zop %>% filter(!is.na(dt_zop_kvartal)) %>%
       mutate(timing_inferred = FALSE)
-    zop_noq   <- zop %>% filter( is.na(zop_kvartal))
+    zop_noq   <- zop %>% filter( is.na(dt_zop_kvartal))
 
     # generate all quarters between start of programming period and now
     x <- seq.Date(as.Date("2014-01-01"), Sys.Date(), "quarter")
-    qrtrs <- tibble(zop_rok = year(x), zop_kvartal = quarter(x))
+    qrtrs <- tibble(dt_zop_rok = year(x), dt_zop_kvartal = quarter(x))
 
     spread_over_quarters <- function(prj_rows, quarters) {
 
-      qrtrs_local <- quarters %>% filter(zop_rok %in% prj_rows$zop_rok)
+      qrtrs_local <- quarters %>% filter(dt_zop_rok %in% prj_rows$dt_zop_rok)
 
       # create rows for each quarter in each year
       prj_rows %>%
-        select(-zop_kvartal) %>%
-        full_join(qrtrs_local, by = "zop_rok") %>%
-        group_by(zop_rok) %>%
+        select(-dt_zop_kvartal) %>%
+        full_join(qrtrs_local, by = "dt_zop_rok") %>%
+        group_by(dt_zop_rok) %>%
         # split the payment amount across the rows
         mutate(across(starts_with("fin_vyuct"),
-                      ~.x/n_distinct(zop_kvartal)))
+                      ~.x/length(unique((dt_zop_kvartal)))))
     }
 
     zop_addedq <- zop_noq %>%
@@ -213,11 +218,12 @@ summarise_zop <- function(efs_zop, quarterly) {
       mutate(timing_inferred = TRUE)
 
     zop <- bind_rows(zop_addedq, zop_withq)%>%
-      group_by(prj_id, zop_rok, zop_kvartal, timing_inferred) %>%
+      group_by(prj_id, dt_zop_rok, dt_zop_kvartal, timing_inferred) %>%
       # sum in case some projects had both missing-date and non-missing-date
       # payments in the same year
       summarise(across(starts_with("fin_vyuct"), sum, na.rm = T),
-                .groups = "drop")
+                .groups = "drop") %>%
+      mutate(dt_zop_kvartal_datum = make_date(dt_zop_rok, dt_zop_kvartal * 3 - 2, 1))
   }
   return(zop)
 }

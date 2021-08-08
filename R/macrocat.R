@@ -71,9 +71,9 @@ summarise_macro <- function(other, prv, quarterly) {
   prv$source = "prv"
   bnd <- bind_rows(other, prv)
   grp <- bnd %>%
-    group_by(zop_rok, kraj_id, quest_class, hermin_class, source)
+    group_by(dt_zop_rok, kraj_id, quest_class, hermin_class, source)
   if (quarterly) {
-    grp <- group_by(grp, zop_kvartal, .add = TRUE)
+    grp <- group_by(grp, dt_zop_kvartal, dt_zop_kvartal_datum, .add = TRUE)
   }
   summarise(grp, across(starts_with("fin_"), sum, na.rm = TRUE), .groups = "drop")
 }

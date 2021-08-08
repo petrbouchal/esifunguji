@@ -206,7 +206,7 @@ efs_fin %>%
 
 ```{r}
 ef_pub %>% 
-  count(op_zkr, wt = fin_vyuct_v_zop_czv/1e9)
+  count(op_zkr, wt = fin_vyuct_czv/1e9)
 ```
 
 
@@ -248,18 +248,18 @@ targets::tar_load(ef_pub)
 
 ```{r}
 ef_pub %>% 
-  count(wt = fin_vyuct_v_zop_czv/1e9)
+  count(wt = fin_vyuct_czv/1e9)
 ```
 
 ### Oblasti intervencí
 
 ```{r}
 ef_pub %>% 
-  select(prj_id, oblast_intervence_kod, fin_vyuct_v_zop_czv) %>% 
+  select(prj_id, oblast_intervence_kod, fin_vyuct_czv) %>% 
   separate_rows(oblast_intervence_kod, sep = ";") %>% 
   mutate(oblast_intervence_kod = str_trim(oblast_intervence_kod)) %>% 
   group_by(oblast_intervence_kod) %>% 
   mutate(oblast_intervence_count = n()) %>% 
-  count(oblast_intervence_kod, sort = T, wt = fin_vyuct_v_zop_czv/1e9)
+  count(oblast_intervence_kod, sort = T, wt = fin_vyuct_czv/1e9)
 ```
 
