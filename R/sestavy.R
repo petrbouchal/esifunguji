@@ -238,8 +238,8 @@ load_prv <- function(path, cis_kraj) {
     ),
     operace_new = if_else(is.na(operace), "", operace)) %>%
     unite(opatreni_new, podopatreni, operace_new, col = "prv_operace_kod", sep = ".") %>%
-    mutate(zop_rok = year(datum_platby),
-           zop_kvartal = month(datum_platby) %/% 4 + 1,
+    mutate(dt_zop_rok = year(datum_platby),
+           dt_zop_kvartal = month(datum_platby) %/% 4 + 1,
            prv_operace_kod = str_remove(prv_operace_kod, "\\.$")) %>%
     rename(prj_id = registracni_cislo,
            p_id = jednotny_identifikator_prijemce,
@@ -260,10 +260,10 @@ load_prv <- function(path, cis_kraj) {
 
 summarise_prv <- function(efs_prv, quarterly) {
   zop_grp <- efs_prv %>%
-    group_by(prj_id, zop_rok, prv_operace_kod, kraj_id)
+    group_by(prj_id, dt_zop_rok, prv_operace_kod, kraj_id)
   if(quarterly) {
     zop_grp <- zop_grp %>%
-      group_by(zop_kvartal, .add = TRUE)
+      group_by(dt_zop_kvartal, .add = TRUE)
   }
   zop_grp %>%
     summarise(across(starts_with("fin_"), sum), .groups = "drop")
@@ -277,6 +277,6 @@ summarise_by_op <- function(efs_zop_quarterly, efs_prv_quarterly) {
   efs_prv_quarterly$op_id <- "YY"
 
   bind_rows(efs_zop_quarterly, efs_prv_quarterly) %>%
-    group_by(across(starts_with("op_")), zop_rok) %>%
+    group_by(across(starts_with("op_")), dt_zop_rok) %>%
     summarise(across(starts_with("fin_"), sum), .groups = "drop")
 }
