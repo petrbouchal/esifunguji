@@ -157,6 +157,21 @@ t_macro_export <- list(
                         write_xlsx))
 )
 
+
+# Build and export codebook -----------------------------------------------
+
+t_macro_codebook <- list(
+  tar_target(macro_sum_codebook,
+             make_macro_sum_codebook(compiled_macro_sum_quarterly)),
+  tar_file(macro_sum_codebook_yaml,
+           {pointblank::yaml_write(informant = macro_sum_codebook %>%
+                                    pointblank::set_read_fn(read_fn = ~compiled_macro_sum_quarterly),
+                                  path = c_macro_export_dir,
+                                  filename = c_macro_export_cdbk)
+              file.path(c_macro_export_dir, c_macro_export_cdbk)
+             })
+)
+
 # Objective/category hierarchy --------------------------------------------
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
@@ -293,4 +308,4 @@ list(t_public_list, t_sp_codelists, t_sp_data_central_new,
      t_sp_data_central_old, t_html, t_sp_data_local, t_esif_obce,
      t_sp_data_local_grants, t_sestavy, t_hier,
      t_op_compile,
-     t_macro_compile, t_macro_export)
+     t_macro_compile, t_macro_export, t_macro_codebook)
