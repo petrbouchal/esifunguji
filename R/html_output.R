@@ -4,8 +4,7 @@ t_html <- list(
   tar_file(siteconf, "_site.yml"),
   tar_file(sitefiles, "site"),
   # https://github.com/jdblischak/workflowr/issues/238#issuecomment-782024069
-  tar_file(s_index_rmd, "index.Rmd"),
-  tar_file(s_index_html, command = {!! tar_knitr_deps_expr("index.Rmd")
+  tar_file(s_index_html, command = {
     siteconf
     sitefiles
     s_readme_html
@@ -40,10 +39,10 @@ t_html <- list(
     sitefiles
     rmarkdown::render_site(s_output_rmd)
     "docs/s_output.html"}),
-  tar_file(s_dev_rmd, "s_dev.Rmd"),
-  tar_file(s_dev_html, command = {!! tar_knitr_deps_expr("s_dev.Rmd")
+  tar_file(s_dev_rmd, "dev.Rmd"),
+  tar_file(s_dev_html, command = {!! tar_knitr_deps_expr("dev.Rmd")
     siteconf
     sitefiles
     rmarkdown::render_site(s_dev_rmd)
-    "docs/s_dev.html"})
+    "docs/dev.html"})
 )

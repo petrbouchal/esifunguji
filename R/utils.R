@@ -56,3 +56,7 @@ extract_cl <- function(cl_target_list, cl_string) {
   cl <- cl_target_list[[cl_branchname]]
   return(cl)
 }
+render_readme <- function(path = "README.Rmd", output_format = "github_document", output_file = "README.md") {
+  rmarkdown::render(path, output_format, output_file)
+}
+

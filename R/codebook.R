@@ -39,7 +39,7 @@ make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
                  Váha = "1/počet krajů, kde se projekt realizuje") %>%
     info_columns(ends_with("_wt_cond"),
                  Váha = "Váha zvolena podle proměnné `class_quest`",
-                 Detail = "podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC") %>%
+                 Detail = "podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC") %>%
     info_columns(ends_with("_wt_pocetobyv"),
                  Váha = "Počet obyvatel obcí, kde se projekt realizuje")
 }
