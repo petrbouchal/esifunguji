@@ -1,5 +1,5 @@
 ---
-title: "Základní dokumentace"
+title: "Přehled projektu"
 output: html_document
 ---
 
@@ -12,7 +12,7 @@ source("_targets_packages.R")
 cnf <- config::get()
 ```
 
-## Základní analytická logika systému
+## Celková analytická logika systému
 
 Cílem této datové pipeline je vytvořit vstupní data o výdajích z ESI fondů pro makroekonomické modely QUEST a HERMIN za období 2014-2020.
 
@@ -97,14 +97,15 @@ cnf$c_mc_xlsx_prv` ``
 - dataset geografické alokace projektů nepochází ze stejné sady sestav, proto ani časově neodpovídá (momentálně je starší o několik měsíců), proto se ne všechny projekty podařilo lokalizovat
 - dataset pochází z předchozího projektu, kde cílem bylo lokalizovat do obcí projekty často lokalizované jen na NUTS3
 - u projektů lokalizovaných do více krajů jsou ve výstupu dvě varianty rozpadu: podle počtu krajů, kde se projekt realizoval, a s každým krajem váženým podle poču obyvatel obcí, kde se projekt konal.
-- počty obyvatel pro toto vážení pochází z ČSÚ, dataset číslo [`` `r
-cnf$czso_pop_table_id` ``](https://www.czso.cz/csu/czso/obyvatelstvo-k-3112-podle-pohlavi-v-obcich) (průměr hodnot za roky 2014 až 2020)
+- ve výsledném datasetu pak existují i proměnné s příponou `_wt_cond`, kde se použité vážení liší podle QUEST kategorie: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
+- počty obyvatel pro toto vážení pochází z ČSÚ, dataset číslo [ `r cnf$c_czso_pop_table_id` ](https://www.czso.cz/csu/czso/obyvatelstvo-k-3112-podle-pohlavi-v-obcich) (průměr hodnot za roky 2014 až 2020)
 - geografické údaje obsažené v balíku sestav (E007 a E002) jsou pouze o sídle žadatele - z toho nelze usuzovat na lokalizaci projektu
 
 ### Časování plateb
 
 - u části žádostí o platbu chyběla data proplacení žádosti, ale z čísla žádosti lze dovodit rok podání žádosti. U těchto žádostí rozkládáme datum proplacení rovnoměrně do všech kvartálů daného roku
 - nepracujeme tedy se začátkem a koncem realizace projektů
+- stejně tak nerozlišujeme platby ANTE a POST
 - pro lepší přesnost by bylo vhodné tyto platby ještě posunout o cca 100 dnů (1 kvartál) dále v čase (odhadovaná prodleva mezi 30. 6. - coby očekávaná střední doba podání ŽOP v roce - a proplacením)
 
 ### Hodnoty konfiguračních proměnných v souboru `config.yml`

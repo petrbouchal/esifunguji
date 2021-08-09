@@ -25,12 +25,12 @@ targets::tar_load(macro_sum_codebook)
 
 # {.tabset}
 
-## Codebook hlavního výstupu
+## Dokumentace hlavního výstupu
 
-Soubory:
+### Soubory
 
 Vše v `` `r  
-c_macro_export_dir` ``
+c_macro_export_dir` `` ([Github](`r paste0(c_repo_remote, "/tree/master/", c_macro_export_dir)`)) 
 
 - součty po letech: `` `r  
 c_macro_export_csv_a` `` / `` `r  
@@ -40,6 +40,8 @@ c_macro_export_csv_q` `` / `` `r
 c_macro_export_xlsx_q` ``
 
 CSV soubory uzpůsobeny pro Excel (úprava konce řádků) a CEE region (odděleno středníky, desetinná čárka).
+
+### Codebook
 
 ```{r codebook}
 macro_sum_codebook

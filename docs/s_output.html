@@ -254,10 +254,10 @@ $(document).ready(function () {
   <a href="s_doc.html">Dokumentace</a>
 </li>
 <li>
-  <a href="s_inputchecks.html">Validace vstupů</a>
+  <a href="s_output.html">Validace &amp; dokumentace výstupů</a>
 </li>
 <li>
-  <a href="s_output.html">Validace &amp; dokumentace výstupů</a>
+  <a href="s_inputchecks.html">Validace vstupů</a>
 </li>
 <li>
   <a href="dev.html">Technická dokumentace</a>
@@ -292,15 +292,19 @@ $(document).ready(function () {
 
 <div id="section" class="section level1 tabset">
 <h1 class="tabset"></h1>
-<div id="codebook-hlavního-výstupu" class="section level2">
-<h2>Codebook hlavního výstupu</h2>
-<p>Soubory:</p>
-<p>Vše v <code>data-export/export_202108</code></p>
+<div id="dokumentace-hlavního-výstupu" class="section level2">
+<h2>Dokumentace hlavního výstupu</h2>
+<div id="soubory" class="section level3">
+<h3>Soubory</h3>
+<p>Vše v <code>data-export/export_202108</code> (<a href="https://github.com/petrbouchal/esifunguji/tree/master/data-export/export_202108">Github</a>)</p>
 <ul>
 <li>součty po letech: <code>macro-sum_quarterly.csv</code> / <code>macro-sum_quarterly.xlsx</code></li>
 <li>součty po čtvrtletích: <code>macro-sum_annual.csv</code> / <code>macro-sum_annual.xlsx</code></li>
 </ul>
 <p>CSV soubory uzpůsobeny pro Excel (úprava konce řádků) a CEE region (odděleno středníky, desetinná čárka).</p>
+</div>
+<div id="codebook" class="section level3">
+<h3>Codebook</h3>
 <div id="pb_information" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 html {
@@ -1008,7 +1012,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Celkové způsobilé výdaje</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_eu_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1016,7 +1020,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Příspěvek Unie</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_sr_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1024,7 +1028,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Státní rozpočet</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_sf_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1032,7 +1036,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Státní fondy</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_obec_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1040,7 +1044,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Obec</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_kraj_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1048,7 +1052,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Kraj</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_jine_nar_ver_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1056,7 +1060,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Soukromý</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_narodni_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1064,7 +1068,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_narodni_verejne_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1072,7 +1076,7 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_soukr_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -1080,20 +1084,21 @@ html {
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Soukromý</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
-<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle obcí pro INFR a HC</p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-08-10 00:16:19 CEST</span>
+      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-08-10 00:33:29 CEST</span>
 <span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;margin:5px 1px 5px 0;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">&lt; 1 s</span>
-<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-08-10 00:16:20 CEST</span></td>
+<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-08-10 00:33:30 CEST</span></td>
     </tr>
   </tfoot>
   
 </table>
 </div>
 <p>Zapsáno v data-export/export_202108/macro-sum_codebook.yaml</p>
+</div>
 </div>
 <div id="náhled-proměnných" class="section level2">
 <h2>Náhled proměnných</h2>

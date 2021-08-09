@@ -11,7 +11,7 @@
 
 
 
-<title>Základní dokumentace</title>
+<title>Přehled projektu</title>
 
 <script src="site_libs/header-attrs-2.9.7/header-attrs.js"></script>
 <script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
@@ -262,10 +262,10 @@ $(document).ready(function () {
   <a href="s_doc.html">Dokumentace</a>
 </li>
 <li>
-  <a href="s_inputchecks.html">Validace vstupů</a>
+  <a href="s_output.html">Validace &amp; dokumentace výstupů</a>
 </li>
 <li>
-  <a href="s_output.html">Validace &amp; dokumentace výstupů</a>
+  <a href="s_inputchecks.html">Validace vstupů</a>
 </li>
 <li>
   <a href="dev.html">Technická dokumentace</a>
@@ -293,13 +293,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Základní dokumentace</h1>
+<h1 class="title toc-ignore">Přehled projektu</h1>
 
 </div>
 
 
-<div id="základní-analytická-logika-systému" class="section level2">
-<h2>Základní analytická logika systému</h2>
+<div id="celková-analytická-logika-systému" class="section level2">
+<h2>Celková analytická logika systému</h2>
 <p>Cílem této datové pipeline je vytvořit vstupní data o výdajích z ESI fondů pro makroekonomické modely QUEST a HERMIN za období 2014-2020.</p>
 <p>Výsledkem je rozpad výdajů na kraje, čtvrletí a kategorie QUEST/HERMIN.</p>
 <p>Vycházíme z dat o projektech, platbách (ŽOP) a z očištěných dat o geolokaci projektů. Základním vstupem jsou sestavy z MSSF, od SZIF (pro PRV) a data o geolokaci projektů mimo PRV od MMR (výstup předchozího projektu.)</p>
@@ -381,7 +381,8 @@ $(document).ready(function () {
 <li>dataset geografické alokace projektů nepochází ze stejné sady sestav, proto ani časově neodpovídá (momentálně je starší o několik měsíců), proto se ne všechny projekty podařilo lokalizovat</li>
 <li>dataset pochází z předchozího projektu, kde cílem bylo lokalizovat do obcí projekty často lokalizované jen na NUTS3</li>
 <li>u projektů lokalizovaných do více krajů jsou ve výstupu dvě varianty rozpadu: podle počtu krajů, kde se projekt realizoval, a s každým krajem váženým podle poču obyvatel obcí, kde se projekt konal.</li>
-<li>počty obyvatel pro toto vážení pochází z ČSÚ, dataset číslo <a href="https://www.czso.cz/csu/czso/obyvatelstvo-k-3112-podle-pohlavi-v-obcich"><code>`r cnf$czso_pop_table_id`</code></a> (průměr hodnot za roky 2014 až 2020)</li>
+<li>ve výsledném datasetu pak existují i proměnné s příponou <code>_wt_cond</code>, kde se použité vážení liší podle QUEST kategorie: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</li>
+<li>počty obyvatel pro toto vážení pochází z ČSÚ, dataset číslo <a href="https://www.czso.cz/csu/czso/obyvatelstvo-k-3112-podle-pohlavi-v-obcich">130149</a> (průměr hodnot za roky 2014 až 2020)</li>
 <li>geografické údaje obsažené v balíku sestav (E007 a E002) jsou pouze o sídle žadatele - z toho nelze usuzovat na lokalizaci projektu</li>
 </ul>
 </div>
@@ -390,6 +391,7 @@ $(document).ready(function () {
 <ul>
 <li>u části žádostí o platbu chyběla data proplacení žádosti, ale z čísla žádosti lze dovodit rok podání žádosti. U těchto žádostí rozkládáme datum proplacení rovnoměrně do všech kvartálů daného roku</li>
 <li>nepracujeme tedy se začátkem a koncem realizace projektů</li>
+<li>stejně tak nerozlišujeme platby ANTE a POST</li>
 <li>pro lepší přesnost by bylo vhodné tyto platby ještě posunout o cca 100 dnů (1 kvartál) dále v čase (odhadovaná prodleva mezi 30. 6. - coby očekávaná střední doba podání ŽOP v roce - a proplacením)</li>
 </ul>
 </div>
@@ -487,6 +489,12 @@ $(document).ready(function () {
 ## 
 ## $c_macro_export_csv_q
 ## [1] &quot;macro-sum_annual.csv&quot;
+## 
+## $c_macro_export_cdbk
+## [1] &quot;macro-sum_codebook.yaml&quot;
+## 
+## $c_repo_remote
+## [1] &quot;https://github.com/petrbouchal/esifunguji&quot;
 ## 
 ## attr(,&quot;config&quot;)
 ## [1] &quot;default&quot;

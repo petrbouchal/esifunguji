@@ -56,3 +56,5 @@ default:
   c_macro_export_csv_a: "macro-sum_quarterly.csv"
   c_macro_export_csv_q: "macro-sum_annual.csv"
   c_macro_export_cdbk: "macro-sum_codebook.yaml"
+
+  c_repo_remote: "https://github.com/petrbouchal/esifunguji"

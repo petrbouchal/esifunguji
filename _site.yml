@@ -10,10 +10,10 @@ navbar:
     href: README.html
   - text: Dokumentace
     href: s_doc.html
-  - text: Validace vstupů
-    href: s_inputchecks.html
   - text: Validace & dokumentace výstupů
     href: s_output.html
+  - text: Validace vstupů
+    href: s_inputchecks.html
   - text: Technická dokumentace
     href: dev.html
   right:
