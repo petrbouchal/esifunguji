@@ -57,6 +57,8 @@ glimpse(compiled_macro_sum_quarterly)
 
 ## Validace výstupu
 
+IN PROGRESS
+
 ```{r}
 compiled_macro_sum_quarterly %>% 
   count(kraj_id, dt_zop_rok, wt = round(fin_vyuct_czv_wt_cond/1e9, 2)) %>% 
