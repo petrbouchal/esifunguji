@@ -8,6 +8,13 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 source("_targets_packages.R")
 ```
 
+## Codebook hlavního výstupu
+
+```{r codebook}
+macro_sum_codebook
+```
+
+Zapsáno v `r file.path(c_macro_export_dir, c_macro_export_cdbk)`
 ```{r}
 
 ```
