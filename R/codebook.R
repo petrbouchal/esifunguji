@@ -1,11 +1,14 @@
 make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
   create_informant(tbl = compiled_macro_sum_quarterly,
                    label = "Codebook hlavního výstupu") %>%
-    info_tabular(`Celková struktura` = "platí i pro ostatní datové sady v pipeline:\n- `dt_`: proměnné časového určení\n- `fin_`: finanční údaje") %>%
+    info_tabular(Info = "Platí pro data po kvartálech a analogicky i pro roční data",
+                 `Celková struktura` = "platí i pro ostatní datové sady v pipeline:\n- `dt_`: proměnné časového určení\n- `fin_`: finanční údaje") %>%
     info_columns("quest_class",
                  Popis = "Kategorie pro QUEST") %>%
     info_columns("hermin_class",
                  Popis = "Kategorie pro HERMIN") %>%
+    info_columns(matches("(czv|eu|sr|sf|obec|kraj|soukr|jine_nar_ver|narodni|narodni_verejne)$"),
+                 Pozor = "Neváženo podle území - nesčítat!") %>%
     info_columns("source",
                  Popis = "Zdroj dat (MSSF/MSEU nebo SZIF (PRV))") %>%
     info_columns("kraj_id", Popis = "Kód NUTS3 (kraj)") %>%
