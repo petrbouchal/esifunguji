@@ -8,6 +8,7 @@ sp_data
 data-input/*
 !data-input/.here
 !data-input/matice/
+!data-input/kategorizace/
 data-processed/*
 !data-processed/.here
 /data-input/matice/*.pdf

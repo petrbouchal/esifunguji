@@ -35,9 +35,9 @@ default:
   c_prv_data_path: "data-input/prv/PRV 2014-20 k XII. 2020.XLSX"
 
   # Quest/Hermin categorisations
-  c_mc_xlsx_q: "data-input/kategorie_questNEW.xlsx"
-  c_mc_xlsx_h: "data-input/AIS_desagregace_rHERMIN.xlsx"
-  c_mc_xlsx_prv: "data-input/prv/Navrh - KATEGORIZACE - Operace PRV + priority.xlsx"
+  c_mc_xlsx_q: "data-input/kategorizace/kategorie_questNEW.xlsx"
+  c_mc_xlsx_h: "data-input/kategorizace/AIS_desagregace_rHERMIN.xlsx"
+  c_mc_xlsx_prv: "data-input/kategorizace/prv/Navrh - KATEGORIZACE - Operace PRV + priority.xlsx"
 
   # Arrow directory of cleaned up geolocation data for projects
   c_ef_obce_arrowdir: "data-input/esif-projekty-obce"
