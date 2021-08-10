@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
 source("_targets_packages.R")
 options(crayon.enabled = FALSE)
 cnf <- config::get()
+names(cnf) <- paste0("c_", names(cnf))
 list2env(cnf, envir = .GlobalEnv)
 ```
 

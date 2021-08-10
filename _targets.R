@@ -23,6 +23,7 @@ source("R/utils.R")
 source("R/functions.R")
 
 cnf <- config::get(config = "default")
+names(cnf) <- paste0("c_", names(cnf))
 list2env(cnf, envir = .GlobalEnv)
 
 # Public project data -----------------------------------------------------
