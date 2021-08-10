@@ -2,7 +2,7 @@ make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
   create_informant(tbl = compiled_macro_sum_quarterly,
                    label = "Codebook hlavního výstupu") %>%
     info_tabular(Info = "Platí pro data po kvartálech a analogicky i pro roční data",
-                 `Celková struktura` = "dlouhý formát: čas, kraj a metadata jsou v řádcích, jednotlivé zdroje financí jsou ve sloupcích",
+                 `Celková struktura` = "dlouhý formát: čas a kraj jsou v řádcích, metadata a jednotlivé zdroje financí jsou ve sloupcích",
                  `Názvy proměnných` = "platí i pro ostatní datové sady v pipeline:\n- `dt_`: proměnné časového určení\n- `fin_`: finanční údaje") %>%
     info_columns("quest_class",
                  Popis = "Kategorie pro QUEST") %>%

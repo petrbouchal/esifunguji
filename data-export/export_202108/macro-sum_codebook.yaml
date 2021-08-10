@@ -10,7 +10,7 @@ table:
   _rows: 3263.0
   _type: tbl_df
   Info: Platí pro data po kvartálech a analogicky i pro roční data
-  Celková struktura: 'dlouhý formát: čas, kraj a metadata jsou v řádcích, jednotlivé
+  Celková struktura: 'dlouhý formát: čas a kraj jsou v řádcích, metadata a jednotlivé
     zdroje financí jsou ve sloupcích'
   Názvy proměnných: |-
     platí i pro ostatní datové sady v pipeline:
