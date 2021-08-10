@@ -39,6 +39,8 @@ c_macro_export_xlsx_a` ``
 c_macro_export_csv_q` `` / `` `r  
 c_macro_export_xlsx_q` ``
 
+Všechna data mají krajský rozpad (NUTS3).
+
 CSV soubory uzpůsobeny pro Excel (úprava konce řádků) a CEE region (odděleno středníky, desetinná čárka).
 
 ### Codebook
