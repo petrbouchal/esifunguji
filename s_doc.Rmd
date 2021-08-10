@@ -110,7 +110,7 @@ cnf$c_mc_xlsx_prv` ``
 
 ### Hodnoty konfiguračních proměnných v souboru `config.yml`
 
-```{r}
-cnf
+```{details}
+"./config.yml"
 ```
 

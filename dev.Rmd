@@ -4,8 +4,41 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 TO DO
+
+## Struktura a nástroje
+
+## Jak to znovu pustit
+
+## Dokumentace pro reprodukovatelnost
+
+### Konfigurace
+
+```{details}
+"./config.yml"
+```
+
+### Prostředí
+
+#### R
+
+```{details}
+sessionInfo()
+```
+
+#### Obsah renv.lock
+
+```{details}
+"./renv.lock"
+```
+
+
+### targets: zobrazení pipeline
+
+```{r}
+targets::tar_visnetwork()
+```
 
