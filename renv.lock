@@ -315,6 +315,13 @@
       "Repository": "CRAN",
       "Hash": "b6963166f7f10b970af1006c462ce6cd"
     },
+    "details": {
+      "Package": "details",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7a18f9d2e53a960aafbe25c043ec3f52"
+    },
     "diffobj": {
       "Package": "diffobj",
       "Version": "0.3.3",
