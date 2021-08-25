@@ -27,7 +27,12 @@ cnf <- config::get(config = "default")
 names(cnf) <- paste0("c_", names(cnf))
 list2env(cnf, envir = .GlobalEnv)
 
-# Public project data -----------------------------------------------------
+# tar_renv(path = "packages.R")
+
+# ESIF data ---------------------------------------------------------------
+
+
+## Public project data -----------------------------------------------------
 
 t_public_list <- list(
   tar_download(ef_pubxls, c_ef_pubxls_url,
@@ -36,7 +41,7 @@ t_public_list <- list(
 )
 
 
-# Custom MS sestavy -------------------------------------------------------
+## Custom MS sestavy -------------------------------------------------------
 
 t_sestavy <- list(
   # finanční pokrok
@@ -76,7 +81,7 @@ t_sestavy <- list(
   tar_target(efs_prv_quarterly, summarise_prv(efs_prv, quarterly = TRUE))
 )
 
-# Geographically disaggregated (obce) ESIF data ---------------------------
+## Geographically disaggregated (obce) ESIF data ---------------------------
 
 t_esif_obce <- list(
   tar_file(esif_obce, c_ef_obce_arrowdir),
@@ -92,9 +97,9 @@ t_esif_obce <- list(
 )
 
 
-# Modeling categorisations ------------------------------------------------
+## Modeling categorisations ------------------------------------------------
 
-# dodané a ručně upravené vazby
+## dodané a ručně upravené vazby
 t_cats <- list(
   # QUEST kategorie <=> oblast intervence
   tar_target(macrocat_quest, load_macrocat_quest(c_mc_xlsx_q, prv = FALSE)),
@@ -109,7 +114,7 @@ t_cats <- list(
 )
 
 
-# Compile for macro -------------------------------------------------------
+## Compile for macro -------------------------------------------------------
 
 t_macro_compile <- list(
   # rozpad na kraj x platby po letech x makro kategorie => sečíst
@@ -131,14 +136,14 @@ t_macro_compile <- list(
 )
 
 
-# Compile by OP -----------------------------------------------------------
+## Compile by OP -----------------------------------------------------------
 
 t_op_compile <- list(
   tar_target(compiled_op_sum,
              summarise_by_op(efs_zop_quarterly, efs_prv_quarterly)))
 
 
-# Export data for macro models --------------------------------------------
+## Export data for macro models --------------------------------------------
 
 t_macro_export <- list(
   tar_file(macro_export_annual_csv,
@@ -160,7 +165,7 @@ t_macro_export <- list(
 )
 
 
-# Build and export codebook -----------------------------------------------
+## Build and export codebook -----------------------------------------------
 
 t_macro_codebook <- list(
   tar_target(macro_sum_codebook,
@@ -174,7 +179,7 @@ t_macro_codebook <- list(
              })
 )
 
-# Objective/category hierarchy --------------------------------------------
+## Objective/category hierarchy --------------------------------------------
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
 
@@ -184,7 +189,9 @@ t_hier <- list(
   tar_target(ef_hier, process_hierarchy(ef_hier_raw, efs_prj))
 )
 
-# Statnipokladna - číselníky ----------------------------------------------
+# Statnipokladna ------------------------------------------
+
+## Císelníky ----------------------------------------------
 
 # keep downloaded data in project directory
 options(statnipokladna.dest_dir = "sp_data")
@@ -216,7 +223,7 @@ t_sp_codelists <- list(
 
 )
 
-# Central state budget data -----------------------------------------------
+## Central state budget data -----------------------------------------------
 
 # read_tarrow(target_name)
 
@@ -240,7 +247,7 @@ t_sp_data_central_new <- list(
   tar_target(sp_central_new_ops, budget_new_ops(sp_central_new_arrdir, nastroj_op, sp_cl))
 )
 
-# Local budget data -----------------------------------------------
+## Local budget data -----------------------------------------------
 
 # read_tarrow(target_name)
 
@@ -263,7 +270,7 @@ t_sp_data_local <- list(
              format = "file")
 )
 
-# Pre-2015 central budget data --------------------------------------------
+## Pre-2015 central budget data --------------------------------------------
 
 t_sp_data_central_old <- list(
   tar_target(d_years_o, c_sp_years_central_old),
@@ -284,7 +291,7 @@ t_sp_data_central_old <- list(
              format = "file")
 )
 
-# Local budgets - grants --------------------------------------------------
+## Local budgets - grants --------------------------------------------------
 
 t_sp_data_local_grants <- list(
   tar_target(table_file_lg, sp_get_table_file("budget-local-purpose-grants",
