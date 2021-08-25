@@ -45,3 +45,26 @@ Relevantní předchozí publikace v této oblasti:
 
 *Pojmenováno s citem k regionu narození jednoho nejmenovaného šéfa
 projektového týmu.*
+
+## Dokumentace souborů
+
+-   `esifunguji.Rproj`: konfigurace RStudio projektu
+-   `_targets.R`: hlavní soubor definující datový pipeline
+-   `_site.yml`: konfigurace webu generovaného uvnitř pipeline do složky
+    `docs`
+-   `_interactive.R`: konfigurace webu generovaného uvnitř pipeline do
+    složky `docs`
+-   `build.R`: utilita - spouští pipeline, v RStudio projectu navázáno
+    na Build command
+-   `*.Rmd`
+-   `docs`
+-   `data-export`
+-   `data-input`
+-   `data-output`
+-   `data-processed`
+-   `renv`
+-   `R`
+-   `scripts`
+-   `sp_data`
+
+Detaily v [technické dokumentaci](dev.html).

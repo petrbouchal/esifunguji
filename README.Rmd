@@ -38,4 +38,24 @@ Relevantní předchozí publikace v této oblasti:
 - [Navazující studie Úřadu vlády (2018)](https://www.vlada.cz/assets/evropske-zalezitosti/analyzy-EU/Dopad-ESI-fondu-na-hospodarstvi-CR.pdf)
 - [Úřad vlády (2019) přehled využívání makro modelů v zemích EU](https://www.vlada.cz/assets/evropske-zalezitosti/aktualne/Vyuzivani-makroevaluaci-a-makroekonomickych-modelu-clenskymi-staty-EU.pdf)
 
-*Pojmenováno s citem k regionu narození jednoho nejmenovaného šéfa projektového týmu.* 
+*Pojmenováno s citem k regionu narození jednoho nejmenovaného šéfa projektového týmu.*
+
+## Dokumentace souborů
+
+- `esifunguji.Rproj`: konfigurace RStudio projektu 
+- `_targets.R`: hlavní soubor definující datový pipeline
+- `_site.yml`: konfigurace webu generovaného uvnitř pipeline do složky `docs`
+- `_interactive.R`: konfigurace webu generovaného uvnitř pipeline do složky `docs`
+- `build.R`: utilita - spouští pipeline, v RStudio projectu navázáno na Build command
+- `*.Rmd`
+- `docs`
+- `data-export`
+- `data-input`
+- `data-output`
+- `data-processed`
+- `renv`
+- `R`
+- `scripts`
+- `sp_data`
+
+Detaily v [technické dokumentaci](dev.html).
