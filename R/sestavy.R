@@ -122,6 +122,7 @@ load_efs_prj <- function(dir, filename) {
            dt_ukon_fyz_predpokl = predpokladane_datum_ukonceni_fyzicke_realizace_projektu_21,
            dt_zahaj_fyz_predpokl = predpokladane_datum_ukonceni_fyzicke_realizace_projektu_20
     ) %>%
+    mutate(across(starts_with("dt_"), as.Date)) %>%
     drop_na(prj_id) %>%
     add_op_labels()
   return(efs_prj)
@@ -238,6 +239,7 @@ load_prv <- function(path, cis_kraj) {
     ),
     operace_new = if_else(is.na(operace), "", operace)) %>%
     unite(opatreni_new, podopatreni, operace_new, col = "prv_operace_kod", sep = ".") %>%
+    mutate(across(starts_with("dt_"), as.Date)) %>%
     mutate(dt_zop_rok = year(datum_platby),
            dt_zop_kvartal = month(datum_platby) %/% 4 + 1,
            prv_operace_kod = str_remove(prv_operace_kod, "\\.$")) %>%
