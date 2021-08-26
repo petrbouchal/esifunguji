@@ -1,12 +1,12 @@
 type: informant
-read_fn: ~compiled_macro_sum_quarterly
+read_fn: ~compiled_macro_sum_reg_quarterly
 tbl_name: compiled_macro_sum_quarterly
 info_label: Codebook hlavního výstupu
 lang: en
 locale: en
 table:
   name: compiled_macro_sum_quarterly
-  _columns: 47
+  _columns: 37
   _rows: 3263.0
   _type: tbl_df
   Info: Tabulka se součty výdajů podle času, kraje a kategorie QUEST/HERMIN
@@ -23,9 +23,6 @@ columns:
     Popis: Rok proplacení ŽOP
     Zdroj dat: Datum proplacení ŽOP
     Typ: Časový údaj (datum)
-  kraj_id:
-    _type: character
-    Popis: Kód NUTS3 (kraj)
   quest_class:
     _type: character
     Popis: Kategorie pro QUEST
@@ -45,76 +42,9 @@ columns:
     Popis: První den kvartálu
     Zdroj dat: Datum proplacení ŽOP
     Typ: Časový údaj (datum)
-  fin_vyuct_czv:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Celkové způsobilé výdaje
-  fin_vyuct_eu:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Příspěvek Unie
-  fin_vyuct_sr:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Státní rozpočet
-  fin_vyuct_sf:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Státní fondy
-  fin_vyuct_kraj:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Kraj
-  fin_vyuct_obec:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Obec
-  fin_vyuct_jine_nar_ver:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Soukromý
-  fin_vyuct_soukr:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Soukromý
-  fin_vyuct_narodni_verejne:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Národní
-  fin_vyuct_narodni:
-    _type: numeric
-    Pozor: Neváženo podle území - nesčítat!
-    Typ: Finance
-    Jednotka: CZK
-    Zdroj dat: ŽOP sečtené podle data proplacení
-    Zdroj financí: Národní
+  kraj_id:
+    _type: character
+    Popis: Kód NUTS3 (kraj)
   fin_vyuct_czv_wt_pocetobyv:
     _type: numeric
     Typ: Finance

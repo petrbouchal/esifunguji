@@ -123,16 +123,26 @@ t_macro_compile <- list(
   # U PRV jen stačí navázat makro kategorizaci a sečíst po letech/kvartálech
   tar_target(compiled_macro_prv_quarterly,
              compile_ef_prv(efs_prv_quarterly, macrocat_prv)),
-  # spojit PRV a ostatní po letech
+  # spojit PRV a ostatní po letech a regionech
+  tar_target(compiled_macro_sum_reg_annual,
+             summarise_macro(compiled_macro_quarterly,
+                             compiled_macro_prv_quarterly,
+                             quarterly = FALSE, regional = TRUE)),
+  # spojit PRV a ostatní po kvartálech a regionech
+  tar_target(compiled_macro_sum_reg_quarterly,
+             summarise_macro(compiled_macro_quarterly,
+                             compiled_macro_prv_quarterly,
+                             quarterly = TRUE, regional = TRUE)),
+  # spojit PRV a ostatní po kvartálech, bez regionu
   tar_target(compiled_macro_sum_annual,
              summarise_macro(compiled_macro_quarterly,
                              compiled_macro_prv_quarterly,
-                             quarterly = FALSE)),
-  # spojit PRV a ostatní po kvartálech
+                             quarterly = FALSE, regional = FALSE)),
+  # spojit PRV a ostatní po kvartálech, bez regionu
   tar_target(compiled_macro_sum_quarterly,
              summarise_macro(compiled_macro_quarterly,
                              compiled_macro_prv_quarterly,
-                             quarterly = TRUE))
+                             quarterly = TRUE, regional = FALSE))
 )
 
 
@@ -146,6 +156,23 @@ t_op_compile <- list(
 ## Export data for macro models --------------------------------------------
 
 t_macro_export <- list(
+  tar_file(macro_export_reg_annual_csv,
+           export_table(compiled_macro_sum_reg_annual,
+                        here::here(c_macro_export_dir, c_macro_export_reg_csv_a),
+                        write_excel_csv2)),
+  tar_file(macro_export_reg_quarterly_csv,
+           export_table(compiled_macro_sum_reg_quarterly,
+                        here::here(c_macro_export_dir, c_macro_export_reg_csv_q),
+                        write_excel_csv2)),
+  tar_file(macro_export_reg_annual_excel,
+           export_table(compiled_macro_sum_reg_annual,
+                        here::here(c_macro_export_dir, c_macro_export_reg_xlsx_a),
+                        write_xlsx)),
+  tar_file(macro_export_reg_quarterly_excel,
+           export_table(compiled_macro_sum_reg_quarterly,
+                        here::here(c_macro_export_dir, c_macro_export_reg_xlsx_q),
+                        write_xlsx)),
+
   tar_file(macro_export_annual_csv,
            export_table(compiled_macro_sum_annual,
                         here::here(c_macro_export_dir, c_macro_export_csv_a),
@@ -177,10 +204,10 @@ t_valid_zop_timing <- list(
 
 t_macro_codebook <- list(
   tar_target(macro_sum_codebook,
-             make_macro_sum_codebook(compiled_macro_sum_quarterly)),
+             make_macro_sum_codebook(compiled_macro_sum_reg_quarterly)),
   tar_file(macro_sum_codebook_yaml,
            {pointblank::yaml_write(informant = macro_sum_codebook %>%
-                                    pointblank::set_read_fn(read_fn = ~compiled_macro_sum_quarterly),
+                                    pointblank::set_read_fn(read_fn = ~compiled_macro_sum_reg_quarterly),
                                   path = c_macro_export_dir,
                                   filename = c_macro_export_cdbk)
               file.path(c_macro_export_dir, c_macro_export_cdbk)

@@ -66,32 +66,61 @@ compile_ef_prv <- function(efs_prv, macrocat_quest_prv) {
                   .names = "{.col}_wt_pocetkraju"))
 }
 
-summarise_macro <- function(other, prv, quarterly) {
+summarise_macro <- function(other, prv, quarterly, regional) {
   other$source <- "mssf"
   prv$source <- "prv"
+
   bnd <- bind_rows(other, prv)
+
+  if(!regional) {
+    bnd <- bnd %>%
+      ungroup() %>%
+      select(prj_id, starts_with("fin_"), -matches("_wt"), matches("^(hermin)|(quest)"),
+             starts_with("dt_"), source, oblast_intervence_podil, katekon_podil) %>%
+      distinct() %>%
+      filter(TRUE)
+    # print(names(other))
+  }
+
   grp <- bnd %>%
-    group_by(dt_zop_rok, kraj_id, quest_class, hermin_class, source)
+    group_by(dt_zop_rok, quest_class, hermin_class, source)
+
   if (quarterly) {
     grp <- group_by(grp, dt_zop_kvartal, dt_zop_kvartal_datum, .add = TRUE)
   }
 
-  make_conditional_wt <- function(var, class, var_wt_1, var_wt_2) {
-    case_when(class %in% c("RD", "AIS", "TA") ~ var_wt_1,
-              class %in% c("INFR", "HC") ~ var_wt_2)
+  if(regional) {
+
+    make_conditional_wt <- function(var, class, var_wt_1, var_wt_2) {
+      case_when(class %in% c("RD", "AIS", "TA") ~ var_wt_1,
+                class %in% c("INFR", "HC") ~ var_wt_2)
+    }
+
+    # warning("REGIONAL!!!")
+
+    grp <- group_by(grp, kraj_id, .add = TRUE)
+
+    rr <- summarise(grp, across(starts_with("fin_"), sum, na.rm = TRUE), .groups = "drop") %>%
+      mutate(fin_vyuct_czv_wt_cond = make_conditional_wt(fin_vyuct_czv, quest_class, fin_vyuct_czv_wt_pocetkraju, fin_vyuct_czv_wt_pocetobyv),
+             fin_vyuct_eu_wt_cond = make_conditional_wt(fin_vyuct_eu_wt_cond, quest_class, fin_vyuct_eu_wt_pocetkraju, fin_vyuct_eu_wt_pocetobyv),
+             fin_vyuct_sr_wt_cond = make_conditional_wt(fin_vyuct_sr_wt_cond, quest_class, fin_vyuct_sr_wt_pocetkraju, fin_vyuct_sr_wt_pocetobyv),
+             fin_vyuct_sf_wt_cond = make_conditional_wt(fin_vyuct_sf_wt_cond, quest_class, fin_vyuct_sf_wt_pocetkraju, fin_vyuct_sf_wt_pocetobyv),
+             fin_vyuct_obec_wt_cond = make_conditional_wt(fin_vyuct_obec_wt_cond, quest_class, fin_vyuct_obec_wt_pocetkraju, fin_vyuct_obec_wt_pocetobyv),
+             fin_vyuct_kraj_wt_cond = make_conditional_wt(fin_vyuct_kraj_wt_cond, quest_class, fin_vyuct_kraj_wt_pocetkraju, fin_vyuct_kraj_wt_pocetobyv),
+             fin_vyuct_jine_nar_ver_wt_cond = make_conditional_wt(fin_vyuct_jine_nar_ver_wt_cond, quest_class, fin_vyuct_jine_nar_ver_wt_pocetkraju, fin_vyuct_jine_nar_ver_wt_pocetobyv),
+             fin_vyuct_narodni_wt_cond = make_conditional_wt(fin_vyuct_narodni_wt_cond, quest_class, fin_vyuct_narodni_wt_pocetkraju, fin_vyuct_narodni_wt_pocetobyv),
+             fin_vyuct_narodni_verejne_wt_cond = make_conditional_wt(fin_vyuct_narodni_verejne_wt_cond, quest_class, fin_vyuct_narodni_verejne_wt_pocetkraju, fin_vyuct_narodni_verejne_wt_pocetobyv),
+             fin_vyuct_soukr_wt_cond = make_conditional_wt(fin_vyuct_soukr_wt_cond, quest_class, fin_vyuct_soukr_wt_pocetkraju, fin_vyuct_soukr_wt_pocetobyv)) %>%
+      select(-matches("(czv|eu|sr|sf|obec|kraj|soukr|jine_nar_ver|narodni|narodni_verejne)$"))
+  } else {
+    rr <- grp %>%
+      select(-matches("_wt")) %>%
+      replace_na(list(oblast_intervence_podil = 1)) %>%
+      mutate(across(starts_with("fin_"), ~.x * oblast_intervence_podil * katekon_podil)) %>%
+      summarise(across(starts_with("fin_"), sum, na.rm = TRUE), .groups = "drop")
   }
 
-  summarise(grp, across(starts_with("fin_"), sum, na.rm = TRUE), .groups = "drop") %>%
-    mutate(fin_vyuct_czv_wt_cond = make_conditional_wt(fin_vyuct_czv, quest_class, fin_vyuct_czv_wt_pocetkraju, fin_vyuct_czv_wt_pocetobyv),
-           fin_vyuct_eu_wt_cond = make_conditional_wt(fin_vyuct_eu_wt_cond, quest_class, fin_vyuct_eu_wt_pocetkraju, fin_vyuct_eu_wt_pocetobyv),
-           fin_vyuct_sr_wt_cond = make_conditional_wt(fin_vyuct_sr_wt_cond, quest_class, fin_vyuct_sr_wt_pocetkraju, fin_vyuct_sr_wt_pocetobyv),
-           fin_vyuct_sf_wt_cond = make_conditional_wt(fin_vyuct_sf_wt_cond, quest_class, fin_vyuct_sf_wt_pocetkraju, fin_vyuct_sf_wt_pocetobyv),
-           fin_vyuct_obec_wt_cond = make_conditional_wt(fin_vyuct_obec_wt_cond, quest_class, fin_vyuct_obec_wt_pocetkraju, fin_vyuct_obec_wt_pocetobyv),
-           fin_vyuct_kraj_wt_cond = make_conditional_wt(fin_vyuct_kraj_wt_cond, quest_class, fin_vyuct_kraj_wt_pocetkraju, fin_vyuct_kraj_wt_pocetobyv),
-           fin_vyuct_jine_nar_ver_wt_cond = make_conditional_wt(fin_vyuct_jine_nar_ver_wt_cond, quest_class, fin_vyuct_jine_nar_ver_wt_pocetkraju, fin_vyuct_jine_nar_ver_wt_pocetobyv),
-           fin_vyuct_narodni_wt_cond = make_conditional_wt(fin_vyuct_narodni_wt_cond, quest_class, fin_vyuct_narodni_wt_pocetkraju, fin_vyuct_narodni_wt_pocetobyv),
-           fin_vyuct_narodni_verejne_wt_cond = make_conditional_wt(fin_vyuct_narodni_verejne_wt_cond, quest_class, fin_vyuct_narodni_verejne_wt_pocetkraju, fin_vyuct_narodni_verejne_wt_pocetobyv),
-           fin_vyuct_soukr_wt_cond = make_conditional_wt(fin_vyuct_soukr_wt_cond, quest_class, fin_vyuct_soukr_wt_pocetkraju, fin_vyuct_soukr_wt_pocetobyv))
+  return(rr)
 }
 
 export_table <- function(data, path, fun, ...) {
