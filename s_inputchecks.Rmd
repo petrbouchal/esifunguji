@@ -6,7 +6,9 @@ output: html_document
 IN PROGRESS (INTERNAL USE ONLY)
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE,
+                      fig.width = 10, fig.asp = 1/.62, fig.retina = 2,
+                      out.width = "100%")
 source("_targets_packages.R")
 ```
 
@@ -63,7 +65,6 @@ efs_obl %>%
   filter(prj_id %in% efs_fin$prj_id) %>% 
   count(wt = fin_pravniakt_eu*oblast_intervence_podil/1e9)
 ```
-
 
 ```{r}
 efs_fin %>% 
@@ -232,6 +233,73 @@ efs_fin %>%
   select(op_nazev, matches("czv|eu|sr|soukrome|pomer"))
 ```
 
+### Časování plateb
+
+```{r zop-timing-df}
+targets::tar_load(zop_timing_df)
+```
+
+```{r zop-timing-plot, fig.asp=1/2}
+targets::tar_read(zop_timing_plot)
+```
+
+Takže jako problematické vypadají IROP, OP PPR OP PIK, které hodně plateb proplatí v době těsně kolem skončení fyzické realizace projektu; zároveň mají větší prodlevu plateb po startu projektu. Většina programů pak má nějaké zpožděné platby, které jsou nejspíš následkem administrativních zádrhelů. Tedy:
+
+- co s platbami nahromaděnými kolem konce realizace projektu?
+- co s platbami dlouho po skončení realizace?
+- koncepčně, pro jistotu: je třeba to řešit? Tedy - je správné přepokládat, že reálně se peníze v ekonomice pohly v době realizace, nikoli podle data platby?
+
+Podíl POST a ANTE plateb (mld. Kč CZV)
+
+```{r zop-timing-sum}
+zop_timing_df %>%
+  count(type_zop, wt = fin_vyuct_czv/1e9) %>% 
+  mutate(n = round(n))
+```
+
+Totéž podle OP
+
+```{r zop-timing-tbl}
+zop_timing_df %>%
+  count(op_zkr, type_zop, wt = fin_vyuct_czv/1e9) %>%
+  mutate(n = round(n)) %>% 
+  spread(type_zop, n)
+```
+
+Podíl plateb proplacených po uplynutí více než 90 % doby realizace projektu (mld. Kč CZV)
+
+```{r zop-timing-tbl2}
+zop_timing_df %>%
+  mutate(nad90 = (dt_zop_rel ) > 0.9) %>%
+  count(nad90, op_zkr, wt = fin_vyuct_czv/1e9) %>%
+  spread(nad90, n) %>% 
+  set_names(c("OP", "Před 90 % doby projektu", "Později", "Chybí časové údaje"))
+```
+Co by se stalo, pokud bychom všechny platby posunuli o 15 % doby trvání projektu dřív?
+
+(součty proplacených mld. Kč CZV)
+
+```{r zop-timing-tbl3}
+zop_timing_df %>%
+  mutate(nad90 = (dt_zop_rel - 0.15) > 0.9) %>%
+  count(nad90, op_zkr, wt = fin_vyuct_czv/1e9) %>%
+  spread(nad90, n) %>% 
+  set_names(c("OP", "Před 90 % doby projektu", "Později", "Chybí časové údaje"))
+```
+
+Kolik peněz by v takovém případě bylo zařezeno do doby před rozjezdem projektu?
+
+(součty proplacených mld. Kč CZV)
+
+```{r zop-timing-tbl4}
+zop_timing_df %>%
+  mutate(nad90 = (dt_zop_rel - 0.15) < 0) %>%
+  count(nad90, op_zkr, wt = fin_vyuct_czv/1e9) %>%
+  spread(nad90, n) %>% 
+  set_names(c("OP", "Před začátkem doby projektu", "Později", "Chybí časové údaje"))
+```
+
+Takže u OP ŽP a OP D bychom zřejmě tuto úpravu dělat neměli, popř. ani u OP TP.
 
 ## PRV
 

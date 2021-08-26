@@ -10,7 +10,7 @@ tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
                             "dplyr", "purrrow", "future", "arrow", "tidyr",
                             "ragg", "magrittr", "czso", "lubridate", "writexl",
                             "readr", "purrr", "pointblank", "tarchetypes",
-                            "details"),
+                            "details", "forcats", "ggplot2"),
                # debug = "compiled_macro_quarterly",
                imports = c("purrrow", "statnipokladna"),
 )
@@ -162,6 +162,14 @@ t_macro_export <- list(
            export_table(compiled_macro_sum_quarterly,
                         here::here(c_macro_export_dir, c_macro_export_xlsx_q),
                         write_xlsx))
+)
+
+
+## Validation and exploration ----------------------------------------------
+
+t_valid_zop_timing <- list(
+  tar_target(zop_timing_df, build_efs_timing(efs_prj, efs_zop, ef_pub)),
+  tar_target(zop_timing_plot, make_zop_timing_plot(zop_timing_df))
 )
 
 
@@ -317,4 +325,5 @@ list(t_public_list, t_sp_codelists, t_sp_data_central_new,
      t_sp_data_central_old, t_html, t_sp_data_local, t_esif_obce,
      t_sp_data_local_grants, t_sestavy, t_hier,
      t_op_compile,
+     t_valid_zop_timing,
      t_macro_compile, t_macro_export, t_macro_codebook)
