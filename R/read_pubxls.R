@@ -41,7 +41,7 @@ read_pubxls <- function(path) {
            p_forma = pravni_forma_prijemce,
            p_ic = ic,
            p_nazev = nazev_prijemce,
-           dt_real_zah_fyz = datum_zahajeni_fyzicke_operace,
+           dt_real_zahaj_fyz = datum_zahajeni_fyzicke_operace,
            dt_real_ukon_fyz_skut = skutecne_datum_ukonceni_fyzicke_realizace_operace,
            dt_real_ukon_fyz_predp = predpokladane_datum_ukonceni_fyzicke_realizace_operace,
            real_stav = stav_realizace
