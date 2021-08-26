@@ -65,3 +65,7 @@ default:
   macro_export_cdbk: "macro-sum_codebook.yaml"
 
   repo_remote: "https://github.com/petrbouchal/esifunguji"
+
+  # export location - hierarchy
+  hier_export_dir: "data-export/matice_202108"
+  hier_export_xlsx: "matice.xlsx"

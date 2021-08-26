@@ -11,7 +11,7 @@ tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
                             "ragg", "magrittr", "czso", "lubridate", "writexl",
                             "readr", "purrr", "pointblank", "tarchetypes",
                             "details", "forcats", "ggplot2"),
-               # debug = "compiled_macro_quarterly",
+               # debug = "compiled_macro_sum_quarterly",
                imports = c("purrrow", "statnipokladna"),
 )
 
@@ -214,14 +214,27 @@ t_macro_codebook <- list(
              })
 )
 
-## Objective/category hierarchy --------------------------------------------
+# Objective/category hierarchy --------------------------------------------
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
 
-t_hier <- list(
+
+## Matice ------------------------------------------------------------------
+
+t_hier_matice <- list(
   tar_file(ef_hier_path, c_hier_excel_path),
   tar_target(ef_hier_raw, load_hierarchy(c_hier_excel_path, c_hier_excel_sheet)),
   tar_target(ef_hier, process_hierarchy(ef_hier_raw, efs_prj))
+)
+
+## Součet výdajů podle SC --------------------------------------------------
+
+t_hier_soucty <- list(
+  tar_target(ef_hier_sum, summarise_by_hierarchy(efs_zop_annual, efs_prj_sc, ef_hier)),
+  tar_file(hier_export_xlsx,
+           export_table(ef_hier_sum,
+                        here::here(c_hier_export_dir, c_hier_export_xlsx),
+                        write_xlsx))
 )
 
 # Statnipokladna ------------------------------------------
@@ -350,7 +363,8 @@ source("R/html_output.R")
 list(t_public_list, t_sp_codelists, t_sp_data_central_new,
      t_cats,
      t_sp_data_central_old, t_html, t_sp_data_local, t_esif_obce,
-     t_sp_data_local_grants, t_sestavy, t_hier,
+     t_sp_data_local_grants, t_sestavy,
+     t_hier_matice, t_hier_soucty,
      t_op_compile,
      t_valid_zop_timing,
      t_macro_compile, t_macro_export, t_macro_codebook)
