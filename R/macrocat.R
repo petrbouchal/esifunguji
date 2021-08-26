@@ -15,7 +15,10 @@ load_macrocat_quest <- function(quest_path, prv) {
                                     paste0(quest_class, hermin_type))) %>%
       select(starts_with("prv_operace"), quest_class, hermin_class)
   }  else {
-    rename(q, quest_class = class)
+    q %>%
+      mutate(class = if_else(is.na(class_new), class, class_new)) %>%
+      rename(quest_class = class) %>%
+      select(-class_new)
   }
 }
 
