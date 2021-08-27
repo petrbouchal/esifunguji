@@ -746,9 +746,9 @@ html {
       <th colspan="1" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-size: 12px; text-align: left;"><span style="text-decoration-style:solid;text-decoration-color:#ADD8E6;text-decoration-line:underline;text-underline-position:under;color:#333333;font-variant-numeric:tabular-nums;padding-left:4px;margin-right:5px;padding-right:2px;">Codebook hlavního výstupu</span></p>
 <div style="height:25px;margin-top:10px;"><span style="background-color:#F1D35A;color:#222222;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 0px 5px 5px;font-weight:bold;border:solid 1px #F1D35A;padding:2px 15px 2px 15px;font-size:smaller;">tibble</span>
 <span style="background-color:none;color:#222222;padding:0.5em 0.5em;position:inherit;margin:5px 10px 5px -4px;font-weight:bold;border:solid 1px #F1D35A;padding:2px 15px 2px 15px;font-size:smaller;">compiled_macro_sum_quarterly</span><span style="background-color:#eecbff;color:#333333;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 0px 5px 5px;font-weight:bold;border:solid 1px #eecbff;padding:2px 15px 2px 15px;font-size:smaller;">Rows</span>
-<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #eecbff;padding:2px 15px 2px 15px;font-size:smaller;">3,167</span>
+<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #eecbff;padding:2px 15px 2px 15px;font-size:smaller;">8,580</span>
 <span style="background-color:#BDE7B4;color:#333333;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 0px 5px 1px;font-weight:bold;border:solid 1px #BDE7B4;padding:2px 15px 2px 15px;font-size:smaller;">Columns</span>
-<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #BDE7B4;padding:2px 15px 2px 15px;font-size:smaller;">37</span></div>
+<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #BDE7B4;padding:2px 15px 2px 15px;font-size:smaller;">39</span></div>
 </th>
     </tr>
   </thead>
@@ -758,7 +758,7 @@ html {
       <td colspan="1" class="gt_group_heading" style="color: #444444; font-weight: 500; text-transform: uppercase; background-color: #FCFCFC; border-bottom-width: 1; border-bottom-style: solid; border-bottom-color: #EFEFEF;">Table</td>
     </tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><h4 style="margin-bottom:5px;">INFO</h4>
-<p>Tabulka se součty výdajů podle času, kraje a kategorie QUEST/HERMIN</p>
+<p>Tabulka se součty výdajů podle času, kraje, kategorie QUEST/HERMIN, TC DoP a cíle EU2020</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><h4 style="margin-bottom:5px;">NOTE</h4>
 <p>Platí pro data po kvartálech a analogicky i pro roční data</p>
@@ -789,6 +789,14 @@ html {
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">source</code>  <code class="pb_col_type">character</code></p>
 <p><strong class="pb_sub_label">POPIS</strong> Zdroj dat (MSSF/MSEU nebo SZIF (PRV))</p>
+</div></td></tr>
+    <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">tc_id</code>  <code class="pb_col_type">character</code></p>
+<p><strong class="pb_sub_label">POPIS</strong> Tematický cíl Dohody o partnerství</p>
+<p><strong class="pb_sub_label">ZDROJ</strong> Matice cílů od NOK</p>
+</div></td></tr>
+    <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">eu20_id</code>  <code class="pb_col_type">character</code></p>
+<p><strong class="pb_sub_label">POPIS</strong> Cíl EU 2020</p>
+<p><strong class="pb_sub_label">ZDROJ</strong> Matice cílů od NOK</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">dt_zop_kvartal</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">POPIS</strong> Kvartál proplacení ŽOP</p>
@@ -1026,9 +1034,9 @@ html {
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-08-26 22:32:38 CEST</span>
+      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-08-28 00:39:54 CEST</span>
 <span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;margin:5px 1px 5px 0;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">&lt; 1 s</span>
-<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-08-26 22:32:38 CEST</span></td>
+<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-08-28 00:39:54 CEST</span></td>
     </tr>
   </tfoot>
   
@@ -1039,12 +1047,14 @@ html {
 </div>
 <div id="náhled-proměnných" class="section level2">
 <h2>Náhled proměnných</h2>
-<pre><code>Rows: 3,167
-Columns: 37
+<pre><code>Rows: 8,580
+Columns: 39
 $ dt_zop_rok                              &lt;dbl&gt; 2015, 2015, 2015, 2015, 2015, …
 $ quest_class                             &lt;chr&gt; &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, …
 $ hermin_class                            &lt;chr&gt; &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, …
 $ source                                  &lt;chr&gt; &quot;mssf&quot;, &quot;mssf&quot;, &quot;mssf&quot;, &quot;mssf&quot;…
+$ tc_id                                   &lt;chr&gt; &quot;TC08&quot;, &quot;TC08&quot;, &quot;TC08&quot;, &quot;TC08&quot;…
+$ eu20_id                                 &lt;chr&gt; &quot;EU2020_1&quot;, &quot;EU2020_1&quot;, &quot;EU202…
 $ dt_zop_kvartal                          &lt;dbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, …
 $ dt_zop_kvartal_datum                    &lt;date&gt; 2015-10-01, 2015-10-01, 2015-…
 $ kraj_id                                 &lt;chr&gt; &quot;CZ010&quot;, &quot;CZ020&quot;, &quot;CZ031&quot;, &quot;CZ…
@@ -1084,7 +1094,7 @@ $ fin_vyuct_soukr_wt_cond                 &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0
 <p>IN PROGRESS</p>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["kraj_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["2015"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["2016"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["2017"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["2018"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["2019"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["2020"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["2021"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["<NA>"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"CZ010","2":"0.13","3":"2.34","4":"4.80","5":"9.40","6":"10.48","7":"11.40","8":"4.41","9":"0"},{"1":"CZ020","2":"0.13","3":"1.76","4":"8.88","5":"13.61","6":"14.62","7":"18.21","8":"5.40","9":"0"},{"1":"CZ031","2":"0.06","3":"0.78","4":"3.88","5":"7.79","6":"8.06","7":"7.62","8":"2.77","9":"0"},{"1":"CZ032","2":"0.06","3":"1.18","4":"2.41","5":"5.82","6":"5.87","7":"6.89","8":"2.55","9":"0"},{"1":"CZ041","2":"0.03","3":"0.20","4":"1.71","5":"2.93","6":"2.61","7":"1.94","8":"1.47","9":"0"},{"1":"CZ042","2":"0.08","3":"0.64","4":"2.70","5":"5.81","6":"6.92","7":"8.84","8":"3.39","9":"0"},{"1":"CZ051","2":"0.07","3":"0.23","4":"2.70","5":"3.77","6":"3.70","7":"4.21","8":"1.68","9":"0"},{"1":"CZ052","2":"0.05","3":"0.70","4":"1.97","5":"5.04","6":"6.12","7":"6.34","8":"2.13","9":"0"},{"1":"CZ053","2":"0.05","3":"0.67","4":"1.99","5":"4.64","6":"5.78","7":"7.89","8":"2.70","9":"0"},{"1":"CZ063","2":"0.05","3":"0.70","4":"6.14","5":"7.19","6":"6.57","7":"9.74","8":"3.33","9":"0"},{"1":"CZ064","2":"0.12","3":"0.91","4":"6.88","5":"15.89","6":"15.09","7":"18.02","8":"6.24","9":"0"},{"1":"CZ071","2":"0.06","3":"1.64","4":"4.18","5":"7.31","6":"7.16","7":"9.81","8":"3.31","9":"0"},{"1":"CZ072","2":"0.06","3":"0.72","4":"2.66","5":"5.32","6":"5.81","7":"5.82","8":"2.35","9":"0"},{"1":"CZ080","2":"0.12","3":"1.06","4":"7.18","5":"12.77","6":"12.41","7":"11.83","8":"5.27","9":"0"},{"1":"NA","2":"NA","3":"0.00","4":"0.00","5":"0.00","6":"0.00","7":"0.00","8":"0.00","9":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["kraj_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["2015"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["2016"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["2017"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["2018"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["2019"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["2020"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["2021"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["<NA>"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"CZ010","2":"0.13","3":"2.34","4":"4.82","5":"9.36","6":"10.41","7":"11.38","8":"4.43","9":"0"},{"1":"CZ020","2":"0.13","3":"1.75","4":"8.81","5":"13.58","6":"14.56","7":"18.19","8":"5.35","9":"0"},{"1":"CZ031","2":"0.06","3":"0.78","4":"3.86","5":"7.77","6":"8.04","7":"7.61","8":"2.73","9":"0"},{"1":"CZ032","2":"0.06","3":"1.18","4":"2.39","5":"5.81","6":"5.84","7":"6.88","8":"2.52","9":"0"},{"1":"CZ041","2":"0.03","3":"0.20","4":"1.66","5":"2.90","6":"2.53","7":"1.92","8":"1.46","9":"0"},{"1":"CZ042","2":"0.08","3":"0.64","4":"2.69","5":"5.82","6":"6.86","7":"8.77","8":"3.39","9":"0"},{"1":"CZ051","2":"0.07","3":"0.23","4":"2.70","5":"3.71","6":"3.72","7":"4.18","8":"1.65","9":"0"},{"1":"CZ052","2":"0.05","3":"0.70","4":"1.93","5":"5.01","6":"6.13","7":"6.30","8":"2.12","9":"0"},{"1":"CZ053","2":"0.05","3":"0.67","4":"1.95","5":"4.61","6":"5.76","7":"7.85","8":"2.68","9":"0"},{"1":"CZ063","2":"0.05","3":"0.70","4":"6.12","5":"7.18","6":"6.58","7":"9.66","8":"3.32","9":"0"},{"1":"CZ064","2":"0.12","3":"0.91","4":"6.86","5":"15.85","6":"15.07","7":"17.98","8":"6.23","9":"0"},{"1":"CZ071","2":"0.06","3":"1.63","4":"4.15","5":"7.26","6":"7.19","7":"9.80","8":"3.30","9":"0"},{"1":"CZ072","2":"0.06","3":"0.71","4":"2.66","5":"5.33","6":"5.84","7":"5.74","8":"2.35","9":"0"},{"1":"CZ080","2":"0.12","3":"1.08","4":"7.17","5":"12.76","6":"12.40","7":"11.75","8":"5.24","9":"0"},{"1":"NA","2":"NA","3":"0.00","4":"0.00","5":"0.00","6":"0.00","7":"0.00","8":"0.00","9":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div data-pagedtable="false">
