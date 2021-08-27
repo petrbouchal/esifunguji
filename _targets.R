@@ -218,7 +218,6 @@ t_macro_codebook <- list(
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
 
-
 ## Matice ------------------------------------------------------------------
 
 t_hier_matice <- list(
