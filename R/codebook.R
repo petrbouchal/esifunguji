@@ -1,10 +1,16 @@
 make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
   create_informant(tbl = compiled_macro_sum_quarterly,
                    label = "Codebook hlavního výstupu") %>%
-    info_tabular(Info = "Tabulka se součty výdajů podle času, kraje a kategorie QUEST/HERMIN",
+    info_tabular(Info = "Tabulka se součty výdajů podle času, kraje, kategorie QUEST/HERMIN, TC DoP a cíle EU2020",
                  Note = "Platí pro data po kvartálech a analogicky i pro roční data",
                  `Celková struktura` = "dlouhý formát: čas a kraj jsou v řádcích, metadata a jednotlivé zdroje financí jsou ve sloupcích",
                  `Názvy proměnných` = "platí i pro ostatní datové sady v pipeline:\n- `dt_`: proměnné časového určení\n- `fin_`: finanční údaje") %>%
+    info_columns("tc_id",
+                 Popis = "Tematický cíl Dohody o partnerství",
+                 Zdroj = "Matice cílů od NOK") %>%
+    info_columns("eu20_id",
+                 Popis = "Cíl EU 2020",
+                 Zdroj = "Matice cílů od NOK") %>%
     info_columns("quest_class",
                  Popis = "Kategorie pro QUEST") %>%
     info_columns("hermin_class",
