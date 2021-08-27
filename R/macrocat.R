@@ -45,10 +45,10 @@ build_efs_macrocat <- function(efs_prj_kat, efs_obl,
     filter(hermin_podil > 0)
 }
 
-compile_ef <- function(efs_macrocat, eo_kraj, efs_zop_annual) {
+compile_ef <- function(efs_macrocat, eo_kraj, efs_zop_bytime) {
   efs_macrocat %>%
     full_join(eo_kraj, by = "prj_id") %>%
-    full_join(efs_zop_annual, by = "prj_id") %>%
+    full_join(efs_zop_bytime, by = "prj_id") %>%
     mutate(across(starts_with("fin_"),
                   ~.x * hermin_podil * kraj_podil_wtpocetobyv,
                   .names = "{.col}_wt_pocetobyv"),
