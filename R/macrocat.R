@@ -30,44 +30,66 @@ load_macrocat_hermin <- function(hermin_path) {
     rename(hermin_type = type, katekon_nazev = nazev)
 }
 
-build_efs_macrocat <- function(efs_prj_kat, efs_obl,
+add_macrocat <- function(efs_prj_kat, efs_obl,
                                macrocat_quest,
-                               macrocat_hermin) {
+                               macrocat_hermin,
+                               efs_prj_sc,
+                               ef_hier) {
+
+  ef_hier <- ef_hier %>% select(-sc_nazev_hier)
+
   efs_obl %>%
-    left_join(efs_prj_kat) %>%
-    select(prj_id, starts_with("katekon_"), starts_with("oblast_")) %>%
-    left_join(macrocat_quest) %>%
-    left_join(macrocat_hermin) %>%
+    left_join(efs_prj_kat, by = "prj_id") %>%
+    full_join(efs_prj_sc, by = "prj_id") %>%
+    left_join(ef_hier, by = "sc_id") %>%
+    select(prj_id, starts_with("katekon_"), starts_with("oblast_"),
+           starts_with("sc_"), eu20_id, tc_id) %>%
+    left_join(macrocat_quest, by = "oblast_intervence_nazev") %>%
+    left_join(macrocat_hermin, by = "katekon_nazev") %>%
     mutate(hermin_class = if_else(quest_class != "AIS",
                                   quest_class,
                                   paste0(quest_class, hermin_type)),
-           hermin_podil = oblast_intervence_podil * katekon_podil) %>%
-    filter(hermin_podil > 0)
+           radek_podil = oblast_intervence_podil * katekon_podil * sc_podil) %>%
+    filter(radek_podil > 0)
 }
 
-compile_ef <- function(efs_macrocat, eo_kraj, efs_zop_bytime) {
-  efs_macrocat %>%
-    full_join(eo_kraj, by = "prj_id") %>%
-    full_join(efs_zop_bytime, by = "prj_id") %>%
-    mutate(across(starts_with("fin_"),
-                  ~.x * hermin_podil * kraj_podil_wtpocetobyv,
-                  .names = "{.col}_wt_pocetobyv"),
-           across(.cols = c(starts_with("fin_"), -contains("_wt_")),
-                  ~.x * hermin_podil * kraj_podil_wtpocetkraju,
-                  .names = "{.col}_wt_pocetkraju"))
-}
-
-compile_ef_prv <- function(efs_prv, macrocat_quest_prv) {
+add_macrocat_prv <- function(efs_prv, macrocat_quest_prv) {
   efs_prv %>%
     left_join(macrocat_quest_prv, by = "prv_operace_kod") %>%
-    mutate(hermin_podil = 1) %>%
+    mutate(radek_podil = 1,
+           sc_podil = 1,
+           tc_id = NA,
+           katekon_podil = 1,
+           oblast_intervence_podil = 1,
+           eu20_id = NA)
+}
+
+add_regions_prv <- function(prv_macrocat) {
+  prv_macrocat %>%
     mutate(across(starts_with("fin_"),
-                  ~.x,
+                ~.x,
+                .names = "{.col}_wt_pocetobyv"),
+         across(.cols = c(starts_with("fin_"), -contains("_wt_")),
+                ~.x,
+                .names = "{.col}_wt_pocetkraju"))
+}
+
+add_financials <- function(efs_macrocat, efs_zop_bytime) {
+  efs_macrocat %>%
+    full_join(efs_zop_bytime, by = "prj_id")
+}
+
+add_regions <- function(efs_macrocat_fin, eo_kraj) {
+  efs_macrocat_fin %>%
+    full_join(eo_kraj, by = "prj_id") %>%
+    mutate(across(starts_with("fin_"),
+                  ~.x * radek_podil * kraj_podil_wtpocetobyv,
                   .names = "{.col}_wt_pocetobyv"),
            across(.cols = c(starts_with("fin_"), -contains("_wt_")),
-                  ~.x,
+                  ~.x * radek_podil * kraj_podil_wtpocetkraju,
                   .names = "{.col}_wt_pocetkraju"))
 }
+
 
 summarise_macro <- function(other, prv, quarterly, regional) {
   other$source <- "mssf"
@@ -75,18 +97,8 @@ summarise_macro <- function(other, prv, quarterly, regional) {
 
   bnd <- bind_rows(other, prv)
 
-  if(!regional) {
-    bnd <- bnd %>%
-      ungroup() %>%
-      select(prj_id, starts_with("fin_"), -matches("_wt"), matches("^(hermin)|(quest)"),
-             starts_with("dt_"), source, oblast_intervence_podil, katekon_podil) %>%
-      distinct() %>%
-      filter(TRUE)
-    # print(names(other))
-  }
-
   grp <- bnd %>%
-    group_by(dt_zop_rok, quest_class, hermin_class, source)
+    group_by(dt_zop_rok, quest_class, hermin_class, source, tc_id, eu20_id)
 
   if (quarterly) {
     grp <- group_by(grp, dt_zop_kvartal, dt_zop_kvartal_datum, .add = TRUE)
@@ -117,13 +129,17 @@ summarise_macro <- function(other, prv, quarterly, regional) {
       select(-matches("(czv|eu|sr|sf|obec|kraj|soukr|jine_nar_ver|narodni|narodni_verejne)$"))
   } else {
     rr <- grp %>%
-      select(-matches("_wt")) %>%
-      replace_na(list(oblast_intervence_podil = 1)) %>%
-      mutate(across(starts_with("fin_"), ~.x * oblast_intervence_podil * katekon_podil)) %>%
+      mutate(across(starts_with("fin_"), ~.x * radek_podil)) %>%
       summarise(across(starts_with("fin_"), sum, na.rm = TRUE), .groups = "drop")
   }
 
   return(rr)
+}
+
+drop_matice_vars <- function(input) {
+  input %>%
+    group_by(across(starts_with("dt_")), quest_class, hermin_class, source) %>%
+    summarise(across(starts_with("fin_"), sum, na.rm = TRUE), .groups = "drop")
 }
 
 export_table <- function(data, path, fun, ...) {

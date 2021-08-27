@@ -22,7 +22,7 @@ targets::tar_load(efs_prj)
 targets::tar_load(efs_prj_basic)
 targets::tar_load(efs_prj_kat)
 targets::tar_load(efs_prj_sc)
-targets::tar_load(compiled_macro_sum_reg_quarterly)
+targets::tar_load(macro_sum_reg_quarterly)
 ```
 
 ## Sestavy
