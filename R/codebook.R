@@ -16,7 +16,7 @@ make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
     info_columns("hermin_class",
                  Popis = "Kategorie pro HERMIN") %>%
     info_columns(matches("(czv|eu|sr|sf|obec|kraj|soukr|jine_nar_ver|narodni|narodni_verejne)$"),
-                 Pozor = "Neváženo podle území - nesčítat!") %>%
+                 Pozor = "Neváženo podle území - v exportech s rozpady na kraje nesčítat!") %>%
     info_columns("source",
                  Popis = "Zdroj dat (MSSF/MSEU nebo SZIF (PRV))") %>%
     info_columns("kraj_id", Popis = "Kód NUTS3 (kraj)") %>%
