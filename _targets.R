@@ -16,7 +16,10 @@ tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
 )
 
 options(crayon.enabled = TRUE,
-        scipen = 100)
+        scipen = 100,
+        statnipokladna.dest_dir = "sp_data",
+        czso.dest_dir = "~/czso_data",
+        yaml.eval.expr = TRUE)
 
 future::plan(multicore)
 
