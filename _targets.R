@@ -10,7 +10,7 @@ tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
                             "dplyr", "purrrow", "future", "arrow", "tidyr",
                             "ragg", "magrittr", "czso", "lubridate", "writexl",
                             "readr", "purrr", "pointblank", "tarchetypes",
-                            "details", "forcats", "ggplot2"),
+                            "details", "forcats", "ggplot2", "gt"),
                # debug = "compiled_macro_sum_quarterly",
                imports = c("purrrow", "statnipokladna"),
 )
