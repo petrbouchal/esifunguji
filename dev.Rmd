@@ -7,17 +7,48 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-TO DO
-
 ## Struktura a nástroje
 
+### Co se děje
+
+- Na vstupu je 
+  - kupa excel souborů - sestav od MMR
+  - online excelová tabulka projektů od MMR
+  - online data Státní pokladny (pro část o veřejných výdajích)
+  - jeden Arrow dataset
+- Na výstupu je
+  - kupa excel a CSV souborů
+  - webová dokumentace
+  - codebook
+- Mezi tím je spousta kroků v `tidyverse`, které všechna data propojují.
+
+### Jak se to děje
+
+Celý pipeline je organizován nástrojem `{targets}`, funguje podobně jako `make`. Ve skriptu `_targets.R` jsou popsány všechny výstupy ("targets") a jejich vztahy. `{targets}` sleduje, které targets neodpovídají aktuálnímu stavu kódu (funkce ve skriptech v `R/`) a jeho vstupů a po spuštění pipeline (`tar_make()`) spouští pouze ten kód, který je potřeba pro uvedení výstupů do aktuální podoby. Mezi výstupy patří průběžné datasety, výstupní datové soubory i výstupní datovádokumentace.
+
+Všechny cesty ke vstupním a výstupním souborům a dalším parametry se nastavují v `config.yml`.
+
+O reprodukovatelnost prostředí (tj. udržování správné verze balíků R) se stará systém {renv}.
+
+Dokumentaci a validaci dat zajišťují postupy v balíku `{pointblank}`
+
+Dokumentace se generuje ze vstupních RMarkdown souborů do adresáře `/docs`, který se po push na github automaticky publikuje.
+
 ## Jak to znovu pustit
+
+1. pustit `renv::restore()` - tím se do projektu načtou správné verze Rkových balíků
+1. vložit aktualizované vstupní sestavy do `data-input/sestavy [datum]`
+1. Zanést cestu do patřičného parametru v `config.yml`
+1. Zopakovat s daty PRV v `data-input/prv`
+1. Analogicky lze aktualizovat i excelové soubory
+1. V `config.yml` aktualizovat cestu k veřejnému seznamu operací na webu dotaceeu.cz
+1. Pustit `targets::tar_make()`, popř. spustit skript `build.R` nebo použít tlačítko `Build` na záložce `Build`.
 
 ## Dokumentace pro reprodukovatelnost
 
 ### Konfigurace
 
-```{details}
+```{details, tooltip = "Rozbalit obsah souboru config.yml"}
 "./config.yml"
 ```
 
@@ -25,13 +56,13 @@ TO DO
 
 #### R
 
-```{details}
+```{details, tooltip = "Rozbalit výstup sessionInfo()"}
 sessionInfo()
 ```
 
 #### Obsah renv.lock
 
-```{details}
+```{details, tooltip = "Rozbalit obsah souboru renv.lock"}
 "./renv.lock"
 ```
 
