@@ -850,10 +850,15 @@
     },
     "pointblank": {
       "Package": "pointblank",
-      "Version": "0.8.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "d1f25e7dc6236523b0cc3898cc74cf78"
+      "Version": "0.8.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rich-iannone",
+      "RemoteRepo": "pointblank",
+      "RemoteRef": "main",
+      "RemoteSha": "f4757063fca88bfdc0f3971ec401d2b6e2297dd7",
+      "Hash": "9de8808ddda1e7b9b1e2a2217a11511a"
     },
     "praise": {
       "Package": "praise",
@@ -903,11 +908,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "ptrr",
       "RemoteUsername": "petrbouchal",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "18bee133cb9071e20b27b401996febf0e5e4bdc2",
-      "Hash": "1c6ef38618dc1dbdeb12b996b2576532"
+      "RemoteRepo": "ptrr",
+      "RemoteRef": "master",
+      "RemoteSha": "feae74dcf742dd9f9fe6086201110995c4eef736",
+      "Hash": "b96f29d641037b5c769534b69bf36fe7"
     },
     "purrr": {
       "Package": "purrr",
