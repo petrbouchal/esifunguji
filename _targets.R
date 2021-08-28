@@ -211,7 +211,7 @@ t_macro_codebook <- list(
              make_macro_sum_codebook(macro_sum_reg_quarterly)),
   tar_file(macro_sum_codebook_yaml,
            {pointblank::yaml_write(informant = macro_sum_codebook %>%
-                                     pointblank::set_read_fn(read_fn = ~compiled_macro_sum_reg_quarterly),
+                                     pointblank::set_read_fn(read_fn = ~macro_sum_reg_quarterly),
                                    path = c_macro_export_dir,
                                    filename = c_macro_export_cdbk)
              file.path(c_macro_export_dir, c_macro_export_cdbk)

@@ -1,5 +1,5 @@
 type: informant
-read_fn: ~compiled_macro_sum_reg_quarterly
+read_fn: ~macro_sum_reg_quarterly
 tbl_name: compiled_macro_sum_quarterly
 info_label: Codebook hlavního výstupu
 lang: en
