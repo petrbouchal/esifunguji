@@ -43,7 +43,7 @@ add_macrocat <- function(efs_prj_kat, efs_obl,
     full_join(efs_prj_sc, by = "prj_id") %>%
     left_join(ef_hier, by = "sc_id") %>%
     select(prj_id, starts_with("katekon_"), starts_with("oblast_"),
-           starts_with("sc_"), eu20_id, tc_id) %>%
+           starts_with("sc_"), eu20_id) %>%
     left_join(macrocat_quest, by = "oblast_intervence_nazev") %>%
     left_join(macrocat_hermin, by = "katekon_nazev") %>%
     mutate(hermin_class = if_else(quest_class != "AIS",
@@ -58,7 +58,6 @@ add_macrocat_prv <- function(efs_prv, macrocat_quest_prv) {
     left_join(macrocat_quest_prv, by = "prv_operace_kod") %>%
     mutate(radek_podil = 1,
            sc_podil = 1,
-           tc_id = NA,
            katekon_podil = 1,
            oblast_intervence_podil = 1,
            eu20_id = NA)
@@ -98,7 +97,7 @@ summarise_macro <- function(other, prv, quarterly, regional) {
   bnd <- bind_rows(other, prv)
 
   grp <- bnd %>%
-    group_by(dt_zop_rok, quest_class, hermin_class, source, tc_id, eu20_id)
+    group_by(dt_zop_rok, quest_class, hermin_class, source, eu20_id)
 
   if (quarterly) {
     grp <- group_by(grp, dt_zop_kvartal, dt_zop_kvartal_datum, .add = TRUE)

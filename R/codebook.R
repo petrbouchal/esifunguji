@@ -5,9 +5,6 @@ make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
                  Note = "Platí pro data po kvartálech a analogicky i pro roční data",
                  `Celková struktura` = "dlouhý formát: čas a kraj jsou v řádcích, metadata a jednotlivé zdroje financí jsou ve sloupcích",
                  `Názvy proměnných` = "platí i pro ostatní datové sady v pipeline:\n- `dt_`: proměnné časového určení\n- `fin_`: finanční údaje") %>%
-    info_columns("tc_id",
-                 Popis = "Tematický cíl Dohody o partnerství",
-                 Zdroj = "Matice cílů od NOK") %>%
     info_columns("eu20_id",
                  Popis = "Cíl EU 2020",
                  Zdroj = "Matice cílů od NOK") %>%

@@ -6,8 +6,8 @@ lang: en
 locale: en
 table:
   name: compiled_macro_sum_quarterly
-  _columns: 39
-  _rows: 8580.0
+  _columns: 38
+  _rows: 6126.0
   _type: tbl_df
   Info: Tabulka se součty výdajů podle času, kraje, kategorie QUEST/HERMIN, TC DoP
     a cíle EU2020
@@ -33,10 +33,6 @@ columns:
   source:
     _type: character
     Popis: Zdroj dat (MSSF/MSEU nebo SZIF (PRV))
-  tc_id:
-    _type: character
-    Popis: Tematický cíl Dohody o partnerství
-    Zdroj: Matice cílů od NOK
   eu20_id:
     _type: character
     Popis: Cíl EU 2020
