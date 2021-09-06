@@ -20,7 +20,7 @@ z ESI fondů v ČR primárně v letech 2014-2020. Cílem je:
 
 **Vytvořeno pro Úřad vlády ČR jako součást projektu *Systémová podpora
 společné evropské politiky podpory a pomoci, ESI a obdobných fondů na
-Úřadu vlády ČR* (CZ.08.1.125/0.0/0.0/15_001/0000176)**
+Úřadu vlády ČR* (CZ.08.1.125/0.0/0.0/15\_001/0000176)**
 
 Detailnější dokumentace k pipelinu na tvorbu dat pro makro modely:
 
@@ -52,8 +52,8 @@ projektového týmu.*
 -   `_targets.R`: hlavní soubor definující datový pipeline
 -   `_site.yml`: konfigurace webu generovaného uvnitř pipeline do složky
     `docs`
--   `_interactive.R`: konfigurace webu generovaného uvnitř pipeline do
-    složky `docs`
+-   `_interactive.R`: utilita pro rychlé načtení objektů pro
+    interaktivní práci
 -   `build.R`: utilita - spouští pipeline, v RStudio projectu navázáno
     na Build command
 -   `*.Rmd`: zdroje webové dokumentace
