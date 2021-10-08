@@ -1,25 +1,5 @@
 default:
 
-  # settings for MISRIS (central budget starting from 2015)
-  sp_years_central_new: !expr 2015:2020 # which years to download
-  sp_months_central_new: 12 # which month's data to download
-  sp_central_arrowdir_new: "data-processed/sp-central-new-arr"
-
-
-  sp_nastroj_ids_1420_ops: ["102", "103", "104", "105", "106", "107", "108", "109"]
-  sp_nastroj_ids_1420_prv: ["130", "187"]
-
-  # settings for FINU (central budget 2010-2014)
-  sp_years_central_old: !expr 2010:2014
-  sp_months_central_old: 12
-  sp_central_arrowdir_old: "data-processed/sp-central-old-arr"
-
-  # settings for FINM (local budget 2010-2014)
-  sp_years_local: !expr 2010:2020
-  sp_months_local: 12
-  sp_local_arrowdir: "data-processed/sp-local-arr"
-  sp_local_grants_arrowdir: "data-processed/sp-local-grants-arr"
-
   # URL for getting project data
   ef_pubxls_url: "https://dotaceeu.cz/getmedia/6297d56b-0b57-418d-ad25-dd16bd687479/2021_06-Seznam-operaci-_-List-of-operations.xls.aspx?ext=.xls"
 

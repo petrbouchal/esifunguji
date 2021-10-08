@@ -17,7 +17,6 @@ tar_option_set(packages = c("dplyr", "statnipokladna", "here", "readxl",
 
 options(crayon.enabled = TRUE,
         scipen = 100,
-        statnipokladna.dest_dir = "sp_data",
         czso.dest_dir = "~/czso_data",
         yaml.eval.expr = TRUE)
 
@@ -243,122 +242,6 @@ t_hier_soucty <- list(
                         write_xlsx))
 )
 
-# Statnipokladna ------------------------------------------
-
-## Císelníky ----------------------------------------------
-
-# keep downloaded data in project directory
-options(statnipokladna.dest_dir = "sp_data")
-codelist_names <- c("druhuj", "poddruhuj", "nuts",
-                    "paragraf", "paragraf_long",
-                    "ucelznak", "nastroj", "nastrojanal",
-                    "polozka", "polvyk", "zdroj", "ucjed")
-
-t_sp_codelists <- list(
-  tar_target(codelists, codelist_names),
-
-  # track changes at URL via {targets}/{tarchetypes}
-
-  tar_url(sp_cl_urls, sp_get_codelist_url(codelists),
-          pattern = map(codelists)),
-
-  # track changes to file: if deleted/changed, redownload it
-
-  tar_file(sp_cl_paths,
-           sp_get_codelist_file(url = sp_cl_urls),
-           pattern = map(sp_cl_urls)),
-
-  # keep all codelists in one list tracked by {targets}:
-
-  tar_target(sp_cl, sp_load_codelist_named(sp_cl_paths),
-             pattern = map(sp_cl_paths)),
-  tar_file(sp_clp, codelist_to_parquet(sp_cl, codelists, "codelists"),
-           pattern = map(sp_cl, codelists))
-
-)
-
-## Central state budget data -----------------------------------------------
-
-# read_tarrow(target_name)
-
-t_sp_data_central_new <- list(
-  tar_target(d_years, c_sp_years_central_new),
-  tar_target(d_years_ptrn, d_years, pattern = map(d_years)),
-  tar_target(d_months, c_sp_months_central_new),
-  tar_target(d_id, "misris"),
-  tar_url(d_url, sp_get_dataset_url(d_id, d_years_ptrn, d_months),
-          pattern = map(d_years_ptrn)),
-  tar_file(d_file, {is.character(d_url)
-    sp_get_dataset(d_id, d_years, d_months)},
-    pattern = map(d_years)), # to make sure target runs when data at URL changes
-  tar_target(table_file, sp_get_table_file("budget-central", d_file),
-             format = "file", pattern = map(d_file)),
-  tar_target(sp_central_new_arrdir,
-             budget_arrow_months(table_file, c_sp_central_arrowdir_new,
-                                 c_sp_months_central_new, load_budget_yearsum_central_new,
-                                 codelists = sp_cl),
-             format = "file"),
-  tar_target(sp_central_new_ops, budget_new_ops(sp_central_new_arrdir, nastroj_op, sp_cl))
-)
-
-## Local budget data -----------------------------------------------
-
-# read_tarrow(target_name)
-
-t_sp_data_local <- list(
-  tar_target(d_years_l, c_sp_years_local),
-  tar_target(d_years_l_ptrn, d_years_l, pattern = map(d_years_l)),
-  tar_target(d_months_l, c_sp_months_local),
-  tar_target(d_id_l, "finm"),
-  tar_url(d_url_l, sp_get_dataset_url(d_id_l, d_years_l_ptrn, d_months_l),
-          pattern = map(d_years_l_ptrn)),
-  tar_file(d_file_l, {is.character(d_url_l)
-    sp_get_dataset(d_id_l, d_years_l, d_months_l)},
-    pattern = map(d_years_l)), # to make sure target runs when data at URL changes
-  tar_target(table_file_l, sp_get_table_file("budget-local", d_file_l),
-             format = "file", pattern = map(d_file_l)),
-  tar_target(sp_local_arrdir,
-             budget_arrow_months(table_file_l, c_sp_local_arrowdir,
-                                 c_sp_months_local, load_budget_yearsum_local,
-                                 codelists = sp_cl),
-             format = "file")
-)
-
-## Pre-2015 central budget data --------------------------------------------
-
-t_sp_data_central_old <- list(
-  tar_target(d_years_o, c_sp_years_central_old),
-  tar_target(d_years_o_ptrn, d_years_o, pattern = map(d_years_o)),
-  tar_target(d_months_o, c_sp_months_central_old),
-  tar_target(d_id_o, "finu"),
-  tar_url(d_url_o, sp_get_dataset_url(d_id_o, d_years_o_ptrn, d_months_o),
-          pattern = map(d_years_o_ptrn)),
-  tar_file(d_file_o, {is.character(d_url_o)
-    sp_get_dataset(d_id_o, d_years_o, d_months_o)},
-    pattern = map(d_years_o)), # to make sure target runs when data at URL changes
-  tar_target(table_file_o, sp_get_table_file("budget-central-old", d_file_o),
-             format = "file", pattern = map(d_file_o)),
-  tar_target(sp_central_old_arrdir,
-             budget_arrow_months(table_file_o, c_sp_central_arrowdir_old,
-                                 c_sp_months_central_old, load_budget_yearsum_central_old,
-                                 codelists = sp_cl),
-             format = "file")
-)
-
-## Local budgets - grants --------------------------------------------------
-
-t_sp_data_local_grants <- list(
-  tar_target(table_file_lg, sp_get_table_file("budget-local-purpose-grants",
-                                              d_file_l),
-             format = "file", pattern = map(d_file_l)),
-  tar_target(sp_local_grants_arrdir,
-             budget_arrow_months(table_file_lg, c_sp_local_grants_arrowdir,
-                                 c_sp_months_local, load_budget_local_grants,
-                                 codelists = sp_cl),
-             format = "file")
-)
-
-
 # HTML output -------------------------------------------------------------
 
 source("R/html_output.R")
@@ -366,11 +249,7 @@ source("R/html_output.R")
 
 # Compile targets lists ---------------------------------------------------
 
-list(t_public_list, t_sp_codelists, t_sp_data_central_new,
-     t_cats,
-     t_sp_data_central_old, t_html, t_sp_data_local, t_esif_obce,
-     t_sp_data_local_grants, t_sestavy,
-     t_hier_matice, t_hier_soucty,
-     t_op_compile,
-     t_valid_zop_timing,
+list(t_public_list, t_cats,
+     t_html, t_esif_obce, t_sestavy, t_hier_matice, t_hier_soucty,
+     t_op_compile, t_valid_zop_timing,
      t_macro_compile, t_macro_export, t_macro_codebook)

@@ -15,12 +15,6 @@ t_html <- list(
     sitefiles
     rmarkdown::render_site(s_readme_rmd)
     "docs/README.html"}),
-  tar_file(s_pokladnachecks_rmd, "s_pokladnachecks.Rmd"),
-  tar_file(s_pokladnachecks_html, command = {!! tar_knitr_deps_expr("s_pokladnachecks.Rmd")
-    siteconf
-    sitefiles
-    rmarkdown::render_site(s_pokladnachecks_rmd)
-    "docs/s_pokladnachecks.html"}),
   tar_file(s_doc_rmd, "s_doc.Rmd"),
   tar_file(s_doc_html, command = {!! tar_knitr_deps_expr("s_doc.Rmd")
     siteconf
