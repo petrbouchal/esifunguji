@@ -1,0 +1,62 @@
+type: informant
+read_fn: ~s7_sum_prg
+tbl_name: s7_sum_prg
+info_label: Codebook výstupu pro období 2007-13
+lang: en
+locale: en
+table:
+  name: s7_sum_prg
+  _columns: 11
+  _rows: 100569.0
+  _type: tbl_df
+  Info: Tabulka se součty výdajů podle let, kraje, prioritního tématu a ekonomické
+    kategorie
+  Celková struktura: 'dlouhý formát: čas a kraj jsou v řádcích, metadata a jednotlivé
+    zdroje financí jsou ve sloupcích'
+  Názvy proměnných: |-
+    platí i pro ostatní datové sady v pipeline:
+    - `dt_`: proměnné časového určení
+    - `fin_`: finanční údaje
+columns:
+  dt_zop_rok:
+    _type: numeric
+    Popis: Rok proplacení ŽOP
+    Zdroj: Datum proplacení ŽOP ze sestavy plateb
+  op_id:
+    _type: character
+    Info: Kód programu
+  op_zkr:
+    _type: character
+    Info: Zkratka názvu programu
+  katekon_id:
+    _type: character
+    Info: Kód ekonomické oblasti
+    Zdroj: Sestava vygenerovaná nověv v roce 2021
+  katekon_name:
+    _type: character
+    Info: Název ekonomické oblasti
+    Zdroj: Sestava vygenerovaná nověv v roce 2021
+  tema_id:
+    _type: character
+    Info: Kód prioritního tématu
+    Poznámka: Prioritní téma je obdoba oblasti intervence v 2014-20
+  tema_name:
+    _type: character
+    Info: Název prioritního tématu
+    Poznámka: Prioritní téma je obdoba oblasti intervence v 2014-20
+  kraj_id:
+    _type: character
+    Popis: Kód NUTS3 (kraj)
+    Zdroj: sestava podílů jednotlivých NUTS3 na realizaci projektů
+  fin_vyuct_eu:
+    _type: numeric
+    Info: EU příspěvek
+  fin_vyuct_narodni_verejne:
+    _type: numeric
+    Info: Národní veřejné výdaje (kofinancování)
+    Zdroj: Sestava plateb
+  fin_vyuct_verejne:
+    _type: numeric
+    Info: Veřejné výdaje (EU + národní veřejné) celkem
+    Pozor: Narozdíl od období 2014-20 nemáme údaje o soukromém kofinancování
+    Zdroj: Sestava plateb
