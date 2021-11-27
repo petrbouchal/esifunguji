@@ -279,6 +279,21 @@ t_713_export <- list(
                         write_excel_csv2))
 )
 
+
+## Build and export codebook -----------------------------------------------
+
+t_0713_codebook <- list(
+  tar_target(s7_codebook,
+             make_0713_codebook(s7_sum_prg)),
+  tar_file(s7_codebook_yaml,
+           {pointblank::yaml_write(informant = s7_codebook %>%
+                                     pointblank::set_read_fn(read_fn = ~s7_sum_prg),
+                                   path = c_export_0713_dir,
+                                   filename = c_export_0713_cdbk)
+             file.path(c_export_0713_dir, c_export_0713_cdbk)
+           })
+)
+
 # Objective/category hierarchy --------------------------------------------
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
@@ -311,5 +326,5 @@ source("R/html_output.R")
 list(t_public_list, t_cats,
      t_html, t_esif_obce, t_sestavy, t_hier_matice, t_hier_soucty,
      t_op_compile, t_valid_zop_timing,
-     t_713_build, t_713_export,
+     t_713_build, t_713_export, t_0713_codebook,
      t_macro_compile, t_macro_export, t_macro_codebook)

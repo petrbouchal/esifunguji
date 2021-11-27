@@ -48,3 +48,32 @@ make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
     info_columns(ends_with("_wt_pocetobyv"),
                  Váha = "Počet obyvatel obcí, kde se projekt realizuje")
 }
+
+make_0713_codebook <- function(s7_sum_prg) {
+  create_informant(tbl = s7_sum_prg,
+                   label = "Codebook výstupu pro období 2007-13") %>%
+    info_tabular(Info = "Tabulka se součty výdajů podle let, kraje, prioritního tématu a ekonomické kategorie",
+                 `Celková struktura` = "dlouhý formát: čas a kraj jsou v řádcích, metadata a jednotlivé zdroje financí jsou ve sloupcích",
+                 `Názvy proměnných` = "platí i pro ostatní datové sady v pipeline:\n- `dt_`: proměnné časového určení\n- `fin_`: finanční údaje") %>%
+    info_columns("kraj_id", Popis = "Kód NUTS3 (kraj)",
+                 Zdroj = "sestava podílů jednotlivých NUTS3 na realizaci projektů") %>%
+    info_columns("dt_zop_rok",
+                 Popis = "Rok proplacení ŽOP",
+                 `Zdroj` = "Datum proplacení ŽOP ze sestavy plateb") %>%
+    info_columns("tema_id", Info = "Kód prioritního tématu",
+                 Poznámka = "Prioritní téma je obdoba oblasti intervence v 2014-20") %>%
+    info_columns("tema_name", Info = "Název prioritního tématu",
+                 Poznámka = "Prioritní téma je obdoba oblasti intervence v 2014-20") %>%
+    info_columns("katekon_id", Info = "Kód ekonomické oblasti",
+                 Zdroj = "Sestava vygenerovaná nověv v roce 2021") %>%
+    info_columns("katekon_name", Info = "Název ekonomické oblasti",
+                 Zdroj = "Sestava vygenerovaná nověv v roce 2021") %>%
+    info_columns("fin_vyuct_eu", Info = "EU příspěvek") %>%
+    info_columns("fin_vyuct_narodni_verejne", Info = "Národní veřejné výdaje (kofinancování)",
+                 Zdroj = "Sestava plateb") %>%
+    info_columns("fin_vyuct_verejne", Info = "Veřejné výdaje (EU + národní veřejné) celkem",
+                 Pozor = "Narozdíl od období 2014-20 nemáme údaje o soukromém kofinancování",
+                 Zdroj = "Sestava plateb") %>%
+    info_columns("op_id", Info = "Kód programu") %>%
+    info_columns("op_zkr", Info = "Zkratka názvu programu")
+}

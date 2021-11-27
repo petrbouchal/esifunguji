@@ -77,3 +77,23 @@ efs_fin %>% count(wt = fin_vyuct_czv)
 efs_zop %>% count(wt = fin_vyuct_czv)
 ```
 
+## 2007-13
+
+### Soubory 
+
+Vše v `` `r  
+c_export_0713_dir` `` ([Github](`r paste0(c_repo_remote, "/tree/master/", c_export_0713_dir)`)) 
+
+### Dokumentace
+
+```{r}
+targets::tar_read(s7_codebook)
+```
+
+Zapsáno v `r file.path(c_export_0713_dir, c_export_0713_cdbk)`
+
+### Náhled proměnných
+
+```{r 713-columns}
+glimpse(s7_sum_prg)
+```

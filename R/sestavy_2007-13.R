@@ -73,14 +73,17 @@ compile_7_prj <- function(s7_platby, s7_kat, s7_nuts3, s7_katekon,
     rename(fin_vyuct_verejne = celkem, fin_vyuct_eu = EU,
            fin_vyuct_narodni_verejne = nar,
            dt_zop_rok = year, tema_id = tema_kod, tema_name = tema_nazev,
-           kraj_id = NUTS3)
+           kraj_id = NUTS3,
+           op_id = prog_code,
+           op_zkr = prog_abbrev)
 
   return(prj7katnuts)
 }
 
 summarise_7_prg <- function(s7_compiled_prj) {
   s7_compiled_prj %>%
-    group_by(dt_zop_rok, prog_code, prog_abbrev, across(starts_with("katekon_")),
+    group_by(dt_zop_rok, op_id, op_zkr,
+             across(starts_with("katekon_")),
              tema_id, tema_name, kraj_id) %>%
     summarise(across(starts_with("fin_vyuct"), sum, na.rm = TRUE), .groups = "drop")
 }
