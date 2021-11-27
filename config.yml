@@ -29,6 +29,28 @@ default:
   # IDs
   czso_pop_table_id: "130149"
 
+  # Input data paths - 2007-13 data
+  sest_7_input_dir_orig: "data-input/sestavy 2007-13 orig"
+  sest_7_prj: "Prehled_projektu_20170405.xlsx"
+  sest_7_platby: "Platby_Chl_Nov_bez filtru.csv"
+  sest_7_nuts3: "07-13_realizace v NUTS3.xlsx"
+  sest_7_kat: "Prehled_projektu_prioritni_tema_2017.xlsx"
+  cis_7_op: "ciselniky/ciselnik_programy2007.xlsx"
+  cis_7_nuts3: "ciselniky/nuts3convert.csv"
+
+  sest_7_input_dir_new: "data-input/sestavy 2007-13 20211126"
+  sest_7_katekon: ["211026_kategorizace7.xlsx", "211026_kategorizace8.xlsx"]
+
+  # export location - 2007-13
+  export_0713_dir: "data-export/export_0713_202111"
+  export_0713_prj_pq: "prj_tema-nuts-ekonkat_0713.parquet"
+  export_0713_prg_xlsx:  "prg_tema-nuts-ekonkat_0713.xlsx"
+  export_0713_prg_csv: "prg_tema-nuts-ekonkat_0713.csv"
+  export_0713_prg_pq: "prg_tema-nuts-ekonkat_0713.parquet"
+  export_0713_csv: "tema-nuts-ekonkat_0713.csv"
+  export_0713_xlsx: "tema-nuts-ekonkat_0713.xlsx"
+  export_0713_pq: "tema-nuts-ekonkat_0713.parquet"
+
   # export location - macro
   macro_export_dir: "data-export/export_202108"
 

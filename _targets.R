@@ -220,6 +220,65 @@ t_macro_codebook <- list(
            })
 )
 
+
+
+# ESIF data 2007-13 -------------------------------------------------------
+
+## Load and process --------------------------------------------------------
+
+t_713_build <- list(
+  tar_target(s7_katekon, load_7_katekon(c_sest_7_input_dir_new,
+                                        c_sest_7_katekon)),
+  tar_target(s7_platby, load_7_platby(c_sest_7_input_dir_orig,
+                                      c_sest_7_platby)),
+  tar_target(s7_kat, load_7_kat(c_sest_7_input_dir_orig,
+                                c_sest_7_kat)),
+  tar_target(s7_nuts3, load_7_nuts3(c_sest_7_input_dir_orig,
+                                    c_sest_7_nuts3)),
+  tar_target(cis7_op, read_excel(file.path(c_sest_7_input_dir_orig,
+                                             c_cis_7_op))),
+  tar_target(cis7_nuts3, read_csv(file.path(c_sest_7_input_dir_orig,
+                                            c_cis_7_nuts3))),
+  tar_target(s7_compiled_prj, compile_7_prj(s7_platby, s7_kat, s7_nuts3,
+                                            s7_katekon, cis7_op, cis7_nuts3)),
+  tar_target(s7_sum_prg, summarise_7_prg(s7_compiled_prj)),
+  tar_target(s7_sum, summarise_7(s7_sum_prg))
+)
+
+
+## Export ------------------------------------------------------------------
+
+t_713_export <- list(
+  tar_file(s7_prj_pq,
+           export_table(s7_compiled_prj,
+                        here::here(c_export_0713_dir, c_export_0713_prj_pq),
+                        write_parquet)),
+  tar_file(s7_prg_pq,
+           export_table(s7_sum_prg,
+                        here::here(c_export_0713_dir, c_export_0713_prg_pq),
+                        write_parquet)),
+  tar_file(s7_prg_csv,
+           export_table(s7_sum_prg,
+                        here::here(c_export_0713_dir, c_export_0713_prg_csv),
+                        write_excel_csv2)),
+  tar_file(s7_prg_xlsx,
+           export_table(s7_sum_prg,
+                        here::here(c_export_0713_dir, c_export_0713_prg_xlsx),
+                        write_xlsx)),
+  tar_file(s7_pq,
+           export_table(s7_sum,
+                        here::here(c_export_0713_dir, c_export_0713_pq),
+                        write_parquet)),
+  tar_file(s7_xlsx,
+           export_table(s7_sum,
+                        here::here(c_export_0713_dir, c_export_0713_xlsx),
+                        write_xlsx)),
+  tar_file(s7_csv,
+           export_table(s7_sum,
+                        here::here(c_export_0713_dir, c_export_0713_csv),
+                        write_excel_csv2))
+)
+
 # Objective/category hierarchy --------------------------------------------
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
@@ -252,4 +311,5 @@ source("R/html_output.R")
 list(t_public_list, t_cats,
      t_html, t_esif_obce, t_sestavy, t_hier_matice, t_hier_soucty,
      t_op_compile, t_valid_zop_timing,
+     t_713_build, t_713_export,
      t_macro_compile, t_macro_export, t_macro_codebook)
