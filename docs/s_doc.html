@@ -13,8 +13,8 @@
 
 <title>Přehled projektu</title>
 
-<script src="site_libs/header-attrs-2.9.7/header-attrs.js"></script>
-<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -303,6 +303,7 @@ $(document).ready(function () {
 <p>Cílem této datové pipeline je vytvořit vstupní data o výdajích z ESI fondů pro makroekonomické modely QUEST a HERMIN za období 2014-2020.</p>
 <p>Výsledkem je rozpad výdajů na kraje, čtvrletí a kategorie QUEST/HERMIN.</p>
 <p>Vycházíme z dat o projektech, platbách (ŽOP) a z očištěných dat o geolokaci projektů. Základním vstupem jsou sestavy z MSSF, od SZIF (pro PRV) a data o geolokaci projektů mimo PRV od MMR (výstup předchozího projektu.)</p>
+<p>Sekundárně se zde také replikuje kompilace dat za období 2007-13. To se děje na základě skriptu z roku 2017, překlopeného do funkcí využitých v targets pipeline. Narozdíl od roku 2017 integrujeme i data o ekonomické kategorii výdajů, nově vygenerovaná z MS 2007 v roce 2021.</p>
 </div>
 <div id="data-a-rozhodnutí" class="section level2">
 <h2>Data a rozhodnutí</h2>
@@ -327,6 +328,11 @@ $(document).ready(function () {
 <li>jediná tabulka</li>
 <li>co řádek, to projekt, včetně financí a NUTS3 (každý projekt má jen jednu NUTS3)</li>
 </ul></li>
+</ul>
+<p>Dodatečně do pipeline vstupují data za období 2007-13, pro nové odhadnutí HERMINu za 2007-13:</p>
+<ul>
+<li>původní data z roku 2017 o dělení projektů na NUTS3, platbách podle let a prioritních tématech (obdoba oblastí intervencí v období 2014-20)</li>
+<li>nově vygenerovaná data o ekonomické činnosti, kam projekt spadá (nově vygenerování v roce 2021 ze starého MS)</li>
 </ul>
 <div id="technické-zádrhele-u-vstupních-sestav" class="section level5">
 <h5>Technické zádrhele u vstupních sestav</h5>
@@ -401,26 +407,6 @@ $(document).ready(function () {
 <pre class="r"><code>
 default:
 
-  # settings for MISRIS (central budget starting from 2015)
-  sp_years_central_new: !expr 2015:2020 # which years to download
-  sp_months_central_new: 12 # which month&#39;s data to download
-  sp_central_arrowdir_new: &quot;data-processed/sp-central-new-arr&quot;
-
-
-  sp_nastroj_ids_1420_ops: [&quot;102&quot;, &quot;103&quot;, &quot;104&quot;, &quot;105&quot;, &quot;106&quot;, &quot;107&quot;, &quot;108&quot;, &quot;109&quot;]
-  sp_nastroj_ids_1420_prv: [&quot;130&quot;, &quot;187&quot;]
-
-  # settings for FINU (central budget 2010-2014)
-  sp_years_central_old: !expr 2010:2014
-  sp_months_central_old: 12
-  sp_central_arrowdir_old: &quot;data-processed/sp-central-old-arr&quot;
-
-  # settings for FINM (local budget 2010-2014)
-  sp_years_local: !expr 2010:2020
-  sp_months_local: 12
-  sp_local_arrowdir: &quot;data-processed/sp-local-arr&quot;
-  sp_local_grants_arrowdir: &quot;data-processed/sp-local-grants-arr&quot;
-
   # URL for getting project data
   ef_pubxls_url: &quot;https://dotaceeu.cz/getmedia/6297d56b-0b57-418d-ad25-dd16bd687479/2021_06-Seznam-operaci-_-List-of-operations.xls.aspx?ext=.xls&quot;
 
@@ -449,6 +435,32 @@ default:
 
   # IDs
   czso_pop_table_id: &quot;130149&quot;
+
+  # Input data paths - 2007-13 data
+  sest_7_input_dir_orig: &quot;data-input/sestavy 2007-13 orig&quot;
+  sest_7_prj: &quot;Prehled_projektu_20170405.xlsx&quot;
+  sest_7_platby: &quot;Platby_Chl_Nov_bez filtru.csv&quot;
+  sest_7_nuts3: &quot;07-13_realizace v NUTS3.xlsx&quot;
+  sest_7_kat: &quot;Prehled_projektu_prioritni_tema_2017.xlsx&quot;
+  cis_7_op: &quot;ciselniky/ciselnik_programy2007.xlsx&quot;
+  cis_7_nuts3: &quot;ciselniky/nuts3convert.csv&quot;
+
+  sest_7_input_dir_new: &quot;data-input/sestavy 2007-13 20211126&quot;
+  sest_7_katekon: [&quot;211026_kategorizace7.xlsx&quot;, &quot;211026_kategorizace8.xlsx&quot;]
+
+  # export location - 2007-13
+  export_0713_dir: &quot;data-export/export_0713_202111&quot;
+  export_0713_prj_pq: &quot;prj_tema-nuts-ekonkat_0713.parquet&quot;
+  export_0713_prg_xlsx:  &quot;prg_tema-nuts-ekonkat_0713.xlsx&quot;
+  export_0713_prg_csv: &quot;prg_tema-nuts-ekonkat_0713.csv&quot;
+  export_0713_prg_pq: &quot;prg_tema-nuts-ekonkat_0713.parquet&quot;
+  export_0713_csv: &quot;tema-nuts-ekonkat_0713.csv&quot;
+  export_0713_xlsx: &quot;tema-nuts-ekonkat_0713.xlsx&quot;
+  export_0713_pq: &quot;tema-nuts-ekonkat_0713.parquet&quot;
+
+  export_0713_kategorie: &quot;kategorie_0713.xlsx&quot;
+
+  export_0713_cdbk: &quot;sum_0713_codebook.yaml&quot;
 
   # export location - macro
   macro_export_dir: &quot;data-export/export_202108&quot;

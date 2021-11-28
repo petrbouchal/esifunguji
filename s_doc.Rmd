@@ -22,6 +22,8 @@ Výsledkem je rozpad výdajů na kraje, čtvrletí a kategorie QUEST/HERMIN.
 
 Vycházíme z dat o projektech, platbách (ŽOP) a z očištěných dat o geolokaci projektů. Základním vstupem jsou sestavy z MSSF, od SZIF (pro PRV) a data o geolokaci projektů mimo PRV od MMR (výstup předchozího projektu.)
 
+Sekundárně se zde také replikuje kompilace dat za období 2007-13. To se děje na základě skriptu z roku 2017, překlopeného do funkcí využitých v targets pipeline. Narozdíl od roku 2017 integrujeme i data o ekonomické kategorii výdajů, nově vygenerovaná z MS 2007 v roce 2021.
+
 ## Data a rozhodnutí
 
 ### MSSF a PRV
@@ -40,6 +42,12 @@ cnf$sest_dir` ``. Nejsou zde data o příhraniční spolupráci. Název adresá�
 - data k PRV pochází od MZe a jsou výrazně jednodušší:
   - jediná tabulka
   - co řádek, to projekt, včetně financí a NUTS3 (každý projekt má jen jednu NUTS3)
+  
+Dodatečně do pipeline vstupují data za období 2007-13, pro nové odhadnutí HERMINu za 2007-13:
+
+- původní data z roku 2017 o dělení projektů na NUTS3, platbách podle let a prioritních tématech (obdoba oblastí intervencí v období 2014-20)
+- nově vygenerovaná data o ekonomické činnosti, kam projekt spadá (nově vygenerování v roce 2021 ze starého MS)
+
   
 ##### Technické zádrhele u vstupních sestav
 
