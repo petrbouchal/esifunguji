@@ -21,6 +21,7 @@ targets::tar_load(efs_prv)
 targets::tar_load(efs_zop)
 targets::tar_load(efs_fin)
 targets::tar_load(macro_sum_codebook)
+targets::tar_load(s7_sum_prg)
 
 ```
 
@@ -83,6 +84,9 @@ efs_zop %>% count(wt = fin_vyuct_czv)
 
 Vše v `` `r  
 c_export_0713_dir` `` ([Github](`r paste0(c_repo_remote, "/tree/master/", c_export_0713_dir)`)) 
+
+V adresáři je také soubor `` `r
+c_export_0713_kategorie` `` s náhledem kategorií (témat i ekonomických) a jejich objemy.
 
 ### Dokumentace
 

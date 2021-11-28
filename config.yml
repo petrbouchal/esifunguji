@@ -51,6 +51,8 @@ default:
   export_0713_xlsx: "tema-nuts-ekonkat_0713.xlsx"
   export_0713_pq: "tema-nuts-ekonkat_0713.parquet"
 
+  export_0713_kategorie: "kategorie_0713.xlsx"
+
   export_0713_cdbk: "sum_0713_codebook.yaml"
 
   # export location - macro

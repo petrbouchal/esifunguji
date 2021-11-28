@@ -94,3 +94,20 @@ summarise_7 <- function(s7_sum_prg) {
              tema_id, tema_name, kraj_id) %>%
     summarise(across(starts_with("fin_vyuct"), sum, na.rm = TRUE), .groups = "drop")
 }
+
+export_0713_kategorie <- function(s7_sum, dir, path) {
+  kat <- s7_sum %>%
+    count(tema_id, tema_name, wt = fin_vyuct_verejne, name = "fin_vyuct_verejne")
+  ekonkat <- s7_sum %>%
+    count(katekon_id, katekon_name, wt = fin_vyuct_verejne, name = "fin_vyuct_verejne")
+  kombinace <- s7_sum %>%
+    count(tema_id, tema_name, katekon_id, katekon_name,
+          wt = fin_vyuct_verejne, name = "fin_vyuct_verejne")
+
+  pth <- file.path(dir, path)
+
+  write_xlsx(list(ekonomicke_kategorie = ekonkat,
+                  prioritni_temata = kat,
+                  kombinace = kombinace), pth)
+  return(pth)
+}

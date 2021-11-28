@@ -276,7 +276,10 @@ t_713_export <- list(
   tar_file(s7_csv,
            export_table(s7_sum,
                         here::here(c_export_0713_dir, c_export_0713_csv),
-                        write_excel_csv2))
+                        write_excel_csv2)),
+  tar_file(s7_kategorie_xlsx, export_0713_kategorie(s7_sum,
+                                                    c_export_0713_dir,
+                                                    c_export_0713_kategorie))
 )
 
 
