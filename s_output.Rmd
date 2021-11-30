@@ -119,7 +119,7 @@ s7_categorised_prj %>%
 Vše v `` `r  
 c_export_0713_dir` `` ([Github](`r paste0(c_repo_remote, "/tree/master/", c_export_0713_dir)`)) 
 
-V adresáři je také soubor `` `r
+V adresáři je také soubor `` `r  
 c_export_0713_kategorie` `` s náhledem kategorií (témat i ekonomických) a jejich objemy.
 
 ### Dokumentace
