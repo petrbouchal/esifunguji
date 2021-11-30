@@ -95,6 +95,29 @@ summarise_7 <- function(s7_sum_prg) {
     summarise(across(starts_with("fin_vyuct"), sum, na.rm = TRUE), .groups = "drop")
 }
 
+summarise_7_macro <- function(s7_sum_prg, ...) {
+  s7_sum_prg %>%
+    group_by(dt_zop_rok, kraj_id, quest_class, hermin_class, ...) %>%
+    summarise(across(starts_with("fin_vyuct"), sum, na.rm = TRUE), .groups = "drop")
+}
+
+
+# Categorisations ---------------------------------------------------------
+
+categorise_7 <- function(s7_compiled_prj, mc_7_quest, mc_7_hermin) {
+  s7_compiled_prj %>%
+    left_join(mc_7_quest %>% select(tema_id, quest_class), by = "tema_id") %>%
+    left_join(mc_7_hermin %>% select(-katekon_name), by = "katekon_id") %>%
+    mutate(hermin_class = if_else(quest_class == "AIS",
+                                  paste0(quest_class, AIS_hermin_class),
+                                  quest_class)) %>%
+    select(-AIS_hermin_class)
+}
+
+# Utils -------------------------------------------------------------------
+
+
+
 export_0713_kategorie <- function(s7_sum, dir, path) {
   kat <- s7_sum %>%
     count(tema_id, tema_name, wt = fin_vyuct_verejne, name = "fin_vyuct_verejne")
@@ -111,3 +134,5 @@ export_0713_kategorie <- function(s7_sum, dir, path) {
                   kombinace = kombinace), pth)
   return(pth)
 }
+
+

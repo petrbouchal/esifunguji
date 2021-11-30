@@ -49,8 +49,8 @@ make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
                  Váha = "Počet obyvatel obcí, kde se projekt realizuje")
 }
 
-make_0713_codebook <- function(s7_sum_prg) {
-  create_informant(tbl = s7_sum_prg,
+make_0713_codebook <- function(s7_sum_macro_detail) {
+  create_informant(tbl = s7_sum_macro_detail,
                    label = "Codebook výstupu pro období 2007-13") %>%
     info_tabular(Info = "Tabulka se součty výdajů podle let, kraje, prioritního tématu a ekonomické kategorie",
                  `Celková struktura` = "dlouhý formát: čas a kraj jsou v řádcích, metadata a jednotlivé zdroje financí jsou ve sloupcích",
@@ -74,6 +74,12 @@ make_0713_codebook <- function(s7_sum_prg) {
     info_columns("fin_vyuct_verejne", Info = "Veřejné výdaje (EU + národní veřejné) celkem",
                  Pozor = "Narozdíl od období 2014-20 nemáme údaje o soukromém kofinancování",
                  Zdroj = "Sestava plateb") %>%
+    info_columns("quest_class", Info = "Kategorie pro model QUEST",
+                 Zdroj = "Napojeno z ručně vyrobené kategorizace v excelu ve vstupních datech") %>%
+    info_columns("hermin_class", Info = "Kategorie pro model HERMIN",
+                 Note = "Seskupuje prioritní témata do kategorií",
+                 Zdroj = "Napojeno z ručně vyrobené kategorizace v excelu ve vstupních datech",
+                 Note = "Vychází z QUEST kategorií, ale rozpadá kategorii AIS na víc podle ekonomické činnosti") %>%
     info_columns("op_id", Info = "Kód programu") %>%
     info_columns("op_zkr", Info = "Zkratka názvu programu")
 }

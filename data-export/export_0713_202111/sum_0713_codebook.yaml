@@ -1,12 +1,12 @@
 type: informant
-read_fn: ~s7_sum_prg
-tbl_name: s7_sum_prg
+read_fn: ~s7_sum_macro_detail
+tbl_name: s7_sum_macro_detail
 info_label: Codebook výstupu pro období 2007-13
 lang: en
 locale: en
 table:
-  name: s7_sum_prg
-  _columns: 11
+  name: s7_sum_macro_detail
+  _columns: 13
   _rows: 100569.0
   _type: tbl_df
   Info: Tabulka se součty výdajů podle let, kraje, prioritního tématu a ekonomické
@@ -22,20 +22,20 @@ columns:
     _type: numeric
     Popis: Rok proplacení ŽOP
     Zdroj: Datum proplacení ŽOP ze sestavy plateb
-  op_id:
+  kraj_id:
     _type: character
-    Info: Kód programu
-  op_zkr:
+    Popis: Kód NUTS3 (kraj)
+    Zdroj: sestava podílů jednotlivých NUTS3 na realizaci projektů
+  quest_class:
     _type: character
-    Info: Zkratka názvu programu
-  katekon_id:
+    Info: Kategorie pro model QUEST
+    Zdroj: Napojeno z ručně vyrobené kategorizace v excelu ve vstupních datech
+  hermin_class:
     _type: character
-    Info: Kód ekonomické oblasti
-    Zdroj: Sestava vygenerovaná nověv v roce 2021
-  katekon_name:
-    _type: character
-    Info: Název ekonomické oblasti
-    Zdroj: Sestava vygenerovaná nověv v roce 2021
+    Info: Kategorie pro model HERMIN
+    Note: Seskupuje prioritní témata do kategorií Vychází z QUEST kategorií, ale rozpadá
+      kategorii AIS na víc podle ekonomické činnosti
+    Zdroj: Napojeno z ručně vyrobené kategorizace v excelu ve vstupních datech
   tema_id:
     _type: character
     Info: Kód prioritního tématu
@@ -44,10 +44,20 @@ columns:
     _type: character
     Info: Název prioritního tématu
     Poznámka: Prioritní téma je obdoba oblasti intervence v 2014-20
-  kraj_id:
+  katekon_id:
     _type: character
-    Popis: Kód NUTS3 (kraj)
-    Zdroj: sestava podílů jednotlivých NUTS3 na realizaci projektů
+    Info: Kód ekonomické oblasti
+    Zdroj: Sestava vygenerovaná nověv v roce 2021
+  katekon_name:
+    _type: character
+    Info: Název ekonomické oblasti
+    Zdroj: Sestava vygenerovaná nověv v roce 2021
+  op_id:
+    _type: character
+    Info: Kód programu
+  op_zkr:
+    _type: character
+    Info: Zkratka názvu programu
   fin_vyuct_eu:
     _type: numeric
     Info: EU příspěvek

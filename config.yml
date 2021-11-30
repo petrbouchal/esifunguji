@@ -38,18 +38,20 @@ default:
   cis_7_op: "ciselniky/ciselnik_programy2007.xlsx"
   cis_7_nuts3: "ciselniky/nuts3convert.csv"
 
+  macrocat_7: "data-input/kategorizace/kategorie_0713.xlsx"
+
   sest_7_input_dir_new: "data-input/sestavy 2007-13 20211126"
   sest_7_katekon: ["211026_kategorizace7.xlsx", "211026_kategorizace8.xlsx"]
 
   # export location - 2007-13
   export_0713_dir: "data-export/export_0713_202111"
   export_0713_prj_pq: "prj_tema-nuts-ekonkat_0713.parquet"
-  export_0713_prg_xlsx:  "prg_tema-nuts-ekonkat_0713.xlsx"
-  export_0713_prg_csv: "prg_tema-nuts-ekonkat_0713.csv"
-  export_0713_prg_pq: "prg_tema-nuts-ekonkat_0713.parquet"
-  export_0713_csv: "tema-nuts-ekonkat_0713.csv"
-  export_0713_xlsx: "tema-nuts-ekonkat_0713.xlsx"
-  export_0713_pq: "tema-nuts-ekonkat_0713.parquet"
+  export_0713_detail_xlsx:  "makro_detail_0713.xlsx"
+  export_0713_detail_csv: "makro_detail_0713_0713.csv"
+  export_0713_detail_pq: "makro_detail_0713_0713.parquet"
+  export_0713_csv: "makro_0713.csv"
+  export_0713_xlsx: "makro_0713.xlsx"
+  export_0713_pq: "makro_0713.parquet"
 
   export_0713_kategorie: "kategorie_0713.xlsx"
 

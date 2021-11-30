@@ -224,7 +224,7 @@ t_macro_codebook <- list(
 
 # ESIF data 2007-13 -------------------------------------------------------
 
-## Load and process --------------------------------------------------------
+## Load and process data --------------------------------------------------
 
 t_713_build <- list(
   tar_target(s7_katekon, load_7_katekon(c_sest_7_input_dir_new,
@@ -246,6 +246,27 @@ t_713_build <- list(
 )
 
 
+## Load categorisations ----------------------------------------------------
+
+t_713_macrocat <- list(
+  tar_file(mc_7_xlsx, c_macrocat_7),
+  tar_target(mc_7_quest, read_xlsx(mc_7_xlsx, "prioritni_temata") %>%
+               mutate(quest_class = if_else(is.na(quest_class),
+                                            quest_orig, quest_class))),
+  tar_target(mc_7_hermin, read_xlsx(mc_7_xlsx, "hermin"))
+)
+
+## Integrate  categorisations ----------------------------------------------
+
+t_713_categorise <- list(
+  tar_target(s7_categorised_prj,
+             categorise_7(s7_compiled_prj, mc_7_quest, mc_7_hermin)),
+  tar_target(s7_sum_macro_detail,
+             summarise_7_macro(s7_categorised_prj, tema_id, tema_name,
+                               katekon_id, katekon_name, op_id, op_zkr)),
+  tar_target(s7_sum_macro, summarise_7_macro(s7_categorised_prj))
+)
+
 ## Export ------------------------------------------------------------------
 
 t_713_export <- list(
@@ -253,28 +274,28 @@ t_713_export <- list(
            export_table(s7_compiled_prj,
                         here::here(c_export_0713_dir, c_export_0713_prj_pq),
                         write_parquet)),
-  tar_file(s7_prg_pq,
-           export_table(s7_sum_prg,
-                        here::here(c_export_0713_dir, c_export_0713_prg_pq),
+  tar_file(s7_macro_detail_pq,
+           export_table(s7_sum_macro_detail,
+                        here::here(c_export_0713_dir, c_export_0713_detail_pq),
                         write_parquet)),
-  tar_file(s7_prg_csv,
-           export_table(s7_sum_prg,
-                        here::here(c_export_0713_dir, c_export_0713_prg_csv),
+  tar_file(s7_macro_detail_csv,
+           export_table(s7_sum_macro_detail,
+                        here::here(c_export_0713_dir, c_export_0713_detail_csv),
                         write_excel_csv2)),
-  tar_file(s7_prg_xlsx,
-           export_table(s7_sum_prg,
-                        here::here(c_export_0713_dir, c_export_0713_prg_xlsx),
+  tar_file(s7_macro_detail_xlsx,
+           export_table(s7_sum_macro_detail,
+                        here::here(c_export_0713_dir, c_export_0713_detail_xlsx),
                         write_xlsx)),
-  tar_file(s7_pq,
-           export_table(s7_sum,
+  tar_file(s7_macro_pq,
+           export_table(s7_sum_macro,
                         here::here(c_export_0713_dir, c_export_0713_pq),
                         write_parquet)),
-  tar_file(s7_xlsx,
-           export_table(s7_sum,
+  tar_file(s7_macro_xlsx,
+           export_table(s7_sum_macro,
                         here::here(c_export_0713_dir, c_export_0713_xlsx),
                         write_xlsx)),
-  tar_file(s7_csv,
-           export_table(s7_sum,
+  tar_file(s7_macro_csv,
+           export_table(s7_sum_macro,
                         here::here(c_export_0713_dir, c_export_0713_csv),
                         write_excel_csv2)),
   tar_file(s7_kategorie_xlsx, export_0713_kategorie(s7_sum,
@@ -287,10 +308,10 @@ t_713_export <- list(
 
 t_0713_codebook <- list(
   tar_target(s7_codebook,
-             make_0713_codebook(s7_sum_prg)),
+             make_0713_codebook(s7_sum_macro_detail)),
   tar_file(s7_codebook_yaml,
            {pointblank::yaml_write(informant = s7_codebook %>%
-                                     pointblank::set_read_fn(read_fn = ~s7_sum_prg),
+                                     pointblank::set_read_fn(read_fn = ~s7_sum_macro_detail),
                                    path = c_export_0713_dir,
                                    filename = c_export_0713_cdbk)
              file.path(c_export_0713_dir, c_export_0713_cdbk)
@@ -329,5 +350,6 @@ source("R/html_output.R")
 list(t_public_list, t_cats,
      t_html, t_esif_obce, t_sestavy, t_hier_matice, t_hier_soucty,
      t_op_compile, t_valid_zop_timing,
-     t_713_build, t_713_export, t_0713_codebook,
+     t_713_build, t_713_export, t_0713_codebook, t_713_macrocat,
+     t_713_categorise,
      t_macro_compile, t_macro_export, t_macro_codebook)
