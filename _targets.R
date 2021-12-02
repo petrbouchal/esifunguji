@@ -264,7 +264,7 @@ t_713_categorise <- list(
   tar_target(s7_sum_macro_detail,
              summarise_7_macro(s7_categorised_prj, tema_id, tema_name,
                                katekon_id, katekon_name, op_id, op_zkr)),
-  tar_target(s7_sum_macro, summarise_7_macro(s7_categorised_prj))
+  tar_target(s7_sum_macro, summarise_7_macro(s7_sum_macro_detail))
 )
 
 ## Export ------------------------------------------------------------------
