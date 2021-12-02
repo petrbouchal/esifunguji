@@ -88,7 +88,11 @@ Součty podle prioritních témat:
 ```{r}
 s7_categorised_prj %>%
   filter(hermin_class == "AISNA") %>%
-  count(tema_id, tema_name, wt = round(fin_vyuct_verejne/1e6), sort = T, name = "celkem mil Kč") %>% gt::gt()
+  group_by(tema_id, tema_name) |> 
+  summarise(czk_mil = round(sum(fin_vyuct_verejne)/1e6),
+            n_proj = n_distinct(projname), .groups = "drop") %>% 
+  arrange(desc(czk_mil)) |> 
+  gt::gt()
 ```
 
 Největší projekty v dominantním tématu 61:
@@ -97,9 +101,10 @@ Největší projekty v dominantním tématu 61:
 s7_categorised_prj %>%
   filter(hermin_class == "AISNA", tema_id == 61) %>%
   group_by(projname) %>%
-  summarise(czk_mil = round(sum(fin_vyuct_verejne/1e6, na.rm = T)), .groups = "drop") %>%
+  summarise(czk_mil = round(sum(fin_vyuct_verejne/1e6, na.rm = T)), 
+            .groups = "drop") %>%
   arrange(desc(czk_mil)) %>%
-  head() %>% gt::gt()
+  head(n = 10) %>% gt::gt()
 ```
 
 Největší projekty v jiných tématech:
@@ -109,8 +114,11 @@ s7_categorised_prj %>%
   filter(hermin_class == "AISNA", tema_id != 61) %>%
   group_by(projname, tema_id, tema_name) %>%
   summarise(czk_mil = round(sum(fin_vyuct_verejne/1e6, na.rm = T)), .groups = "drop") %>%
-  arrange(desc(czk_mil)) %>%
-  head() %>% gt::gt()
+  group_by(tema_id) |> 
+  slice_max(czk_mil, n = 10) |> 
+  ungroup() |> 
+  arrange(tema_id, desc(czk_mil)) %>%
+  gt::gt()
 ```
 
 
