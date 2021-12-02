@@ -253,7 +253,7 @@ t_713_macrocat <- list(
   tar_target(mc_7_quest, read_xlsx(mc_7_xlsx, "prioritni_temata") %>%
                mutate(quest_class = if_else(is.na(quest_class),
                                             quest_orig, quest_class))),
-  tar_target(mc_7_hermin, read_xlsx(mc_7_xlsx, "hermin"))
+  tar_target(mc_7_hermin, read_xlsx(mc_7_xlsx, "ekonomicke_kategorie"))
 )
 
 ## Integrate  categorisations ----------------------------------------------
