@@ -23,6 +23,7 @@ targets::tar_load(efs_fin)
 targets::tar_load(macro_sum_codebook)
 targets::tar_load(s7_sum_prg)
 targets::tar_load(s7_categorised_prj)
+targets::tar_load(s7_sum_macro_detail)
 
 ```
 
@@ -97,8 +98,8 @@ targets::tar_read(s7_codebook)
 
 Zapsáno v `r file.path(c_export_0713_dir, c_export_0713_cdbk)`
 
-### Náhled proměnných
+### Náhled proměnných (detailnější rozpad)
 
 ```{r 713-columns}
-glimpse(s7_sum_prg)
+glimpse(s7_sum_macro_detail)
 ```
