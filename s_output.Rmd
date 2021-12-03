@@ -81,47 +81,6 @@ efs_zop %>% count(wt = fin_vyuct_czv)
 
 ## 2007-13
 
-### Projekty bez ekonomické kategorizace => Hermin = "AISNA"
-
-Součty podle prioritních témat:
-
-```{r}
-s7_categorised_prj %>%
-  filter(hermin_class == "AISNA") %>%
-  group_by(tema_id, tema_name) |> 
-  summarise(czk_mil = round(sum(fin_vyuct_verejne)/1e6),
-            n_proj = n_distinct(projname), .groups = "drop") %>% 
-  arrange(desc(czk_mil)) |> 
-  gt::gt()
-```
-
-Největší projekty v dominantním tématu 61:
-
-```{r}
-s7_categorised_prj %>%
-  filter(hermin_class == "AISNA", tema_id == 61) %>%
-  group_by(projname) %>%
-  summarise(czk_mil = round(sum(fin_vyuct_verejne/1e6, na.rm = T)), 
-            .groups = "drop") %>%
-  arrange(desc(czk_mil)) %>%
-  head(n = 10) %>% gt::gt()
-```
-
-Největší projekty v jiných tématech:
-
-```{r}
-s7_categorised_prj %>%
-  filter(hermin_class == "AISNA", tema_id != 61) %>%
-  group_by(projname, tema_id, tema_name) %>%
-  summarise(czk_mil = round(sum(fin_vyuct_verejne/1e6, na.rm = T)), .groups = "drop") %>%
-  group_by(tema_id) |> 
-  slice_max(czk_mil, n = 10) |> 
-  ungroup() |> 
-  arrange(tema_id, desc(czk_mil)) %>%
-  gt::gt()
-```
-
-
 ### Soubory 
 
 Vše v `` `r  

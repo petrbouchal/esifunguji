@@ -102,6 +102,12 @@ cnf$c_mc_xlsx_prv` ``
 
 `r DT::datatable(tar_read(macrocat_prv))`
 
+### QUEST a HERMIN 2007-13
+
+- v datech je několik set projektů, které nemají kategorii ekonomické aktivity, ale protože jsou v QUESTu kategorizovány jako AIS, pro HERMIN je potřeba je nějak rozpadnout do podkategorií AIS
+- konkrétně jsou to projekty v prioritních tématech 08 a 61
+- tyto ručně v kódu kategorizujeme jako AIS1 (protože jde většinou o projekty OP Rybářství) a AIS3 (protože jde většinou o stavební projekty)
+
 ### Geografický rozpad
 
 - dataset geografické alokace projektů nepochází ze stejné sady sestav, proto ani časově neodpovídá (momentálně je starší o několik měsíců), proto se ne všechny projekty podařilo lokalizovat

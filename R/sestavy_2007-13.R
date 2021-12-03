@@ -110,7 +110,10 @@ categorise_7 <- function(s7_compiled_prj, mc_7_quest, mc_7_hermin) {
     left_join(mc_7_hermin %>% select(-katekon_name), by = "katekon_id") %>%
     mutate(hermin_class = if_else(quest_class == "AIS",
                                   paste0(quest_class, AIS_hermin_class),
-                                  quest_class)) %>%
+                                  quest_class),
+           hermin_class = case_when(hermin_class == "AISNA" & tema_id == "61" ~ "AIS3",
+                                    hermin_class == "AISNA" & tema_id == "08" ~ "AIS1",
+                                    TRUE ~ hermin_class)) %>%
     select(-AIS_hermin_class)
 }
 

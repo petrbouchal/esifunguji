@@ -381,6 +381,14 @@ $(document).ready(function () {
 <script type="application/json" data-for="htmlwidget-6a79dbf1f7d74d4f366b">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"],["1.1.1","1.2.1","2.1.1","4.1.1","4.2.1","4.3.1","4.3.2","6.1.1","6.4.1","6.4.2","6.4.3","8.3.1","8.4.1","8.4.2","8.5.1","8.5.2","8.5.3","8.6.1","8.6.2","16.1.1","16.2.1","16.2.2","16.3.1","16.4.1","16.6.1","19.2.1","19.3.1","20.1","20.2",null],["Vzdělávací akce","Informační akce","Poradenství","Investice do zemědělských podniků","Zpracování a uvádění na trh zemědělských produktů","Pozemkové úpravy","Lesnická infrastruktura","Zahájení činnosti mladých zemědělců","Investice do nezemědělských činností","Podpora agroturistiky","Investice na podporu energie z obnovitelných zdrojů","Zavádění preventivních opatření v lesích","Obnova lesních porostů po kalamitách","Odstraňování škod způsobených povodněmi","Investice do ochrany melioračních a zpevňujících dřevin","Neproduktivní investice v lesích","Přeměna porostů náhradních dřevin","Technika a technologie pro lesní hospodářství","Technické vybavení dřevozpracujících provozoven","Podpora operačních skupin a projektů EIP","Podpora vývoje nových produktů, postupů a technologií v zemědělské prvovýrobě","Podpora vývoje nových produktů, postupů a technologií při zpracování zemědělských produktů a jejich uvádění na trh","Sdílení zařízení a strojů","Horizontální a vertikální spolupráce mezi účastníky krátkých dodavatelských řetězců a místních trhů","Horizontální a vertikální spolupráce při udržitelném zajišťování biomasy pro výrobu energie a v průmyslových procesech","Podpora provádění operací v rámci komunitně vedeného místního rozvoje","Příprava a provádění činností spolupráce místní akční skupiny","Podpora technické pomoci (mimo CSV)","Podpora pro zřízení a činnost CSV",null],["HC","TA","TA","AIS","AIS","TA","INFR","AIS","INFR","AIS","INFR","INFR","INFR","INFR","INFR","INFR","INFR","INFR","INFR","TA","RD","RD","TA","TA","TA","TA","TA","TA","TA",null],["HC","TA","TA","AIS1","AIS1","TA","INFR","AIS1","INFR","AIS4","INFR","INFR","INFR","INFR","INFR","INFR","INFR","INFR","INFR","TA","RD","RD","TA","TA","TA","TA","TA","TA","TA",null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>prv_operace_kod<\/th>\n      <th>prv_operace_nazev<\/th>\n      <th>quest_class<\/th>\n      <th>hermin_class<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+<div id="quest-a-hermin-2007-13" class="section level3">
+<h3>QUEST a HERMIN 2007-13</h3>
+<ul>
+<li>v datech je několik set projektů, které nemají kategorii ekonomické aktivity, ale protože jsou v QUESTu kategorizovány jako AIS, pro HERMIN je potřeba je nějak rozpadnout do podkategorií AIS</li>
+<li>konkrétně jsou to projekty v prioritních tématech 08 a 61</li>
+<li>tyto ručně v kódu kategorizujeme jako AIS1 (protože jde většinou o projekty OP Rybářství) a AIS3 (protože jde většinou o stavební projekty)</li>
+</ul>
+</div>
 <div id="geografický-rozpad" class="section level3">
 <h3>Geografický rozpad</h3>
 <ul>
@@ -445,18 +453,20 @@ default:
   cis_7_op: &quot;ciselniky/ciselnik_programy2007.xlsx&quot;
   cis_7_nuts3: &quot;ciselniky/nuts3convert.csv&quot;
 
+  macrocat_7: &quot;data-input/kategorizace/kategorie_0713.xlsx&quot;
+
   sest_7_input_dir_new: &quot;data-input/sestavy 2007-13 20211126&quot;
   sest_7_katekon: [&quot;211026_kategorizace7.xlsx&quot;, &quot;211026_kategorizace8.xlsx&quot;]
 
   # export location - 2007-13
   export_0713_dir: &quot;data-export/export_0713_202111&quot;
   export_0713_prj_pq: &quot;prj_tema-nuts-ekonkat_0713.parquet&quot;
-  export_0713_prg_xlsx:  &quot;prg_tema-nuts-ekonkat_0713.xlsx&quot;
-  export_0713_prg_csv: &quot;prg_tema-nuts-ekonkat_0713.csv&quot;
-  export_0713_prg_pq: &quot;prg_tema-nuts-ekonkat_0713.parquet&quot;
-  export_0713_csv: &quot;tema-nuts-ekonkat_0713.csv&quot;
-  export_0713_xlsx: &quot;tema-nuts-ekonkat_0713.xlsx&quot;
-  export_0713_pq: &quot;tema-nuts-ekonkat_0713.parquet&quot;
+  export_0713_detail_xlsx:  &quot;makro_detail_0713.xlsx&quot;
+  export_0713_detail_csv: &quot;makro_detail_0713.csv&quot;
+  export_0713_detail_pq: &quot;makro_detail_0713.parquet&quot;
+  export_0713_csv: &quot;makro_0713.csv&quot;
+  export_0713_xlsx: &quot;makro_0713.xlsx&quot;
+  export_0713_pq: &quot;makro_0713.parquet&quot;
 
   export_0713_kategorie: &quot;kategorie_0713.xlsx&quot;
 
