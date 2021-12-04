@@ -70,7 +70,13 @@ default:
   macro_export_csv_a: "macro-sum_quarterly.csv"
   macro_export_csv_q: "macro-sum_annual.csv"
 
+  macro_export_nplus3_xlsx: "macro-sum-nplus3.xlsx"
+  macro_export_nplus3_csv: "macro-sum-nplus3.csv"
+  macro_export_nplus3_reg_xlsx: "macro-sum_reg_nplus3.xlsx"
+  macro_export_nplus3_reg_csv: "macro-sum_reg_nplus3.csv"
+
   macro_export_cdbk: "macro-sum_codebook.yaml"
+  macro_export_nplus3_cdbk: "macro-sum_nplus3_codebook.yaml"
 
   repo_remote: "https://github.com/petrbouchal/esifunguji"
 

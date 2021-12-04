@@ -16,11 +16,13 @@ list2env(cnf, envir = .GlobalEnv)
 ```{r load targets}
 targets::tar_load(macro_sum_reg_quarterly)
 targets::tar_load(macro_sum_reg_annual)
+targets::tar_load(macro_sum_nplus3_reg)
 targets::tar_load(ef_pub)
 targets::tar_load(efs_prv)
 targets::tar_load(efs_zop)
 targets::tar_load(efs_fin)
 targets::tar_load(macro_sum_codebook)
+targets::tar_load(macro_sum_nplus3_codebook)
 targets::tar_load(s7_sum_prg)
 targets::tar_load(s7_categorised_prj)
 targets::tar_load(s7_sum_macro_detail)
@@ -31,10 +33,16 @@ targets::tar_load(s7_sum_macro_detail)
 
 ## Dokumentace hlavního výstupu
 
-### Soubory
+### Soubory  {.tabset .tabset-pills}
 
 Vše v `` `r  
 c_macro_export_dir` `` ([Github](`r paste0(c_repo_remote, "/tree/master/", c_macro_export_dir)`)) 
+
+Data s krajským rozpadem obsahují sloupec s kódem NUTS3.
+
+CSV soubory uzpůsobeny pro Excel (úprava konce řádků) a CEE region (odděleno středníky, desetinná čárka).
+
+#### Standardní ze ŽOP
 
 - součty po letech: `` `r  
 c_macro_export_reg_csv_a` `` / `` `r  
@@ -43,11 +51,27 @@ c_macro_export_reg_xlsx_a` ``
 c_macro_export_csv_q` `` / `` `r  
 c_macro_export_xlsx_q` ``
 
-Data s krajským rozpadem obsahují sloupec s kódem NUTS3.
+#### Dopočet N+3
 
-CSV soubory uzpůsobeny pro Excel (úprava konce řádků) a CEE region (odděleno středníky, desetinná čárka).
+Pouze roční členění.
 
-### Codebook
+Dva rozdíly v názvech sloupců (viz codebook):
+
+- součty výdajů se jmenují `fin_zbyva_*`
+- proměnná času se jmenuje `dt_nplus3_rok`
+
+K metodě dovození projekce N+3 viz [dokumentaci projektu](s_doc.html).
+
+- součty po letech, bez regionů: `` `r  
+c_macro_export_nplus3_csv` `` / `` `r  
+c_macro_export_nplus3_xlsx` ``
+- součty po letech, s regiony: `` `r  
+c_macro_export_nplus3_reg_csv` `` / `` `r  
+c_macro_export_nplus3_reg_xlsx` ``
+
+### Codebook  {.tabset .tabset-pills}
+
+#### Standardní ze ŽOP
 
 ```{r codebook}
 macro_sum_codebook
@@ -55,10 +79,26 @@ macro_sum_codebook
 
 Zapsáno v `r file.path(c_macro_export_dir, c_macro_export_cdbk)`
 
-## Náhled proměnných
+#### Dopočet N+3
+
+```{r codebook-nplus3}
+macro_sum_nplus3_codebook
+```
+
+Zapsáno v `r file.path(c_macro_export_dir, c_macro_export_nplus3_cdbk)`
+
+## Náhled proměnných 
+
+### Standardní sada ze ŽOP
 
 ```{r columns}
 glimpse(macro_sum_reg_quarterly)
+```
+
+### N+3
+
+```{r columns-nplus3}
+glimpse(macro_sum_nplus3_reg)
 ```
 
 ## Validace výstupu
@@ -82,7 +122,7 @@ efs_zop %>% count(wt = fin_vyuct_czv)
 
 ## 2007-13
 
-### Soubory 
+### Soubory
 
 Vše v `` `r  
 c_export_0713_dir` `` ([Github](`r paste0(c_repo_remote, "/tree/master/", c_export_0713_dir)`)) 

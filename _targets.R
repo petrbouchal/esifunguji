@@ -120,6 +120,58 @@ t_cats <- list(
 )
 
 
+## N+3 remainder -----------------------------------------------------------
+
+t_nplus3 <- list(
+  tar_target(efs_nplus3_fin, project_nplus3(efs_fin, efs_prj)),
+  tar_target(efs_macrocat_nplus3, add_financials(efs_macrocat, efs_nplus3_fin)),
+  tar_target(efs_macrocat_nplus3_reg, add_regions(efs_macrocat_nplus3, eo_kraj))
+)
+
+t_nplus3_sum <- list(
+  tar_target(macro_sum_nplus3,
+             summarise_macro(efs_macrocat_nplus3,
+                             prv = NULL,
+                             quarterly = FALSE, regional = FALSE,
+                             dt_var = dt_nplus3_rok)),
+  tar_target(macro_sum_nplus3_reg,
+             summarise_macro(efs_macrocat_nplus3_reg,
+                             prv = NULL,
+                             quarterly = FALSE, regional = TRUE,
+                             dt_var = dt_nplus3_rok))
+)
+
+t_nplus3_export <- list(
+  tar_file(macro_export_reg_nplus3_csv,
+           export_table(macro_sum_nplus3_reg,
+                        here::here(c_macro_export_dir, c_macro_export_nplus3_reg_csv),
+                        write_excel_csv2)),
+  tar_file(macro_export_reg_nplus3_excel,
+           export_table(macro_sum_nplus3_reg,
+                        here::here(c_macro_export_dir, c_macro_export_nplus3_reg_xlsx),
+                        write_xlsx)),
+  tar_file(macro_export_nplus3_csv,
+           export_table(macro_sum_nplus3,
+                        here::here(c_macro_export_dir, c_macro_export_nplus3_csv),
+                        write_excel_csv2)),
+  tar_file(macro_export_nplus3_excel,
+           export_table(macro_sum_nplus3,
+                        here::here(c_macro_export_dir, c_macro_export_nplus3_xlsx),
+                        write_xlsx))
+)
+
+t_nplus3_codebook <- list(
+  tar_target(macro_sum_nplus3_codebook,
+             make_macro_sum_codebook(macro_sum_nplus3_reg)),
+  tar_file(macro_sum_nplus3_codebook_yaml,
+           {pointblank::yaml_write(informant = macro_sum_nplus3_codebook %>%
+                                     pointblank::set_read_fn(read_fn = ~macro_sum_nplus3_reg),
+                                   path = c_macro_export_dir,
+                                   filename = c_macro_export_nplus3_cdbk)
+             file.path(c_macro_export_dir, c_macro_export_nplus3_cdbk)
+           })
+)
+
 ## Compile for macro -------------------------------------------------------
 
 t_macro_compile <- list(
@@ -352,4 +404,5 @@ list(t_public_list, t_cats,
      t_op_compile, t_valid_zop_timing,
      t_713_build, t_713_export, t_0713_codebook, t_713_macrocat,
      t_713_categorise,
+     t_nplus3, t_nplus3_sum, t_nplus3_export, t_nplus3_codebook,
      t_macro_compile, t_macro_export, t_macro_codebook)

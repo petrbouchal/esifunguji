@@ -124,6 +124,39 @@ cnf$c_mc_xlsx_prv` ``
 - stejně tak nerozlišujeme platby ANTE a POST
 - pro lepší přesnost by bylo vhodné tyto platby ještě posunout o cca 100 dnů (1 kvartál) dále v čase (odhadovaná prodleva mezi 30. 6. - coby očekávaná střední doba podání ŽOP v roce - a proplacením)
 
+
+### Projekce čerpání v N+3
+
+Co počítáme:
+
+- bereme v úvahu nevyúčtované prostředky
+- u projektů v pozitivních stavech
+- které nebyly ukončeny k 30. 6. 2020
+- tj. neřešíme, kdy a jak se proplatí výdaje už doběhlých projektů
+
+Co je vynechané
+
+- PRV - nemáme data o celkových alokacích projektů
+
+Jak to projektujeme:
+
+- lineárně: předpokládáme, že každý rok zbylého trvání projektu se utratí stejný díl zbylých peněz
+- výjimkou je rok 2021, který co do podílu na čerpání vážíme polovinou váhy let 2022 a 2023 (protože data o platbách jsou cca do pololetí 2021)
+- konečný rok projektu pro jednoduchost počítáme vždy jako celý, i pokud projekt zasahuje jen do několika měsíců
+- vycházíme z předpokládaného ukončení fyzické realizace
+
+Jak to členíme:
+
+- využíváme regionální, tematické a sektorové dělení výdajů projektu podle vstupních dat => předpokládáme, že regionální a tematické rozložení výdajů se v rámci jednoho projektu v čase nemění
+
+Co ještě předpokládáme/ignorujeme:
+
+- nepočítáme s odpadovostí/předčasným ukončováním projektů: pokud projekt běží v polovině roku 2021 (naše poslední data), předpokládáme, že doběhne a proplatí se mu všechny zbylé peníze
+- nijak nezohledňujeme předchozí underspends projektů
+- pokud projekt měl skončit dříve, ale neskončil, rozkládáme jeho neproplacené prostředky do let 2021-23 tak, aby projekty, které měly skončit dříve, měly více plateb v dřívejších letech
+- nezohledňujeme unde-over schedule podle předchozích projektů - předpokládáme, že nyní bežící projekty skončí podle v datech uvedeného předpokládaného ukončení
+- neděláme žádné předpoklady ohledně trajektorie proplácení ani nevyužíváme informace o nich z již ukončených projektů
+
 ### Hodnoty konfiguračních proměnných v souboru `config.yml`
 
 ```{details}

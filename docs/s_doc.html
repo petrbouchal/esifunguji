@@ -409,6 +409,39 @@ $(document).ready(function () {
 <li>pro lepší přesnost by bylo vhodné tyto platby ještě posunout o cca 100 dnů (1 kvartál) dále v čase (odhadovaná prodleva mezi 30. 6. - coby očekávaná střední doba podání ŽOP v roce - a proplacením)</li>
 </ul>
 </div>
+<div id="projekce-čerpání-v-n3" class="section level3">
+<h3>Projekce čerpání v N+3</h3>
+<p>Co počítáme:</p>
+<ul>
+<li>bereme v úvahu nevyúčtované prostředky</li>
+<li>u projektů v pozitivních stavech</li>
+<li>které nebyly ukončeny k 30. 6. 2020</li>
+<li>tj. neřešíme, kdy a jak se proplatí výdaje už doběhlých projektů</li>
+</ul>
+<p>Co je vynechané</p>
+<ul>
+<li>PRV - nemáme data o celkových alokacích projektů</li>
+</ul>
+<p>Jak to projektujeme:</p>
+<ul>
+<li>lineárně: předpokládáme, že každý rok zbylého trvání projektu se utratí stejný díl zbylých peněz</li>
+<li>výjimkou je rok 2021, který co do podílu na čerpání vážíme polovinou váhy let 2022 a 2023 (protože data o platbách jsou cca do pololetí 2021)</li>
+<li>konečný rok projektu pro jednoduchost počítáme vždy jako celý, i pokud projekt zasahuje jen do několika měsíců</li>
+<li>vycházíme z předpokládaného ukončení fyzické realizace</li>
+</ul>
+<p>Jak to členíme:</p>
+<ul>
+<li>využíváme regionální, tematické a sektorové dělení výdajů projektu podle vstupních dat =&gt; předpokládáme, že regionální a tematické rozložení výdajů se v rámci jednoho projektu v čase nemění</li>
+</ul>
+<p>Co ještě předpokládáme/ignorujeme:</p>
+<ul>
+<li>nepočítáme s odpadovostí/předčasným ukončováním projektů: pokud projekt běží v polovině roku 2021 (naše poslední data), předpokládáme, že doběhne a proplatí se mu všechny zbylé peníze</li>
+<li>nijak nezohledňujeme předchozí underspends projektů</li>
+<li>pokud projekt měl skončit dříve, ale neskončil, rozkládáme jeho neproplacené prostředky do let 2021-23 tak, aby projekty, které měly skončit dříve, měly více plateb v dřívejších letech</li>
+<li>nezohledňujeme unde-over schedule podle předchozích projektů - předpokládáme, že nyní bežící projekty skončí podle v datech uvedeného předpokládaného ukončení</li>
+<li>neděláme žádné předpoklady ohledně trajektorie proplácení ani nevyužíváme informace o nich z již ukončených projektů</li>
+</ul>
+</div>
 <div id="hodnoty-konfiguračních-proměnných-v-souboru-config.yml" class="section level3">
 <h3>Hodnoty konfiguračních proměnných v souboru <code>config.yml</code></h3>
 <details closed>
@@ -473,7 +506,7 @@ default:
   export_0713_cdbk: &quot;sum_0713_codebook.yaml&quot;
 
   # export location - macro
-  macro_export_dir: &quot;data-export/export_202108&quot;
+  macro_export_dir: &quot;data-export/export_202112&quot;
 
   macro_export_reg_xlsx_a: &quot;macro-sum_reg_quarterly.xlsx&quot;
   macro_export_reg_xlsx_q: &quot;macro-sum_reg_annual.xlsx&quot;
@@ -485,12 +518,18 @@ default:
   macro_export_csv_a: &quot;macro-sum_quarterly.csv&quot;
   macro_export_csv_q: &quot;macro-sum_annual.csv&quot;
 
+  macro_export_nplus3_xlsx: &quot;macro-sum-nplus3.xlsx&quot;
+  macro_export_nplus3_csv: &quot;macro-sum-nplus3.csv&quot;
+  macro_export_nplus3_reg_xlsx: &quot;macro-sum_reg_nplus3.xlsx&quot;
+  macro_export_nplus3_reg_csv: &quot;macro-sum_reg_nplus3.csv&quot;
+
   macro_export_cdbk: &quot;macro-sum_codebook.yaml&quot;
+  macro_export_nplus3_cdbk: &quot;macro-sum_nplus3_codebook.yaml&quot;
 
   repo_remote: &quot;https://github.com/petrbouchal/esifunguji&quot;
 
   # export location - hierarchy
-  hier_export_dir: &quot;data-export/matice_202108&quot;
+  hier_export_dir: &quot;data-export/matice_202112&quot;
   hier_export_xlsx: &quot;matice.xlsx&quot;
 </code></pre>
 </details>
