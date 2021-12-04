@@ -296,7 +296,7 @@ $(document).ready(function () {
 <h2>Dokumentace hlavního výstupu</h2>
 <div id="soubory" class="section level3">
 <h3>Soubory</h3>
-<p>Vše v <code>data-export/export_202108</code> (<a href="https://github.com/petrbouchal/esifunguji/tree/master/data-export/export_202108">Github</a>)</p>
+<p>Vše v <code>data-export/export_202112</code> (<a href="https://github.com/petrbouchal/esifunguji/tree/master/data-export/export_202112">Github</a>)</p>
 <ul>
 <li>součty po letech: <code>macro-sum_reg_quarterly.csv</code> / <code>macro-sum_reg_quarterly.xlsx</code></li>
 <li>součty po čtvrtletích: <code>macro-sum_annual.csv</code> / <code>macro-sum_annual.xlsx</code></li>
@@ -746,9 +746,9 @@ html {
       <th colspan="1" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-size: 12px; text-align: left;"><span style="text-decoration-style:solid;text-decoration-color:#ADD8E6;text-decoration-line:underline;text-underline-position:under;color:#333333;font-variant-numeric:tabular-nums;padding-left:4px;margin-right:5px;padding-right:2px;">Codebook hlavního výstupu</span></p>
 <div style="height:25px;margin-top:10px;"><span style="background-color:#F1D35A;color:#222222;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 0px 5px 5px;font-weight:bold;border:solid 1px #F1D35A;padding:2px 15px 2px 15px;font-size:smaller;">tibble</span>
 <span style="background-color:none;color:#222222;padding:0.5em 0.5em;position:inherit;margin:5px 10px 5px -4px;font-weight:bold;border:solid 1px #F1D35A;padding:2px 15px 2px 15px;font-size:smaller;">compiled_macro_sum_quarterly</span><span style="background-color:#eecbff;color:#333333;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 0px 5px 5px;font-weight:bold;border:solid 1px #eecbff;padding:2px 15px 2px 15px;font-size:smaller;">Rows</span>
-<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #eecbff;padding:2px 15px 2px 15px;font-size:smaller;">6,126</span>
+<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #eecbff;padding:2px 15px 2px 15px;font-size:smaller;">6,269</span>
 <span style="background-color:#BDE7B4;color:#333333;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 0px 5px 1px;font-weight:bold;border:solid 1px #BDE7B4;padding:2px 15px 2px 15px;font-size:smaller;">Columns</span>
-<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #BDE7B4;padding:2px 15px 2px 15px;font-size:smaller;">38</span></div>
+<span style="background-color:none;color:#333333;padding:0.5em 0.5em;position:inherit;margin:5px 0px 5px -4px;font-weight:bold;border:solid 1px #BDE7B4;padding:2px 15px 2px 15px;font-size:smaller;">42</span></div>
 </th>
     </tr>
   </thead>
@@ -800,12 +800,18 @@ html {
 <p><strong class="pb_sub_label">TYP</strong> Časový údaj (datum)</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">dt_zop_kvartal_datum</code>  <code class="pb_col_type">Date</code></p>
-<p><strong class="pb_sub_label">POPIS</strong> První den kvartálu</p>
-<p><strong class="pb_sub_label">ZDROJ DAT</strong> Datum proplacení ŽOP</p>
+<p><strong class="pb_sub_label">POPIS</strong> Kvartál proplacení ŽOP První den kvartálu</p>
+<p><strong class="pb_sub_label">ZDROJ DAT</strong> Datum proplacení ŽOP Datum proplacení ŽOP</p>
 <p><strong class="pb_sub_label">TYP</strong> Časový údaj (datum)</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">kraj_id</code>  <code class="pb_col_type">character</code></p>
 <p><strong class="pb_sub_label">POPIS</strong> Kód NUTS3 (kraj)</p>
+</div></td></tr>
+    <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_verejne</code>  <code class="pb_col_type">numeric</code></p>
+<p><strong class="pb_sub_label">TYP</strong> Finance</p>
+<p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
+<p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Veřejné (EU + ČR)</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_czv_wt_pocetobyv</code>  <code class="pb_col_type">numeric</code></p>
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
@@ -853,7 +859,7 @@ html {
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
-<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Soukromý</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Jiné národní</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Počet obyvatel obcí, kde se projekt realizuje</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_soukr_wt_pocetobyv</code>  <code class="pb_col_type">numeric</code></p>
@@ -867,7 +873,7 @@ html {
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
-<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní Veřejné (EU + ČR)</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Počet obyvatel obcí, kde se projekt realizuje</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_narodni_wt_pocetobyv</code>  <code class="pb_col_type">numeric</code></p>
@@ -875,6 +881,13 @@ html {
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní</p>
+<p><strong class="pb_sub_label">VÁHA</strong> Počet obyvatel obcí, kde se projekt realizuje</p>
+</div></td></tr>
+    <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_verejne_wt_pocetobyv</code>  <code class="pb_col_type">numeric</code></p>
+<p><strong class="pb_sub_label">TYP</strong> Finance</p>
+<p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
+<p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Veřejné (EU + ČR)</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Počet obyvatel obcí, kde se projekt realizuje</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_czv_wt_pocetkraju</code>  <code class="pb_col_type">numeric</code></p>
@@ -923,7 +936,7 @@ html {
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
-<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Soukromý</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Jiné národní</p>
 <p><strong class="pb_sub_label">VÁHA</strong> 1/počet krajů, kde se projekt realizuje</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_soukr_wt_pocetkraju</code>  <code class="pb_col_type">numeric</code></p>
@@ -937,7 +950,7 @@ html {
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
-<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní Veřejné (EU + ČR)</p>
 <p><strong class="pb_sub_label">VÁHA</strong> 1/počet krajů, kde se projekt realizuje</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_narodni_wt_pocetkraju</code>  <code class="pb_col_type">numeric</code></p>
@@ -945,6 +958,13 @@ html {
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
 <p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní</p>
+<p><strong class="pb_sub_label">VÁHA</strong> 1/počet krajů, kde se projekt realizuje</p>
+</div></td></tr>
+    <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_verejne_wt_pocetkraju</code>  <code class="pb_col_type">numeric</code></p>
+<p><strong class="pb_sub_label">TYP</strong> Finance</p>
+<p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
+<p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Veřejné (EU + ČR)</p>
 <p><strong class="pb_sub_label">VÁHA</strong> 1/počet krajů, kde se projekt realizuje</p>
 </div></td></tr>
     <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_czv_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
@@ -999,7 +1019,7 @@ html {
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
-<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Soukromý</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Jiné národní</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
 <p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
@@ -1015,7 +1035,7 @@ html {
 <p><strong class="pb_sub_label">TYP</strong> Finance</p>
 <p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
 <p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
-<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Národní Veřejné (EU + ČR)</p>
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
 <p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
@@ -1027,24 +1047,32 @@ html {
 <p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
 <p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
 </div></td></tr>
+    <tr><td class="gt_row gt_left" style="color: #666666; font-size: smaller; border-top-width: 1; border-top-style: solid; border-top-color: #EFEFEF;"><div class='gt_from_md'><p><code style="margin-bottom:5px;color:#555555;font-weight:500;line-height:2em;border:solid 1px #499FFE;padding:2px 8px 3px 8px;background-color:#FAFAFA;">fin_vyuct_verejne_wt_cond</code>  <code class="pb_col_type">numeric</code></p>
+<p><strong class="pb_sub_label">TYP</strong> Finance</p>
+<p><strong class="pb_sub_label">JEDNOTKA</strong> CZK</p>
+<p><strong class="pb_sub_label">ZDROJ DAT</strong> ŽOP sečtené podle data proplacení</p>
+<p><strong class="pb_sub_label">ZDROJ FINANCÍ</strong> Veřejné (EU + ČR)</p>
+<p><strong class="pb_sub_label">VÁHA</strong> Váha zvolena podle proměnné <code>class_quest</code></p>
+<p><strong class="pb_sub_label">DETAIL</strong> podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC</p>
+</div></td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-12-03 23:17:32 CET</span>
+      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-12-04 11:30:17 CET</span>
 <span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;margin:5px 1px 5px 0;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">&lt; 1 s</span>
-<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-12-03 23:17:32 CET</span></td>
+<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-12-04 11:30:18 CET</span></td>
     </tr>
   </tfoot>
   
 </table>
 </div>
-<p>Zapsáno v data-export/export_202108/macro-sum_codebook.yaml</p>
+<p>Zapsáno v data-export/export_202112/macro-sum_codebook.yaml</p>
 </div>
 </div>
 <div id="náhled-proměnných" class="section level2">
 <h2>Náhled proměnných</h2>
-<pre><code>Rows: 6,126
-Columns: 38
+<pre><code>Rows: 6,269
+Columns: 42
 $ dt_zop_rok                              &lt;dbl&gt; 2015, 2015, 2015, 2015, 2015, …
 $ quest_class                             &lt;chr&gt; &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, …
 $ hermin_class                            &lt;chr&gt; &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, &quot;HC&quot;, …
@@ -1053,6 +1081,7 @@ $ eu20_id                                 &lt;chr&gt; &quot;EU2020_1&quot;, &quo
 $ dt_zop_kvartal                          &lt;dbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, …
 $ dt_zop_kvartal_datum                    &lt;date&gt; 2015-10-01, 2015-10-01, 2015-…
 $ kraj_id                                 &lt;chr&gt; &quot;CZ010&quot;, &quot;CZ020&quot;, &quot;CZ031&quot;, &quot;CZ…
+$ fin_vyuct_verejne                       &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …
 $ fin_vyuct_czv_wt_pocetobyv              &lt;dbl&gt; 127942688, 133822804, 63259258…
 $ fin_vyuct_eu_wt_pocetobyv               &lt;dbl&gt; 105410700.9, 110255270.3, 5211…
 $ fin_vyuct_sr_wt_pocetobyv               &lt;dbl&gt; 22531987, 23567534, 11140588, …
@@ -1063,6 +1092,7 @@ $ fin_vyuct_jine_nar_ver_wt_pocetobyv     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0,
 $ fin_vyuct_soukr_wt_pocetobyv            &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …
 $ fin_vyuct_narodni_verejne_wt_pocetobyv  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
 $ fin_vyuct_narodni_wt_pocetobyv          &lt;dbl&gt; 22531986.7, 23567534.1, 111405…
+$ fin_vyuct_verejne_wt_pocetobyv          &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …
 $ fin_vyuct_czv_wt_pocetkraju             &lt;dbl&gt; 74896835, 74896835, 74896835, …
 $ fin_vyuct_eu_wt_pocetkraju              &lt;dbl&gt; 61706753.2, 61706753.2, 617067…
 $ fin_vyuct_sr_wt_pocetkraju              &lt;dbl&gt; 13190082, 13190082, 13190082, …
@@ -1073,6 +1103,7 @@ $ fin_vyuct_jine_nar_ver_wt_pocetkraju    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0,
 $ fin_vyuct_soukr_wt_pocetkraju           &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …
 $ fin_vyuct_narodni_verejne_wt_pocetkraju &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
 $ fin_vyuct_narodni_wt_pocetkraju         &lt;dbl&gt; 13190081.6, 13190081.6, 131900…
+$ fin_vyuct_verejne_wt_pocetkraju         &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …
 $ fin_vyuct_czv_wt_cond                   &lt;dbl&gt; 127942688, 133822804, 63259258…
 $ fin_vyuct_eu_wt_cond                    &lt;dbl&gt; 105410700.9, 110255270.3, 5211…
 $ fin_vyuct_sr_wt_cond                    &lt;dbl&gt; 22531987, 23567534, 11140588, …
@@ -1082,14 +1113,15 @@ $ fin_vyuct_kraj_wt_cond                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0,
 $ fin_vyuct_jine_nar_ver_wt_cond          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
 $ fin_vyuct_narodni_wt_cond               &lt;dbl&gt; 22531986.7, 23567534.1, 111405…
 $ fin_vyuct_narodni_verejne_wt_cond       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-$ fin_vyuct_soukr_wt_cond                 &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …</code></pre>
+$ fin_vyuct_soukr_wt_cond                 &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …
+$ fin_vyuct_verejne_wt_cond               &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, …</code></pre>
 </div>
 <div id="validace-výstupu" class="section level2">
 <h2>Validace výstupu</h2>
 <p>IN PROGRESS</p>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["kraj_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["2015"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["2016"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["2017"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["2018"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["2019"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["2020"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["2021"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["<NA>"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"CZ010","2":"0.13","3":"2.34","4":"4.80","5":"9.37","6":"10.42","7":"11.40","8":"4.42","9":"0"},{"1":"CZ020","2":"0.13","3":"1.75","4":"8.85","5":"13.62","6":"14.62","7":"18.21","8":"5.39","9":"0"},{"1":"CZ031","2":"0.06","3":"0.78","4":"3.88","5":"7.75","6":"8.06","7":"7.62","8":"2.76","9":"0"},{"1":"CZ032","2":"0.06","3":"1.18","4":"2.41","5":"5.80","6":"5.86","7":"6.90","8":"2.53","9":"0"},{"1":"CZ041","2":"0.03","3":"0.20","4":"1.69","5":"2.92","6":"2.56","7":"1.95","8":"1.49","9":"0"},{"1":"CZ042","2":"0.08","3":"0.64","4":"2.63","5":"5.85","6":"6.86","7":"8.76","8":"3.40","9":"0"},{"1":"CZ051","2":"0.07","3":"0.23","4":"2.70","5":"3.72","6":"3.72","7":"4.22","8":"1.68","9":"0"},{"1":"CZ052","2":"0.05","3":"0.70","4":"1.96","5":"5.02","6":"6.11","7":"6.33","8":"2.12","9":"0"},{"1":"CZ053","2":"0.05","3":"0.67","4":"2.00","5":"4.63","6":"5.75","7":"7.89","8":"2.70","9":"0"},{"1":"CZ063","2":"0.05","3":"0.70","4":"6.14","5":"7.18","6":"6.61","7":"9.71","8":"3.35","9":"0"},{"1":"CZ064","2":"0.12","3":"0.91","4":"6.89","5":"15.90","6":"15.04","7":"18.01","8":"6.18","9":"0"},{"1":"CZ071","2":"0.06","3":"1.64","4":"4.16","5":"7.27","6":"7.16","7":"9.80","8":"3.30","9":"0"},{"1":"CZ072","2":"0.06","3":"0.72","4":"2.67","5":"5.32","6":"5.82","7":"5.81","8":"2.34","9":"0"},{"1":"CZ080","2":"0.12","3":"1.07","4":"7.15","5":"12.81","6":"12.39","7":"11.79","8":"5.27","9":"0"},{"1":"NA","2":"NA","3":"0.00","4":"0.00","5":"0.00","6":"0.00","7":"0.00","8":"0.00","9":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["kraj_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["2015"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["2016"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["2017"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["2018"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["2019"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["2020"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["2021"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["<NA>"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"CZ010","2":"0.13","3":"2.34","4":"4.80","5":"9.37","6":"10.42","7":"11.40","8":"4.44","9":"0"},{"1":"CZ020","2":"0.13","3":"1.75","4":"8.85","5":"13.62","6":"14.62","7":"18.21","8":"5.38","9":"0"},{"1":"CZ031","2":"0.06","3":"0.78","4":"3.88","5":"7.75","6":"8.06","7":"7.62","8":"2.76","9":"0"},{"1":"CZ032","2":"0.06","3":"1.18","4":"2.41","5":"5.80","6":"5.86","7":"6.90","8":"2.52","9":"0"},{"1":"CZ041","2":"0.03","3":"0.20","4":"1.69","5":"2.92","6":"2.56","7":"1.95","8":"1.46","9":"0"},{"1":"CZ042","2":"0.08","3":"0.64","4":"2.63","5":"5.85","6":"6.86","7":"8.76","8":"3.39","9":"0"},{"1":"CZ051","2":"0.07","3":"0.23","4":"2.70","5":"3.72","6":"3.72","7":"4.22","8":"1.68","9":"0"},{"1":"CZ052","2":"0.05","3":"0.70","4":"1.96","5":"5.02","6":"6.11","7":"6.33","8":"2.10","9":"0"},{"1":"CZ053","2":"0.05","3":"0.67","4":"2.00","5":"4.63","6":"5.75","7":"7.89","8":"2.71","9":"0"},{"1":"CZ063","2":"0.05","3":"0.70","4":"6.14","5":"7.18","6":"6.61","7":"9.71","8":"3.35","9":"0"},{"1":"CZ064","2":"0.12","3":"0.91","4":"6.89","5":"15.90","6":"15.04","7":"18.01","8":"6.17","9":"0"},{"1":"CZ071","2":"0.06","3":"1.64","4":"4.16","5":"7.27","6":"7.16","7":"9.80","8":"3.29","9":"0"},{"1":"CZ072","2":"0.06","3":"0.72","4":"2.67","5":"5.32","6":"5.82","7":"5.81","8":"2.31","9":"0"},{"1":"CZ080","2":"0.12","3":"1.07","4":"7.15","5":"12.81","6":"12.39","7":"11.79","8":"5.25","9":"0"},{"1":"NA","2":"NA","3":"0.00","4":"0.00","5":"0.00","6":"0.00","7":"0.00","8":"0.00","9":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div data-pagedtable="false">
@@ -1638,9 +1670,9 @@ html {
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-12-03 23:17:34 CET</span>
+      <td class="gt_sourcenote" colspan="1"><span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin-left:10px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;padding:2px 10px 2px 10px;">2021-12-04 11:30:19 CET</span>
 <span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;margin:5px 1px 5px 0;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">&lt; 1 s</span>
-<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-12-03 23:17:35 CET</span></td>
+<span style="background-color:#FFF;color:#444;padding:0.5em 0.5em;position:inherit;text-transform:uppercase;margin:5px 1px 5px -1px;border:solid 1px #999999;font-variant-numeric:tabular-nums;border-radius:0;padding:2px 10px 2px 10px;">2021-12-04 11:30:20 CET</span></td>
     </tr>
   </tfoot>
   

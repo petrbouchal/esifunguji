@@ -58,7 +58,7 @@ default:
   export_0713_cdbk: "sum_0713_codebook.yaml"
 
   # export location - macro
-  macro_export_dir: "data-export/export_202108"
+  macro_export_dir: "data-export/export_202112"
 
   macro_export_reg_xlsx_a: "macro-sum_reg_quarterly.xlsx"
   macro_export_reg_xlsx_q: "macro-sum_reg_annual.xlsx"
@@ -75,5 +75,5 @@ default:
   repo_remote: "https://github.com/petrbouchal/esifunguji"
 
   # export location - hierarchy
-  hier_export_dir: "data-export/matice_202108"
+  hier_export_dir: "data-export/matice_202112"
   hier_export_xlsx: "matice.xlsx"

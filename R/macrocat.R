@@ -90,14 +90,18 @@ add_regions <- function(efs_macrocat_fin, eo_kraj) {
 }
 
 
-summarise_macro <- function(other, prv, quarterly, regional) {
+summarise_macro <- function(other, prv, quarterly, regional, dt_var = dt_zop_rok) {
   other$source <- "mssf"
-  prv$source <- "prv"
 
-  bnd <- bind_rows(other, prv)
+  if(!is.null(prv)) {
+    prv$source <- "prv"
+    bnd <- bind_rows(other, prv)
+  } else {
+    bnd <- other
+  }
 
   grp <- bnd %>%
-    group_by(dt_zop_rok, quest_class, hermin_class, source, eu20_id)
+    group_by({{dt_var}}, quest_class, hermin_class, source, eu20_id)
 
   if (quarterly) {
     grp <- group_by(grp, dt_zop_kvartal, dt_zop_kvartal_datum, .add = TRUE)
@@ -108,6 +112,12 @@ summarise_macro <- function(other, prv, quarterly, regional) {
     make_conditional_wt <- function(var, class, var_wt_1, var_wt_2) {
       case_when(class %in% c("RD", "AIS", "TA") ~ var_wt_1,
                 class %in% c("INFR", "HC") ~ var_wt_2)
+    }
+
+    if("fin_zbyva_czv" %in% names(grp)) nplus3 <- TRUE else nplus3 <- FALSE
+
+    if(nplus3) {
+      grp <- rename_with(grp, .fn = ~str_replace(.x, "_zbyva_", "_vyuct_"))
     }
 
     # warning("REGIONAL!!!")
@@ -127,6 +137,11 @@ summarise_macro <- function(other, prv, quarterly, regional) {
              fin_vyuct_soukr_wt_cond = make_conditional_wt(fin_vyuct_soukr_wt_cond, quest_class, fin_vyuct_soukr_wt_pocetkraju, fin_vyuct_soukr_wt_pocetobyv),
              fin_vyuct_verejne_wt_cond = make_conditional_wt(fin_vyuct_verejne_wt_cond, quest_class, fin_vyuct_verejne_wt_pocetkraju, fin_vyuct_verejne_wt_pocetobyv)) %>%
       select(-matches("(czv|eu|sr|sf|obec|kraj|soukr|jine_nar_ver|narodni|narodni_verejne)$"))
+
+    if(nplus3) {
+      grp <- rename_with(grp, .fn = ~str_replace(.x, "_vyuct_", "_zbyva_"))
+    }
+
   } else {
     rr <- grp %>%
       mutate(across(starts_with("fin_"), ~.x * radek_podil)) %>%

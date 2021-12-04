@@ -283,3 +283,53 @@ summarise_by_op <- function(efs_zop_quarterly, efs_prv_quarterly) {
     group_by(across(starts_with("op_")), dt_zop_rok) %>%
     summarise(across(starts_with("fin_"), sum), .groups = "drop")
 }
+
+project_nplus3 <- function(efs_fin, efs_prj) {
+  zbyva_proplatit <- efs_fin |>
+    filter(fin_pravniakt_czv > 0) |>
+    filter(str_detect(real_stav_id, "^PP")) |>
+    select(prj_id, matches("_pravniakt_|_vyuct_")) |>
+    pivot_longer(starts_with("fin")) |>
+    replace_na(list(value = 0)) |>
+    separate(name, into = c("fin", "typ", "zdroj"), extra = "merge") |>
+    pivot_wider(names_from = "typ", values_from = "value") |>
+    mutate(zbyva = pravniakt - vyuct) |>
+    pivot_longer(c(pravniakt, vyuct, zbyva)) |>
+    unite(name, fin, name, zdroj) |>
+    pivot_wider(names_from = "name", values_from = "value") |>
+    mutate(fin_zbyva_narodni_verejne = fin_zbyva_czv - fin_zbyva_soukr - fin_zbyva_eu,
+           fin_zbyva_narodni = fin_zbyva_czv - fin_zbyva_eu,
+           fin_zbyva_verejne = fin_zbyva_eu + fin_zbyva_narodni) |>
+    select(prj_id, contains("fin_zbyva_"))
+
+  prj_nplus3_duration <- efs_prj |>
+    filter(str_detect(real_stav_kod, "^PP")) |>
+    filter(is.na(dt_ukon_fyz)) |>
+    select(prj_id, dt_ukon_fyz_predpokl) |>
+    distinct() |>
+    mutate(year_end = year(dt_ukon_fyz_predpokl),
+           year_end = case_when(year_end < 2019 ~
+                                  2021 + sample(c(0, 0, 0, 1), 1),
+                                year_end == 2019 ~
+                                  2021 + sample(c(0, 0, 1, 1, 2), 1),
+                                year_end == 2020 ~
+                                  2021 + sample(c(0, 0, 1, 2), 1),
+                                TRUE ~ year_end)) |>
+    group_by(prj_id, year_end) |>
+    summarise(year = 2021:year_end, .groups = "drop") |>
+    group_by(prj_id) |>
+    mutate(prior_weight = case_when(year == 2021 ~ .5,
+                                    TRUE ~ 1),
+           year_weight = prior_weight / sum(prior_weight)) |>
+    ungroup() |>
+    select(prj_id, dt_nplus3_rok = year, year_weight)
+
+  rslt <- zbyva_proplatit |>
+    left_join(prj_nplus3_duration, by = "prj_id") |>
+    mutate(across(starts_with("fin_"), ~ .x * year_weight)) |>
+    drop_na(dt_nplus3_rok) |>
+    relocate(prj_id, dt_nplus3_rok) |>
+    select(-year_weight)
+
+  return(rslt)
+}
