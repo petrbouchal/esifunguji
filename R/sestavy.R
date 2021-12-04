@@ -84,7 +84,8 @@ load_efs_zop <- function(dir, filename) {
       across(starts_with("pomer_"), as.double),
       across(starts_with("dt_"), as.Date),
       fin_vyuct_narodni_verejne = fin_vyuct_czv - fin_vyuct_soukr - fin_vyuct_eu,
-      fin_vyuct_narodni = fin_vyuct_czv - fin_vyuct_eu)
+      fin_vyuct_narodni = fin_vyuct_czv - fin_vyuct_eu,
+      fin_vyuct_verejne = fin_vyuct_narodni_verejne + fin_vyuct_eu)
 
   return(efs_zop)
 }

@@ -37,9 +37,10 @@ make_macro_sum_codebook <- function(compiled_macro_sum_quarterly) {
     info_columns(contains("_obec"), `Zdroj financí` = "Obec") %>%
     info_columns(contains("_kraj"), `Zdroj financí` = "Kraj") %>%
     info_columns(contains("_soukr"), `Zdroj financí` = "Soukromý") %>%
-    info_columns(contains("_jine_nar"), `Zdroj financí` = "Soukromý") %>%
-    info_columns(contains("_narodni"),
-                 `Zdroj financí` = "Národní") %>%
+    info_columns(contains("_jine_nar"), `Zdroj financí` = "Jiné národní") %>%
+    info_columns(contains("_narodni"), `Zdroj financí` = "Národní") %>%
+    info_columns(contains("_verejne"), `Zdroj financí` = "Veřejné (EU + ČR)") %>%
+    info_columns(contains("fin_zbyva_"), `Typ informace` = "Projekce N+3") %>%
     info_columns(ends_with("_wt_pocetkraju"),
                  Váha = "1/počet krajů, kde se projekt realizuje") %>%
     info_columns(ends_with("_wt_cond"),

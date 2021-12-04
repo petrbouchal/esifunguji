@@ -124,7 +124,8 @@ summarise_macro <- function(other, prv, quarterly, regional) {
              fin_vyuct_jine_nar_ver_wt_cond = make_conditional_wt(fin_vyuct_jine_nar_ver_wt_cond, quest_class, fin_vyuct_jine_nar_ver_wt_pocetkraju, fin_vyuct_jine_nar_ver_wt_pocetobyv),
              fin_vyuct_narodni_wt_cond = make_conditional_wt(fin_vyuct_narodni_wt_cond, quest_class, fin_vyuct_narodni_wt_pocetkraju, fin_vyuct_narodni_wt_pocetobyv),
              fin_vyuct_narodni_verejne_wt_cond = make_conditional_wt(fin_vyuct_narodni_verejne_wt_cond, quest_class, fin_vyuct_narodni_verejne_wt_pocetkraju, fin_vyuct_narodni_verejne_wt_pocetobyv),
-             fin_vyuct_soukr_wt_cond = make_conditional_wt(fin_vyuct_soukr_wt_cond, quest_class, fin_vyuct_soukr_wt_pocetkraju, fin_vyuct_soukr_wt_pocetobyv)) %>%
+             fin_vyuct_soukr_wt_cond = make_conditional_wt(fin_vyuct_soukr_wt_cond, quest_class, fin_vyuct_soukr_wt_pocetkraju, fin_vyuct_soukr_wt_pocetobyv),
+             fin_vyuct_verejne_wt_cond = make_conditional_wt(fin_vyuct_verejne_wt_cond, quest_class, fin_vyuct_verejne_wt_pocetkraju, fin_vyuct_verejne_wt_pocetobyv)) %>%
       select(-matches("(czv|eu|sr|sf|obec|kraj|soukr|jine_nar_ver|narodni|narodni_verejne)$"))
   } else {
     rr <- grp %>%
