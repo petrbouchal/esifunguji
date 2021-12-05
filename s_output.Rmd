@@ -135,7 +135,7 @@ macro_sum_reg_quarterly %>%
 # efs_zop %>% count(wt = fin_vyuct_czv)
 ```
 
-### N+3
+## Validace N+3
 
 Níže vizuální diagnostika dvou pravděpodobných problémů:
 
