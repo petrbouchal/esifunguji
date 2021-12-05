@@ -257,6 +257,26 @@ t_valid_zop_timing <- list(
   tar_target(zop_timing_plot, make_zop_timing_plot(zop_timing_df))
 )
 
+t_validation <- list(
+  tar_target(val_compare_sums,
+             compare_dt_sums(list(efs_fin, efs_zop, efs_zop_quarterly, efs_zop_annual,
+                                  efs_prv, efs_prv_quarterly,
+                                  macro_sum_annual, macro_sum_reg_annual,
+                                  macro_sum_quarterly, macro_sum_reg_quarterly),
+                             "vyuct_czv",
+                             names = c("efs_fin", "efs_zop", "efs_zop_quarterly", "efs_zop_annual",
+                                       "efs_prv", "efs_prv_quarterly",
+                                       "macro_sum_annual", "macro_sum_reg_annual",
+                                       "macro_sum_quarterly", "macro_sum_reg_quarterly")))
+)
+
+t_preview_nplus3 <- list(
+  tar_target(plt_with_nplus3,
+             plot_with_nplus3(macro_sum_quarterly, macro_sum_nplus3)),
+  tar_target(plt_nplus3_reg_nonreg,
+             plot_nplus3_reg_nonreg(macro_sum_nplus3_reg, macro_sum_nplus3))
+)
+
 
 ## Build and export codebook -----------------------------------------------
 
@@ -370,6 +390,13 @@ t_0713_codebook <- list(
            })
 )
 
+
+## Validate ----------------------------------------------------------------
+
+t_validate_713 <- list(
+  tar_target(plt_7_annual, plot_7_annual(s7_sum))
+)
+
 # Objective/category hierarchy --------------------------------------------
 
 # vychází z tabulky vazeb cílů ESIF/OP/NPR/EU2020
@@ -401,8 +428,9 @@ source("R/html_output.R")
 
 list(t_public_list, t_cats,
      t_html, t_esif_obce, t_sestavy, t_hier_matice, t_hier_soucty,
-     t_op_compile, t_valid_zop_timing,
+     t_op_compile, t_valid_zop_timing, t_validation,
      t_713_build, t_713_export, t_0713_codebook, t_713_macrocat,
-     t_713_categorise,
+     t_713_categorise, t_validate_713,
      t_nplus3, t_nplus3_sum, t_nplus3_export, t_nplus3_codebook,
+     t_preview_nplus3,
      t_macro_compile, t_macro_export, t_macro_codebook)
