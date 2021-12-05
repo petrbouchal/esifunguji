@@ -120,7 +120,7 @@ t_cats <- list(
 )
 
 
-## N+3 remainder -----------------------------------------------------------
+## N+3 forecast -----------------------------------------------------------
 
 t_nplus3 <- list(
   tar_target(efs_nplus3_fin, project_nplus3(efs_fin, efs_prj)),

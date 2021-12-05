@@ -42,251 +42,285 @@ columns:
   kraj_id:
     _type: character
     Popis: Kód NUTS3 (kraj)
-  fin_vyuct_verejne:
+  fin_zbyva_verejne:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Veřejné (EU + ČR)
-  fin_vyuct_czv_wt_pocetobyv:
+    Typ informace: Projekce N+3
+  fin_zbyva_czv_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Celkové způsobilé výdaje
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_eu_wt_pocetobyv:
+  fin_zbyva_eu_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Příspěvek Unie
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_sr_wt_pocetobyv:
+  fin_zbyva_sr_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Státní rozpočet
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_sf_wt_pocetobyv:
+  fin_zbyva_sf_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Státní fondy
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_kraj_wt_pocetobyv:
+  fin_zbyva_kraj_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Kraj
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_obec_wt_pocetobyv:
+  fin_zbyva_obec_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Obec
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_jine_nar_ver_wt_pocetobyv:
+  fin_zbyva_jine_nar_ver_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Jiné národní
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_soukr_wt_pocetobyv:
+  fin_zbyva_soukr_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Soukromý
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_narodni_verejne_wt_pocetobyv:
+  fin_zbyva_narodni_verejne_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Národní Veřejné (EU + ČR)
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_narodni_wt_pocetobyv:
+  fin_zbyva_narodni_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Národní
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_verejne_wt_pocetobyv:
+  fin_zbyva_verejne_wt_pocetobyv:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Veřejné (EU + ČR)
+    Typ informace: Projekce N+3
     Váha: Počet obyvatel obcí, kde se projekt realizuje
-  fin_vyuct_czv_wt_pocetkraju:
+  fin_zbyva_czv_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Celkové způsobilé výdaje
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_eu_wt_pocetkraju:
+  fin_zbyva_eu_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Příspěvek Unie
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_sr_wt_pocetkraju:
+  fin_zbyva_sr_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Státní rozpočet
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_sf_wt_pocetkraju:
+  fin_zbyva_sf_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Státní fondy
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_kraj_wt_pocetkraju:
+  fin_zbyva_kraj_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Kraj
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_obec_wt_pocetkraju:
+  fin_zbyva_obec_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Obec
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_jine_nar_ver_wt_pocetkraju:
+  fin_zbyva_jine_nar_ver_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Jiné národní
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_soukr_wt_pocetkraju:
+  fin_zbyva_soukr_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Soukromý
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_narodni_verejne_wt_pocetkraju:
+  fin_zbyva_narodni_verejne_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Národní Veřejné (EU + ČR)
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_narodni_wt_pocetkraju:
+  fin_zbyva_narodni_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Národní
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_verejne_wt_pocetkraju:
+  fin_zbyva_verejne_wt_pocetkraju:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Veřejné (EU + ČR)
+    Typ informace: Projekce N+3
     Váha: 1/počet krajů, kde se projekt realizuje
-  fin_vyuct_czv_wt_cond:
+  fin_zbyva_czv_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Celkové způsobilé výdaje
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_eu_wt_cond:
+  fin_zbyva_eu_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Příspěvek Unie
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_sr_wt_cond:
+  fin_zbyva_sr_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Státní rozpočet
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_sf_wt_cond:
+  fin_zbyva_sf_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Státní fondy
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_obec_wt_cond:
+  fin_zbyva_obec_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Obec
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_kraj_wt_cond:
+  fin_zbyva_kraj_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Kraj
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_jine_nar_ver_wt_cond:
+  fin_zbyva_jine_nar_ver_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Jiné národní
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_narodni_wt_cond:
+  fin_zbyva_narodni_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Národní
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_narodni_verejne_wt_cond:
+  fin_zbyva_narodni_verejne_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Národní Veřejné (EU + ČR)
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_soukr_wt_cond:
+  fin_zbyva_soukr_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Soukromý
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC
-  fin_vyuct_verejne_wt_cond:
+  fin_zbyva_verejne_wt_cond:
     _type: numeric
     Typ: Finance
     Jednotka: CZK
     Zdroj dat: ŽOP sečtené podle data proplacení
     Zdroj financí: Veřejné (EU + ČR)
+    Typ informace: Projekce N+3
     Váha: Váha zvolena podle proměnné `class_quest`
     Detail: podle krajů pro RD, AIS, TA; podle počtu obyvatel obcí pro INFR a HC

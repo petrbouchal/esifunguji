@@ -39,7 +39,7 @@ plot_7_annual <- function(s7_sum) {
 }
 
 plot_nplus3_reg_nonreg <- function(macro_sum_nplus3_reg, macro_sum_nplus3) {
-  bind_rows(macro_sum_nplus3_reg |> mutate(typ = "regionální", var = fin_vyuct_czv_wt_cond),
+  bind_rows(macro_sum_nplus3_reg |> mutate(typ = "regionální", var = fin_zbyva_czv_wt_cond),
             macro_sum_nplus3 |> mutate(typ = "bez regionů", var = fin_zbyva_czv)) |>
     count(typ, dt_nplus3_rok, wt = var/1e9) |>
     ggplot(aes(dt_nplus3_rok, n, colour = typ)) +

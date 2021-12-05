@@ -139,7 +139,7 @@ summarise_macro <- function(other, prv, quarterly, regional, dt_var = dt_zop_rok
       select(-matches("(czv|eu|sr|sf|obec|kraj|soukr|jine_nar_ver|narodni|narodni_verejne)$"))
 
     if(nplus3) {
-      grp <- rename_with(grp, .fn = ~str_replace(.x, "_vyuct_", "_zbyva_"))
+      rr <- rename_with(rr, .fn = ~str_replace(.x, "_vyuct_", "_zbyva_"))
     }
 
   } else {
