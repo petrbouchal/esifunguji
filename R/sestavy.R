@@ -224,7 +224,8 @@ summarise_zop <- function(efs_zop, quarterly) {
       # sum in case some projects had both missing-date and non-missing-date
       # payments in the same year
       summarise(across(starts_with("fin_vyuct"), sum, na.rm = T),
-                .groups = "drop") %>%
+                .groups = "drop") |>
+      mutate(dt_zop_rok = as.integer(dt_zop_rok)) |>
       mutate(dt_zop_kvartal_datum = make_date(dt_zop_rok, dt_zop_kvartal * 3 - 2, 1))
   }
   return(zop)
@@ -269,7 +270,8 @@ summarise_prv <- function(efs_prv, quarterly) {
       group_by(dt_zop_kvartal, .add = TRUE)
   }
   zop_grp %>%
-    summarise(across(starts_with("fin_"), sum), .groups = "drop")
+    summarise(across(starts_with("fin_"), sum), .groups = "drop") |>
+    mutate(dt_zop_rok = as.integer(dt_zop_rok))
 }
 
 summarise_by_op <- function(efs_zop_quarterly, efs_prv_quarterly) {

@@ -75,7 +75,8 @@ compile_7_prj <- function(s7_platby, s7_kat, s7_nuts3, s7_katekon,
            dt_zop_rok = year, tema_id = tema_kod, tema_name = tema_nazev,
            kraj_id = NUTS3,
            op_id = prog_code,
-           op_zkr = prog_abbrev)
+           op_zkr = prog_abbrev) |>
+    mutate(dt_zop_rok = as.integer(dt_zop_rok))
 
   return(prj7katnuts)
 }

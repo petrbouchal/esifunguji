@@ -19,7 +19,7 @@ table:
     - `fin_`: finanční údaje
 columns:
   dt_zop_rok:
-    _type: numeric
+    _type: integer
     Popis: Rok proplacení ŽOP
     Zdroj: Datum proplacení ŽOP ze sestavy plateb
   kraj_id:
