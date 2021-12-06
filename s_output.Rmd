@@ -137,6 +137,8 @@ macro_sum_reg_quarterly %>%
 
 ## Validace N+3
 
+### K řešení
+
 Níže vizuální diagnostika dvou pravděpodobných problémů:
 
 - nepravděpodobný průběh výdajů podle naší projekce N+3
@@ -165,6 +167,12 @@ Takto velký je ten rozdíl.
 
 ```{r plt_nplus3_reg_nonreg}
 targets::tar_read(plt_nplus3_reg_nonreg)
+```
+
+### Součty
+
+```{r}
+targets::tar_read(val_compare_sums_nplus3)
 ```
 
 

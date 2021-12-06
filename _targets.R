@@ -292,7 +292,14 @@ t_macro_codebook <- list(
                                    path = c_macro_export_dir,
                                    filename = c_macro_export_cdbk)
              file.path(c_macro_export_dir, c_macro_export_cdbk)
-           })
+           }),
+  tar_target(val_compare_sums_nplus3,
+             compare_dt_sums(list(efs_nplus3_remainder, efs_nplus3_fin,
+                                  macro_sum_nplus3_reg,
+                                  macro_sum_nplus3),
+                             "zbyva_czv",
+                             names = c("efs_nplus3_remainder", "efs_nplus3_fin",
+                                       "macro_sum_nplus3_reg", "macro_sum_nplus3")))
 )
 
 
