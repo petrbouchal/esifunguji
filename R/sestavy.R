@@ -286,7 +286,7 @@ summarise_by_op <- function(efs_zop_quarterly, efs_prv_quarterly) {
     summarise(across(starts_with("fin_"), sum), .groups = "drop")
 }
 
-project_nplus3 <- function(efs_fin, efs_prj) {
+calculate_nplus3_remainder <- function(efs_fin) {
   zbyva_proplatit <- efs_fin |>
     filter(fin_pravniakt_czv > 0) |>
     filter(str_detect(real_stav_id, "^PP")) |>
@@ -304,6 +304,10 @@ project_nplus3 <- function(efs_fin, efs_prj) {
            fin_zbyva_verejne = fin_zbyva_eu + fin_zbyva_narodni) |>
     select(prj_id, contains("fin_zbyva_"))
 
+  return(zbyva_proplatit)
+}
+
+project_nplus3_durations <- function(efs_prj) {
   prj_nplus3_duration <- efs_prj |>
     filter(str_detect(real_stav_kod, "^PP")) |>
     filter(is.na(dt_ukon_fyz)) |>
@@ -326,8 +330,12 @@ project_nplus3 <- function(efs_fin, efs_prj) {
     ungroup() |>
     select(prj_id, dt_nplus3_rok = year, year_weight)
 
-  rslt <- zbyva_proplatit |>
-    left_join(prj_nplus3_duration, by = "prj_id") |>
+  return(prj_nplus3_duration)
+}
+
+project_nplus3_spend <- function(efs_nplus3_remainder, efs_nplus3_durations) {
+  rslt <- efs_nplus3_remainder |>
+    left_join(efs_nplus3_durations, by = "prj_id") |>
     mutate(across(starts_with("fin_"), ~ .x * year_weight)) |>
     drop_na(dt_nplus3_rok) |>
     relocate(prj_id, dt_nplus3_rok) |>

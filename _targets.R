@@ -123,7 +123,10 @@ t_cats <- list(
 ## N+3 forecast -----------------------------------------------------------
 
 t_nplus3 <- list(
-  tar_target(efs_nplus3_fin, project_nplus3(efs_fin, efs_prj)),
+  tar_target(efs_nplus3_remainder, calculate_nplus3_remainder(efs_fin)),
+  tar_target(efs_nplus3_durations, project_nplus3_durations(efs_prj)),
+  tar_target(efs_nplus3_fin,
+             project_nplus3_spend(efs_nplus3_remainder, efs_nplus3_durations)),
   tar_target(efs_macrocat_nplus3, add_financials(efs_macrocat, efs_nplus3_fin)),
   tar_target(efs_macrocat_nplus3_reg, add_regions(efs_macrocat_nplus3, eo_kraj))
 )
