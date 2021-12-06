@@ -14,11 +14,12 @@ options(ggplot2.discrete.fill = palette("Okabe-Ito"))
 plot_with_nplus3 <- function(macro_sum_quarterly, macro_sum_nplus3) {
   dt <- macro_sum_quarterly |>
     mutate(typ = "ŽoP") |>
+    rename(fin = fin_vyuct_czv) |>
     bind_rows(macro_sum_nplus3 |> rename(dt_zop_rok = dt_nplus3_rok,
-                                         fin_vyuct_czv = fin_zbyva_czv) |>
+                                         fin = fin_zbyva_czv) |>
                 mutate(typ = "N+3"))
 
-  ggplot(dt, aes(dt_zop_rok, fin_vyuct_czv/1e9, fill = typ)) +
+  ggplot(dt, aes(dt_zop_rok, fin/1e9, fill = typ)) +
     scale_fill_discrete(type = ggokabeito::palette_okabe_ito(5:9)) +
     geom_col() +
     scale_y_continuous(expand = ptrr::flush_axis) +
