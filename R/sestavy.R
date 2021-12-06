@@ -314,12 +314,11 @@ project_nplus3_durations <- function(efs_prj) {
     select(prj_id, dt_ukon_fyz_predpokl) |>
     distinct() |>
     mutate(year_end = year(dt_ukon_fyz_predpokl),
-           year_end = case_when(year_end < 2019 ~
-                                  2021 + sample(c(0, 0, 0, 1), 1),
+                                  2021 + sample(c(0, 0, 0, 1), n(), replace = T),
                                 year_end == 2019 ~
-                                  2021 + sample(c(0, 0, 1, 1, 2), 1),
+                                  2021 + sample(c(0, 0, 1, 1, 2), n(), replace = T),
                                 year_end == 2020 ~
-                                  2021 + sample(c(0, 0, 1, 2), 1),
+                                  2021 + sample(c(0, 0, 1, 2), n(), replace = T),
                                 TRUE ~ year_end)) |>
     group_by(prj_id, year_end) |>
     summarise(year = 2021:year_end, .groups = "drop") |>
