@@ -154,6 +154,8 @@ targets::tar_read(plt_with_nplus3)
 
 Nejspíš je to tím, že v období 2007-13 i 2014-20 vycházíme z plateb, které jsou většinou ex post, kdežto v projekci N+3 toto nebereme v potaz a rozkládáme předpokládané budoucí výdaje jen do období fyzické realizace. (Jiné datum ani nemáme k dispozici, ale mohli bychom zpoždění plateb oproti realizaci zprůměrované z již proběhlých projektů aplikovat na běžící projekty.)
 
+Pozn.: finanční pokrok 2014-20 ke Q2 2021 lze najít ve [čtvrtletní správě NOK](https://www.dotaceeu.cz/getmedia/96d40604-f15b-491d-9dda-964a06eee007/Ctvrtletni-zprava-o-implementaci-DoP-2014-2020_el-verze_13.pdf.aspx?ext=.pdf)
+
 Pro srovnání 2007-13, kde platilo N+2, tj. konečný rok běhu projektů je 2015.
 
 ```{r plt_7_annual}
