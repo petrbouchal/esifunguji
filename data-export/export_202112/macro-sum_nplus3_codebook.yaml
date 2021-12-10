@@ -7,7 +7,7 @@ locale: en
 table:
   name: compiled_macro_sum_quarterly
   _columns: 40
-  _rows: 1300.0
+  _rows: 1285.0
   _type: tbl_df
   Info: Tabulka se součty výdajů podle času, kraje, kategorie QUEST/HERMIN, TC DoP
     a cíle EU2020

@@ -20,7 +20,7 @@ default:
   mc_xlsx_prv: "data-input/kategorizace/Navrh - KATEGORIZACE - Operace PRV + priority.xlsx"
 
   # Arrow directory of cleaned up geolocation data for projects
-  ef_obce_arrowdir: "data-input/esif-projekty-obce"
+  ef_obce_arrowdir: "data-input/esif-projekty-obce-202112"
 
   # Excel file with hierarchy of all objectives and categories
   hier_excel_path: "data-input/matice/Hierarchie_uprava_CSR_NPR-O27-uprava_20210125.xlsx"

@@ -164,12 +164,7 @@ targets::tar_read(plt_7_annual)
 
 #### Regionální rozpad a celek
 
-Pro projekty zasmluvněné v nedávných měsících nemáme data o regionálním rozpadu, jejich budoucí výdaje nám tedy chybí v regionálním rozpadu. 
-Takto velký je ten rozdíl.
-
-```{r plt_nplus3_reg_nonreg}
-targets::tar_read(plt_nplus3_reg_nonreg)
-```
+Vyřešeno - rozdíl mezi regionálně rozpadlým a celorepublikovým součtem je ~0.
 
 ### Součty
 
