@@ -24,6 +24,9 @@ Tento repozitář obsahuje kód na zpracování dat o výdajích financovaných 
 
 **Vytvořeno pro Úřad vlády ČR jako součást projektu *Systémová podpora společné evropské politiky podpory a pomoci, ESI a obdobných fondů na Úřadu vlády ČR* (CZ.08.1.125/0.0/0.0/15_001/0000176)**
 
+**Konečná verze studie vycházející z těcho dat je zveřejněná na webu [Úřadu vlády](https://www.vlada.cz/cz/evropske-zalezitosti/analyzy-eu/analyzy-uvod-125732/)**:
+
+
 Detailnější dokumentace k pipelinu na tvorbu dat pro makro modely:
 
 - [obsahová dokumentace](s_doc.html)

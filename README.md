@@ -20,7 +20,11 @@ z ESI fondů v ČR primárně v letech 2014-2020. Cílem je:
 
 **Vytvořeno pro Úřad vlády ČR jako součást projektu *Systémová podpora
 společné evropské politiky podpory a pomoci, ESI a obdobných fondů na
-Úřadu vlády ČR* (CZ.08.1.125/0.0/0.0/15\_001/0000176)**
+Úřadu vlády ČR* (CZ.08.1.125/0.0/0.0/15_001/0000176)**
+
+**Konečná verze studie vycházející z těcho dat je zveřejněná na webu
+[Úřadu
+vlády](https://www.vlada.cz/cz/evropske-zalezitosti/analyzy-eu/analyzy-uvod-125732/)**:
 
 Detailnější dokumentace k pipelinu na tvorbu dat pro makro modely:
 
@@ -38,8 +42,8 @@ Relevantní předchozí publikace v této oblasti:
 -   [Předchozí studie Úřadu vlády (2017) - makroekonomické odhady dopadu
     ESIF na
     ekonomiku](https://www.vlada.cz/assets/evropske-zalezitosti/analyzy-EU/171204_Dopad_ESI_fondu_na_hospodarsky_rust_CR_final.pdf)
--   [Navazující studie Úřadu
-    vlády (2018)](https://www.vlada.cz/assets/evropske-zalezitosti/analyzy-EU/Dopad-ESI-fondu-na-hospodarstvi-CR.pdf)
+-   [Navazující studie Úřadu vlády
+    (2018)](https://www.vlada.cz/assets/evropske-zalezitosti/analyzy-EU/Dopad-ESI-fondu-na-hospodarstvi-CR.pdf)
 -   [Úřad vlády (2019) přehled využívání makro modelů v zemích
     EU](https://www.vlada.cz/assets/evropske-zalezitosti/aktualne/Vyuzivani-makroevaluaci-a-makroekonomickych-modelu-clenskymi-staty-EU.pdf)
 
